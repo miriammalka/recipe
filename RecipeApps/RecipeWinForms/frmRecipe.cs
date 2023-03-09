@@ -11,6 +11,7 @@ namespace RecipeWinForms
         }
         public void ShowForm(int recipeid)
         {
+//AS Include the two fk:Cuisine and User. Display the names not the fk, you will have to do a join to those tables to get back these values.
             string sql = "select * from Recipe r where r.RecipeId =" + recipeid.ToString();
             DataTable dt = SQLUtility.GetDataTable(sql);
             txtRecipeName.DataBindings.Add("Text", dt, "RecipeName");

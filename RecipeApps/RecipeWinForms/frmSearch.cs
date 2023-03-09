@@ -1,4 +1,5 @@
-﻿using CPUFramework;
+﻿//AS Move all event handlers to the bottom of the page.
+using CPUFramework;
 using System.Data;
 
 namespace RecipeWinForms
