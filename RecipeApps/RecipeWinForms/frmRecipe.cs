@@ -11,8 +11,13 @@ namespace RecipeWinForms
         }
         public void ShowForm(int recipeid)
         {
-            string sql = "select * from Recipe r where r.RecipeId =" + recipeid.ToString();
+            string sql = "select * from Recipe r " +
+                "join Cuisine c on c.CuisineId = r.CuisineId " +
+                "join Users u on u.UserId = r.UserId " +
+                "where r.RecipeId =" + recipeid.ToString();
             DataTable dt = SQLUtility.GetDataTable(sql);
+            txtCuisineName.DataBindings.Add("Text", dt, "CuisineName");
+            txtUserName.DataBindings.Add("Text", dt, "UserName");
             txtRecipeName.DataBindings.Add("Text", dt, "RecipeName");
             txtCalories.DataBindings.Add("Text", dt, "Calories");
             txtDateCreated.DataBindings.Add("Text", dt, "DateCreated");
