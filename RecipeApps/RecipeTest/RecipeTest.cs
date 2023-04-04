@@ -40,6 +40,7 @@ namespace RecipeTest
             Recipe.Save(dt);
 
             int newid = SQLUtility.GetFirstColumnFirstRowValue("select recipeid from recipe where recipename = '" + recipename + "'");
+            //AF The below message should specify the recipe name, if the insert fails, there won't be a recipeid
             Assert.IsTrue(newid > 0, "recipe with id " + newid + " is not found in DB");
             TestContext.WriteLine("recipe for " + recipename + " with id " + newid + " is found in DB");
         }
@@ -50,6 +51,8 @@ namespace RecipeTest
             int recipeid = GetExistingRecipeId();
             int calories = SQLUtility.GetFirstColumnFirstRowValue("select calories from recipe where recipeid = " + recipeid);
             Assume.That(recipeid > 0, "no recipes in DB, can't run test");
+            //AF It would be clearer to write 'calories for recipe with id = 4' or 'calories for recipe(4)' etc.  'Calories for recipeid 4' can sound confusing 
+            //AF It's nice to keep the message format consistent throughout the test 
             TestContext.WriteLine("calories for recipeid " + recipeid + " = " + calories);
             calories = calories + 10;
             TestContext.WriteLine("we want to change calories to " + calories);
@@ -67,6 +70,7 @@ namespace RecipeTest
         [Test]
         public void DeleteRecipe()
         {
+            //AF What would happen if you delete a recipe in the mealcourse table or cookbookrecipe table?
             DataTable dt = SQLUtility.GetDataTable("select top 1 r.RecipeId from recipe r left join recipeingredient ri on ri.recipeid = r.recipeid where ri.recipeid is null");
             int recipeid = 0;
             if (dt.Rows.Count > 0)
@@ -103,6 +107,7 @@ namespace RecipeTest
             TestContext.WriteLine("number of cuisines in DB = " + cuisinecount);
             TestContext.WriteLine("We want to ensure that number of rows returned by test = " + cuisinecount);
             DataTable dt = Recipe.GetCuisineList();
+            //AF It's nice to keep the messages consistent - just small details but for example 'rows returned by test', use '=' instead of using '()', if that's how it was written above
             Assert.IsTrue(dt.Rows.Count == cuisinecount, "number of rows returned by test (" + dt.Rows.Count + " ) <> " + cuisinecount); ;
             TestContext.WriteLine("Number of rows in Cuisine returned by test = " + dt.Rows.Count);
         }
