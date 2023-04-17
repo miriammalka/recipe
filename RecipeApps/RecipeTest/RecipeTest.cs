@@ -41,8 +41,8 @@ namespace RecipeTest
 
             int newid = SQLUtility.GetFirstColumnFirstRowValue("select recipeid from recipe where recipename = '" + recipename + "'");
             //AF The below message should specify the recipe name, if the insert fails, there won't be a recipeid
-            Assert.IsTrue(newid > 0, "recipe for " + recipename + " with id " + newid + " is not found in DB");
-            TestContext.WriteLine("recipe for " + recipename + " with id " + newid + " is found in DB");
+            Assert.IsTrue(newid > 0, "recipe for " + recipename + " with id (" + newid + ") is not found in DB");
+            TestContext.WriteLine("recipe for " + recipename + " with id (" + newid + ") is found in DB");
         }
 
         [Test]
@@ -62,7 +62,7 @@ namespace RecipeTest
             Recipe.Save(dt);
 
             int newcalories = SQLUtility.GetFirstColumnFirstRowValue("select calories from recipe where recipeid = " + recipeid);
-            Assert.IsTrue(calories == newcalories, "calories for recipe (" + recipeid + ") = " + newcalories);
+            Assert.IsTrue(calories == newcalories, "calories for recipe with id (" + recipeid + ") <> " + newcalories);
             TestContext.WriteLine("calories for recipe with id (" + recipeid + ") = " + newcalories);
         }
 
@@ -84,8 +84,8 @@ namespace RecipeTest
             TestContext.WriteLine("we want to ensure that test can delete recipe with id = " + recipeid);
             Recipe.Delete(dt);
             DataTable dtafterdelete = SQLUtility.GetDataTable("select * from recipe where recipeid = " + recipeid);
-            Assert.IsTrue(dtafterdelete.Rows.Count == 0, "delete procedure did not work, because selected id " + recipeid + "is still in DB");
-            TestContext.WriteLine("recipe with id " + recipeid + " was successfully deleted from DB");
+            Assert.IsTrue(dtafterdelete.Rows.Count == 0, "delete procedure did not work, because selected recipeid = " + recipeid + " is still in DB");
+            TestContext.WriteLine("recipe with id = " + recipeid + " was successfully deleted from DB");
         }
 
         [Test]
@@ -98,7 +98,7 @@ namespace RecipeTest
             DataTable dt = Recipe.Load(recipeid);
             int loadedid = (int)dt.Rows[0]["recipeid"];
             Assert.IsTrue(loadedid == recipeid, loadedid + " <> " + recipeid);
-            TestContext.WriteLine("loaded recipe (" + recipeid + ")");
+            TestContext.WriteLine("loaded recipe with id = " + recipeid);
         }
 
         [Test]
@@ -123,7 +123,7 @@ namespace RecipeTest
             TestContext.WriteLine("number of users in DB = " + usercount);
             TestContext.WriteLine("we want to ensure that number of rows returned by test = " + usercount);
             DataTable dt = Recipe.GetUsersList();
-            Assert.IsTrue(dt.Rows.Count == usercount, "number of rows in users (" + dt.Rows.Count + ") <> " + usercount);
+            Assert.IsTrue(dt.Rows.Count == usercount, "number of rows in users = " + dt.Rows.Count + " <> " + usercount);
             TestContext.WriteLine("number of rows in users returned by test = " + dt.Rows.Count);
         }
 
