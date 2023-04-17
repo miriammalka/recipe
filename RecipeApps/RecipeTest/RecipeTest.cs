@@ -28,7 +28,7 @@ namespace RecipeTest
             int cuisineid = SQLUtility.GetFirstColumnFirstRowValue("select top 1 cuisineid from cuisine");
             Assume.That(cuisineid > 0, "no cuisines in DB, can't run test");
             int userid = SQLUtility.GetFirstColumnFirstRowValue("select top 1 userid from users");
-            Assume.That(userid > 0, "no users in DB, can' run test");
+            Assume.That(userid > 0, "no users in DB, can't run test");
 
             TestContext.WriteLine("we want to insert a new recipe for " + recipename);
 
@@ -41,7 +41,7 @@ namespace RecipeTest
 
             int newid = SQLUtility.GetFirstColumnFirstRowValue("select recipeid from recipe where recipename = '" + recipename + "'");
             //AF The below message should specify the recipe name, if the insert fails, there won't be a recipeid
-            Assert.IsTrue(newid > 0, "recipe with id " + newid + " is not found in DB");
+            Assert.IsTrue(newid > 0, "recipe for " + recipename + " with id " + newid + " is not found in DB");
             TestContext.WriteLine("recipe for " + recipename + " with id " + newid + " is found in DB");
         }
 
@@ -53,7 +53,7 @@ namespace RecipeTest
             Assume.That(recipeid > 0, "no recipes in DB, can't run test");
             //AF It would be clearer to write 'calories for recipe with id = 4' or 'calories for recipe(4)' etc.  'Calories for recipeid 4' can sound confusing 
             //AF It's nice to keep the message format consistent throughout the test 
-            TestContext.WriteLine("calories for recipeid " + recipeid + " = " + calories);
+            TestContext.WriteLine("calories for recipe with id (" + recipeid + ") = " + calories);
             calories = calories + 10;
             TestContext.WriteLine("we want to change calories to " + calories);
             
@@ -63,7 +63,7 @@ namespace RecipeTest
 
             int newcalories = SQLUtility.GetFirstColumnFirstRowValue("select calories from recipe where recipeid = " + recipeid);
             Assert.IsTrue(calories == newcalories, "calories for recipe (" + recipeid + ") = " + newcalories);
-            TestContext.WriteLine("calories for recipe (" + recipeid + ") = " + newcalories);
+            TestContext.WriteLine("calories for recipe with id (" + recipeid + ") = " + newcalories);
         }
 
 
@@ -71,6 +71,8 @@ namespace RecipeTest
         public void DeleteRecipe()
         {
             //AF What would happen if you delete a recipe in the mealcourse table or cookbookrecipe table?
+            //MMG I spoke to Jacob Felder about this and he said for now I need to insert a few recipes that are not connected to any other tables so I can run this test.
+            //MMG This is because all my recipe records I created in Azure Data Studio are connected to multiple tables.
             DataTable dt = SQLUtility.GetDataTable("select top 1 r.RecipeId from recipe r left join recipeingredient ri on ri.recipeid = r.recipeid where ri.recipeid is null");
             int recipeid = 0;
             if (dt.Rows.Count > 0)
@@ -108,7 +110,8 @@ namespace RecipeTest
             TestContext.WriteLine("We want to ensure that number of rows returned by test = " + cuisinecount);
             DataTable dt = Recipe.GetCuisineList();
             //AF It's nice to keep the messages consistent - just small details but for example 'rows returned by test', use '=' instead of using '()', if that's how it was written above
-            Assert.IsTrue(dt.Rows.Count == cuisinecount, "number of rows returned by test (" + dt.Rows.Count + " ) <> " + cuisinecount); ;
+            //MMG I can change it but then it looks confusing because there is this sign " = " an then this sign " <> "
+            Assert.IsTrue(dt.Rows.Count == cuisinecount, "number of rows returned by test = " + dt.Rows.Count + "  <> " + cuisinecount); ;
             TestContext.WriteLine("Number of rows in Cuisine returned by test = " + dt.Rows.Count);
         }
 
