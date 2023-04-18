@@ -43,7 +43,7 @@ namespace RecipeTest
             //AF The below message should specify the recipe name, if the insert fails, there won't be a recipeid
             /*AF This message is being displayed when the condition "newid > 0" is false.  Therefore, the newid should not be included in the 
              message at all, because the recipe was not inserted, and so the id will just be 0 */
-            Assert.IsTrue(newid > 0, "recipe for " + recipename + " with id (" + newid + ") is not found in DB");
+            Assert.IsTrue(newid > 0, "recipe for " + recipename + " is not found in DB");
             TestContext.WriteLine("recipe for " + recipename + " with id (" + newid + ") is found in DB");
         }
 
@@ -75,15 +75,15 @@ namespace RecipeTest
             //MMG This is because all my recipe records I created in Azure Data Studio are connected to multiple tables.
             /*AF That is good.  However, when selecting a recipe, you must only select a recipe that is not related to the mealcourse or 
              cookbookrecipe table.  This select statement below should only select recipes not connected to any other tables.*/
-            DataTable dt = SQLUtility.GetDataTable("select top 1 r.RecipeId from recipe r left join recipeingredient ri on ri.recipeid = r.recipeid where ri.recipeid is null");
+            DataTable dt = SQLUtility.GetDataTable("select top 1 r.RecipeId , r.RecipeName\r\nfrom recipe r \r\nleft join recipeingredient ri \r\non ri.recipeid = r.recipeid \r\nleft join Instruction i \r\non i.RecipeId = r.RecipeId\r\nleft join MealcourseRecipe mcr \r\non mcr.RecipeId = r.RecipeId\r\nleft join CookbookRecipe cr \r\non cr.RecipeId = r.RecipeId\r\nwhere ri.RecipeId is null\r\nand i.RecipeId is NULL\r\nand mcr.RecipeId is NULL\r\nand cr.RecipeId is null");
             int recipeid = 0;
             if (dt.Rows.Count > 0)
             {
                 recipeid = (int)dt.Rows[0]["recipeid"];
             }
             //AF It would be more accurate for the message to be "no recipes without related records in db" - as sometimes there are recipes, but they are not selected above, as they have related records
-            Assume.That(recipeid > 0, "no recipes in DB, can't run test");
-            TestContext.WriteLine("existing recipe record without ingredients with id = " + recipeid);
+            Assume.That(recipeid > 0, "no recipes without related records in DB, can't run test");
+            TestContext.WriteLine("existing recipe record without related records with id = " + recipeid);
             TestContext.WriteLine("we want to ensure that test can delete recipe with id = " + recipeid);
             Recipe.Delete(dt);
             DataTable dtafterdelete = SQLUtility.GetDataTable("select * from recipe where recipeid = " + recipeid);
@@ -114,7 +114,7 @@ namespace RecipeTest
             DataTable dt = Recipe.GetCuisineList();
             //MMG I can change it but then it looks confusing because there is this sign " = " an then this sign " <> "
             //AF Okay, you can keep it as is
-            Assert.IsTrue(dt.Rows.Count == cuisinecount, "number of rows returned by test = " + dt.Rows.Count + "  <> " + cuisinecount); ;
+            Assert.IsTrue(dt.Rows.Count == cuisinecount, "number of rows returned by test (" + dt.Rows.Count + ")  <> " + cuisinecount); ;
             TestContext.WriteLine("Number of rows in Cuisine returned by test = " + dt.Rows.Count);
         }
 
