@@ -41,6 +41,8 @@ namespace RecipeTest
 
             int newid = SQLUtility.GetFirstColumnFirstRowValue("select recipeid from recipe where recipename = '" + recipename + "'");
             //AF The below message should specify the recipe name, if the insert fails, there won't be a recipeid
+            /*AF This message is being displayed when the condition "newid > 0" is false.  Therefore, the newid should not be included in the 
+             message at all, because the recipe was not inserted, and so the id will just be 0 */
             Assert.IsTrue(newid > 0, "recipe for " + recipename + " with id (" + newid + ") is not found in DB");
             TestContext.WriteLine("recipe for " + recipename + " with id (" + newid + ") is found in DB");
         }
@@ -51,8 +53,6 @@ namespace RecipeTest
             int recipeid = GetExistingRecipeId();
             int calories = SQLUtility.GetFirstColumnFirstRowValue("select calories from recipe where recipeid = " + recipeid);
             Assume.That(recipeid > 0, "no recipes in DB, can't run test");
-            //AF It would be clearer to write 'calories for recipe with id = 4' or 'calories for recipe(4)' etc.  'Calories for recipeid 4' can sound confusing 
-            //AF It's nice to keep the message format consistent throughout the test 
             TestContext.WriteLine("calories for recipe with id (" + recipeid + ") = " + calories);
             calories = calories + 10;
             TestContext.WriteLine("we want to change calories to " + calories);
@@ -73,12 +73,15 @@ namespace RecipeTest
             //AF What would happen if you delete a recipe in the mealcourse table or cookbookrecipe table?
             //MMG I spoke to Jacob Felder about this and he said for now I need to insert a few recipes that are not connected to any other tables so I can run this test.
             //MMG This is because all my recipe records I created in Azure Data Studio are connected to multiple tables.
+            /*AF That is good.  However, when selecting a recipe, you must only select a recipe that is not related to the mealcourse or 
+             cookbookrecipe table.  This select statement below should only select recipes not connected to any other tables.*/
             DataTable dt = SQLUtility.GetDataTable("select top 1 r.RecipeId from recipe r left join recipeingredient ri on ri.recipeid = r.recipeid where ri.recipeid is null");
             int recipeid = 0;
             if (dt.Rows.Count > 0)
             {
                 recipeid = (int)dt.Rows[0]["recipeid"];
             }
+            //AF It would be more accurate for the message to be "no recipes without related records in db" - as sometimes there are recipes, but they are not selected above, as they have related records
             Assume.That(recipeid > 0, "no recipes in DB, can't run test");
             TestContext.WriteLine("existing recipe record without ingredients with id = " + recipeid);
             TestContext.WriteLine("we want to ensure that test can delete recipe with id = " + recipeid);
@@ -109,8 +112,8 @@ namespace RecipeTest
             TestContext.WriteLine("number of cuisines in DB = " + cuisinecount);
             TestContext.WriteLine("We want to ensure that number of rows returned by test = " + cuisinecount);
             DataTable dt = Recipe.GetCuisineList();
-            //AF It's nice to keep the messages consistent - just small details but for example 'rows returned by test', use '=' instead of using '()', if that's how it was written above
             //MMG I can change it but then it looks confusing because there is this sign " = " an then this sign " <> "
+            //AF Okay, you can keep it as is
             Assert.IsTrue(dt.Rows.Count == cuisinecount, "number of rows returned by test = " + dt.Rows.Count + "  <> " + cuisinecount); ;
             TestContext.WriteLine("Number of rows in Cuisine returned by test = " + dt.Rows.Count);
         }
