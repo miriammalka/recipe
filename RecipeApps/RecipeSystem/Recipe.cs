@@ -16,10 +16,6 @@ namespace RecipeSystem
 
         public static DataTable Load(int recipeid)
         {
-            //return SQLUtility.GetDataTable("select * from Recipe r " +
-            //"join Cuisine c on c.CuisineId = r.CuisineId " +
-            //"join Users u on u.UserId = r.UserId " +
-            //"where r.RecipeId =" + recipeid.ToString());
             DataTable dt = new();
             SqlCommand cmd = SQLUtility.GetSQLCommand("RecipeGet");
             cmd.Parameters["@RecipeId"].Value = recipeid;
