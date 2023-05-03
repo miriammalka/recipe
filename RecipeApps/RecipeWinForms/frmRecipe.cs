@@ -31,8 +31,7 @@ namespace RecipeWinForms
             WindowsFormsUtility.SetControlBinding(txtDateCreated, dtrecipe);
             WindowsFormsUtility.SetControlBinding(lblDatePublished, dtrecipe);
             WindowsFormsUtility.SetControlBinding(lblDateArchived, dtrecipe);
-            WindowsFormsUtility.SetControlBinding(txtRecipeStatus, dtrecipe);
-            WindowsFormsUtility.SetControlBinding(txtPicture, dtrecipe);
+
             this.Show();
         }
 
@@ -56,5 +55,9 @@ namespace RecipeWinForms
             Delete();
         }
 
+        private void txtPicture_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

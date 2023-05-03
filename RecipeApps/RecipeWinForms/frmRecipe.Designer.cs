@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             this.tblMain = new System.Windows.Forms.TableLayoutPanel();
-            this.lblPicture = new System.Windows.Forms.Label();
-            this.txtPicture = new System.Windows.Forms.TextBox();
-            this.lblRecipeStatus = new System.Windows.Forms.Label();
-            this.txtRecipeStatus = new System.Windows.Forms.TextBox();
             this.lblDateArchived1 = new System.Windows.Forms.Label();
             this.lblDatePublished1 = new System.Windows.Forms.Label();
             this.lblDateCreated = new System.Windows.Forms.Label();
@@ -59,10 +55,6 @@
             this.tblMain.ColumnCount = 2;
             this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblMain.Controls.Add(this.lblPicture, 0, 8);
-            this.tblMain.Controls.Add(this.txtPicture, 1, 8);
-            this.tblMain.Controls.Add(this.lblRecipeStatus, 0, 7);
-            this.tblMain.Controls.Add(this.txtRecipeStatus, 1, 7);
             this.tblMain.Controls.Add(this.lblDateArchived1, 0, 6);
             this.tblMain.Controls.Add(this.lblDatePublished1, 0, 5);
             this.tblMain.Controls.Add(this.lblDateCreated, 0, 4);
@@ -82,7 +74,7 @@
             this.tblMain.Location = new System.Drawing.Point(0, 0);
             this.tblMain.Margin = new System.Windows.Forms.Padding(4);
             this.tblMain.Name = "tblMain";
-            this.tblMain.RowCount = 10;
+            this.tblMain.RowCount = 8;
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
@@ -91,52 +83,10 @@
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tblMain.Size = new System.Drawing.Size(569, 413);
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tblMain.Size = new System.Drawing.Size(569, 391);
             this.tblMain.TabIndex = 0;
-            // 
-            // lblPicture
-            // 
-            this.lblPicture.AutoSize = true;
-            this.lblPicture.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblPicture.Location = new System.Drawing.Point(4, 320);
-            this.lblPicture.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblPicture.Name = "lblPicture";
-            this.lblPicture.Size = new System.Drawing.Size(147, 40);
-            this.lblPicture.TabIndex = 6;
-            this.lblPicture.Text = "Picture:";
-            // 
-            // txtPicture
-            // 
-            this.txtPicture.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.txtPicture.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPicture.Location = new System.Drawing.Point(158, 323);
-            this.txtPicture.Name = "txtPicture";
-            this.txtPicture.ReadOnly = true;
-            this.txtPicture.Size = new System.Drawing.Size(408, 34);
-            this.txtPicture.TabIndex = 13;
-            // 
-            // lblRecipeStatus
-            // 
-            this.lblRecipeStatus.AutoSize = true;
-            this.lblRecipeStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblRecipeStatus.Location = new System.Drawing.Point(4, 280);
-            this.lblRecipeStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblRecipeStatus.Name = "lblRecipeStatus";
-            this.lblRecipeStatus.Size = new System.Drawing.Size(147, 40);
-            this.lblRecipeStatus.TabIndex = 5;
-            this.lblRecipeStatus.Text = "Recipe Status:";
-            // 
-            // txtRecipeStatus
-            // 
-            this.txtRecipeStatus.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.txtRecipeStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtRecipeStatus.Location = new System.Drawing.Point(158, 283);
-            this.txtRecipeStatus.Name = "txtRecipeStatus";
-            this.txtRecipeStatus.ReadOnly = true;
-            this.txtRecipeStatus.Size = new System.Drawing.Size(408, 34);
-            this.txtRecipeStatus.TabIndex = 12;
             // 
             // lblDateArchived1
             // 
@@ -238,12 +188,12 @@
             this.tblButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tblButtons.Controls.Add(this.btnSave, 0, 0);
             this.tblButtons.Controls.Add(this.btnDelete, 1, 0);
-            this.tblButtons.Location = new System.Drawing.Point(158, 363);
+            this.tblButtons.Location = new System.Drawing.Point(158, 343);
             this.tblButtons.Name = "tblButtons";
             this.tblButtons.RowCount = 1;
             this.tblButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tblButtons.Size = new System.Drawing.Size(250, 47);
+            this.tblButtons.Size = new System.Drawing.Size(250, 45);
             this.tblButtons.TabIndex = 18;
             // 
             // btnSave
@@ -251,7 +201,7 @@
             this.btnSave.AutoSize = true;
             this.btnSave.Location = new System.Drawing.Point(3, 3);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(119, 38);
+            this.btnSave.Size = new System.Drawing.Size(68, 38);
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -261,7 +211,7 @@
             this.btnDelete.AutoSize = true;
             this.btnDelete.Location = new System.Drawing.Point(128, 3);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(119, 38);
+            this.btnDelete.Size = new System.Drawing.Size(78, 38);
             this.btnDelete.TabIndex = 1;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -314,7 +264,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 28F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(569, 413);
+            this.ClientSize = new System.Drawing.Size(569, 391);
             this.Controls.Add(this.tblMain);
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -336,10 +286,8 @@
         private Label lblDateCreated;
         private Label lblDatePublished1;
         private Label lblDateArchived1;
-        private Label lblRecipeStatus;
         private TextBox txtRecipeName;
         private TextBox txtCalories;
-        private TextBox txtRecipeStatus;
         private Label lblCuisineName;
         private Label lblUserName;
         private TableLayoutPanel tblButtons;
@@ -347,8 +295,6 @@
         private Button btnDelete;
         private ComboBox lstCuisineName;
         private ComboBox lstUserName;
-        private Label lblPicture;
-        private TextBox txtPicture;
         private Label lblDatePublished;
         private Label lblDateArchived;
         private TextBox txtDateCreated;
