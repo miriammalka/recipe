@@ -68,7 +68,7 @@ namespace RecipeSystem
         public static void Delete(DataTable dtrecipe)
         {
             int id = (int)dtrecipe.Rows[0]["RecipeId"];
-            string sql = "delete r from recipe r left join recipeingredient ri on ri.recipeid = r.recipeid where ri.recipeid is null and r.recipeid = " + id;
+            string sql = "delete r from recipe r where r.recipeid = " + id;
             SQLUtility.ExecuteSQL(sql);
         }
     }
