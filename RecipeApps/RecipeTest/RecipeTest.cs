@@ -18,7 +18,7 @@ namespace RecipeTest
         {
             int recipeid = GetExistingRecipeId();
             Assume.That(recipeid > 0, "no recipes in DB, can't run test");
-            DataTable exisitngdt = SQLUtility.GetDataTable("select * from recipe where recipeid = " + recipeid);
+            DataTable existingdt = SQLUtility.GetDataTable("select * from recipe where recipeid = " + recipeid);
             string recipename = GetFirstColumnFirstRowValueAsString("select r.recipename from recipe r where r. recipeid = " + recipeid);
             recipename = recipename + DateTime.Now.TimeOfDay.ToString();
 
@@ -50,8 +50,6 @@ namespace RecipeTest
         {
             int recipeid = GetExistingRecipeId();
             Assume.That(recipeid > 0, "no recipes in DB, can't run test");
-            //AF I don't see you using the below datatable anywhere, what was your purpose in declaring it?
-            DataTable exisitngdt = SQLUtility.GetDataTable("select * from recipe where recipeid = " + recipeid);
             string recipename = GetFirstColumnFirstRowValueAsString("select r.recipename from recipe r where r. recipeid = " + recipeid);
             TestContext.WriteLine("existing recipe in DB with recipe name " + recipename);
             DataTable dt = SQLUtility.GetDataTable("select * from recipe where recipeid = 0");
@@ -102,9 +100,7 @@ namespace RecipeTest
             int calories = SQLUtility.GetFirstColumnFirstRowValue("select calories from recipe where recipeid = " + recipeid);
             Assume.That(recipeid > 0, "no recipes in DB, can't run test");
             TestContext.WriteLine("calories for recipe with id (" + recipeid + ") = " + calories);
-            //AF since it seems possible for a recipe to have 0 calories, you should add 5001 (or more) to the calories.  
-            //  Otherwise, if you have a recipe with 0 calories and add 5000 calories, this test will fail and the app can change the calories to that amount
-            calories = calories + 5000;
+            calories = calories + 5001;
             TestContext.WriteLine("we want to ensure app cannot change calories to " + calories + " which is an invalid amount.");
 
             DataTable dt = Recipe.Load(recipeid);
@@ -138,7 +134,7 @@ namespace RecipeTest
         public void DeleteRecipeWithRecipeIngredient()
         {
             //AF No need for the where clause, if you are doing a regular join matching up the ids, the query won't return null recipeingredient rows.  You would only need that where clause if you had a left join
-            DataTable dt = SQLUtility.GetDataTable("select top 1 r.RecipeId , r.RecipeName from recipe r join RecipeIngredient ri on r.recipeid = ri.recipeid where ri.recipeid is not null");
+            DataTable dt = SQLUtility.GetDataTable("select top 1 r.RecipeId , r.RecipeName from recipe r join RecipeIngredient ri on r.recipeid = ri.recipeid");
             int recipeid = 0;
             if (dt.Rows.Count > 0)
             {
