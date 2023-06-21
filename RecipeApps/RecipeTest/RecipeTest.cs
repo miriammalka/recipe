@@ -115,7 +115,7 @@ namespace RecipeTest
         [Test]
         public void DeleteRecipe()
         {
-            DataTable dt = SQLUtility.GetDataTable("select top 1 r.RecipeId , r.RecipeName\r\nfrom recipe r \r\nleft join recipeingredient ri \r\non ri.recipeid = r.recipeid \r\nleft join Instruction i \r\non i.RecipeId = r.RecipeId\r\nleft join MealcourseRecipe mcr \r\non mcr.RecipeId = r.RecipeId\r\nleft join CookbookRecipe cr \r\non cr.RecipeId = r.RecipeId\r\nwhere ri.RecipeId is null\r\nand i.RecipeId is NULL\r\nand mcr.RecipeId is NULL\r\nand cr.RecipeId is null");
+            DataTable dt = SQLUtility.GetDataTable("select top 1 r.RecipeId , r.RecipeName\r\nfrom recipe r \r\njoin recipeingredient ri \r\non ri.recipeid = r.recipeid \r\njoin Instruction i \r\non i.RecipeId = r.RecipeId\r\nleft join MealcourseRecipe mcr \r\non mcr.RecipeId = r.RecipeId\r\nleft join CookbookRecipe cr \r\non cr.RecipeId = r.RecipeId\r\nwhere mcr.mealcourserecipeid is null\r\nand cr.cookbookrecipeid is null");
             int recipeid = 0;
             if (dt.Rows.Count > 0)
             {

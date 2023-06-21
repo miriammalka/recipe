@@ -33,3 +33,7 @@ union select 'instruction', s.Instructionid, s.Instruction from Instruction s wh
 ;
 	throw
 end catch
+
+select 'recipe', r.RecipeId, r.RecipeName from recipe r where r.RecipeId = @RecipeId
+union select 'ingredient', ri.recipeingredientid, i.IngredientName from RecipeIngredient ri join Ingredient i on i.IngredientId = ri.IngredientId where ri.RecipeId = @RecipeId
+union select 'instruction', s.Instructionid, s.Instruction from Instruction s where s.RecipeId = @RecipeId
