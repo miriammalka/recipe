@@ -1,17 +1,29 @@
-create or alter procedure dbo.RecipeDelete(@RecipeId int)
+create or alter procedure dbo.RecipeDelete(
+@RecipeId int,
+@Message varchar(500) = '' output
+)
 as
 begin
+	declare @return int = 0
+	if exists(select * from recipe r where r.RecipeId = @RecipeId and (r.RecipeStatus = 'published' or DATEDIFF(Day, r.DateArchived, getdate()) <= 30))
+	begin
+		select @return = 1, @Message = 'Cannot delete recipe that is published or is archived less than 30 days.'
+		goto finished
+	end
+
 	begin try
-	--AF Formatting tip - it's good to indent all the code in the 'try' block, so that it's clear what is part of the 'try' block
-	begin tran
+		begin tran
 		delete recipeingredient where RecipeId = @RecipeId
 		delete instruction where RecipeId = @RecipeId
 		delete recipe where RecipeId = @RecipeId
-	commit
+		commit
 	end try
 	begin catch
 		rollback;
 		throw
 	end catch
+
+	finished:
+	return @return
 end
 go

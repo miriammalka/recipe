@@ -102,6 +102,9 @@ go
     union select 'Mexican', 'AMarks123', 'Quesadillas', 400, '2020-07-18', '2020-10-21', null
     union select 'American', 'MGross123', 'Peanut Butter Truffles', 500, '2019-09-19', null, '2019-11-23'
     union select 'American', 'IRosen123', 'Ice Coffee Crush', 150, '2020-12-13', null, null
+    union select 'American', 'IRosen123', 'Ice Cream Pie', 350, '2020-12-13', '2021-01-09', null
+    union select 'French', 'IRosen123', 'Cranberry Cobbler', 150, '2022-12-13', '2023-01-09', null
+    union select 'American', 'IRosen123', 'Potato Kugel', 150, '2019-12-13', '2020-01-09', null
 )
 insert Recipe(CuisineId, UserId, RecipeName, Calories, DateCreated, DatePublished, DateArchived)
 select c.CuisineId, u.UserId, x.RecipeName, x.Calories, x.DateCreated, x.DatePublished, x.DateArchived

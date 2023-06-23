@@ -131,18 +131,33 @@ namespace RecipeTest
         }
 
         [Test]
-        public void DeleteRecipeWithRecipeIngredient()
+        public void DeleteRecipeWithRecipeIngredientAndPublishedOrArchivedLessThankThirtyDays()
         {
-            //AF No need for the where clause, if you are doing a regular join matching up the ids, the query won't return null recipeingredient rows.  You would only need that where clause if you had a left join
-            DataTable dt = SQLUtility.GetDataTable("select top 1 r.RecipeId , r.RecipeName from recipe r join RecipeIngredient ri on r.recipeid = ri.recipeid");
+            string sql = @"
+select top 1 r.RecipeId 
+from recipe r
+left join RecipeIngredient ri 
+on r.RecipeId = ri.RecipeId
+left join Instruction i
+on r.RecipeId = i.RecipeId
+left join MealCourseRecipe mcr
+on r.RecipeId = mcr.RecipeId
+left join CookbookRecipe cr
+on r.RecipeId = cr.RecipeId
+where mcr.MealCourseRecipeId is null
+and cr.CookbookRecipeId is null
+and (r.RecipeStatus = 'published' 
+or DATEDIFF(Day, r.DateArchived, getdate()) <= 30)
+";
+            DataTable dt = SQLUtility.GetDataTable(sql);
             int recipeid = 0;
             if (dt.Rows.Count > 0)
             {
                 recipeid = (int)dt.Rows[0]["recipeid"];
             }
             Assume.That(recipeid > 0, "no recipes with records in recipeingredient table, can't run test");
-            TestContext.WriteLine("existing recipe record with record in recipeingredient table with id = " + recipeid);
-            TestContext.WriteLine("we want to ensure that app cannot delete recipe with id = " + recipeid);
+            TestContext.WriteLine("existing recipe record with record in recipeingredient table with id = " + recipeid + " and status is published or archived less than 30 days");
+            TestContext.WriteLine("we want to ensure that app cannot delete recipe with id = " + recipeid + " and status is published or archived less than 30 days");
 
             Exception ex = Assert.Throws<Exception>(() => Recipe.Delete(dt));
             
