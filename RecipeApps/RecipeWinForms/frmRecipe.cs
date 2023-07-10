@@ -6,6 +6,7 @@ namespace RecipeWinForms
     public partial class frmRecipe : Form
     {
         DataTable dtrecipe;
+        BindingSource bindsource = new();
         public frmRecipe()
         {
             InitializeComponent();
@@ -16,6 +17,7 @@ namespace RecipeWinForms
         public void ShowForm(int recipeid)
         {
             dtrecipe = Recipe.Load(recipeid);
+            bindsource.DataSource = dtrecipe;
             if (recipeid == 0)
             {
                 dtrecipe.Rows.Add();
@@ -26,11 +28,11 @@ namespace RecipeWinForms
             DataTable dtusers = Recipe.GetUsersList();
             WindowsFormsUtility.SetListBinding(lstUserName, dtusers, dtrecipe, "User");
 
-            WindowsFormsUtility.SetControlBinding(txtRecipeName, dtrecipe);
-            WindowsFormsUtility.SetControlBinding(txtCalories, dtrecipe);
-            WindowsFormsUtility.SetControlBinding(txtDateCreated, dtrecipe);
-            WindowsFormsUtility.SetControlBinding(lblDatePublished, dtrecipe);
-            WindowsFormsUtility.SetControlBinding(lblDateArchived, dtrecipe);
+            WindowsFormsUtility.SetControlBinding(txtRecipeName, bindsource);
+            WindowsFormsUtility.SetControlBinding(txtCalories, bindsource);
+            WindowsFormsUtility.SetControlBinding(dtpDateCreated, bindsource);
+            WindowsFormsUtility.SetControlBinding(lblDatePublished, bindsource);
+            WindowsFormsUtility.SetControlBinding(lblDateArchived, bindsource);
 
             this.Show();
         }
@@ -46,6 +48,7 @@ namespace RecipeWinForms
             try
             {
                 Recipe.Save(dtrecipe);
+                bindsource.ResetBindings(false);
             }
             catch(Exception ex)
             {
@@ -85,9 +88,5 @@ namespace RecipeWinForms
             Delete();
         }
 
-        private void txtPicture_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
