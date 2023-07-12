@@ -30,7 +30,7 @@ namespace RecipeWinForms
 
             WindowsFormsUtility.SetControlBinding(txtRecipeName, bindsource);
             WindowsFormsUtility.SetControlBinding(txtCalories, bindsource);
-            WindowsFormsUtility.SetControlBinding(dtpDateCreated, bindsource);
+            WindowsFormsUtility.SetControlBinding(txtDateCreated, bindsource);
             WindowsFormsUtility.SetControlBinding(lblDatePublished, bindsource);
             WindowsFormsUtility.SetControlBinding(lblDateArchived, bindsource);
 

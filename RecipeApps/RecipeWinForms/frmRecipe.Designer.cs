@@ -45,7 +45,7 @@
             this.lstUserName = new System.Windows.Forms.ComboBox();
             this.lblDatePublished = new System.Windows.Forms.Label();
             this.lblDateArchived = new System.Windows.Forms.Label();
-            this.dtpDateCreated = new System.Windows.Forms.DateTimePicker();
+            this.txtDateCreated = new System.Windows.Forms.TextBox();
             this.tblMain.SuspendLayout();
             this.tblButtons.SuspendLayout();
             this.SuspendLayout();
@@ -69,7 +69,7 @@
             this.tblMain.Controls.Add(this.lstUserName, 1, 1);
             this.tblMain.Controls.Add(this.lblDatePublished, 1, 5);
             this.tblMain.Controls.Add(this.lblDateArchived, 1, 6);
-            this.tblMain.Controls.Add(this.dtpDateCreated, 1, 4);
+            this.tblMain.Controls.Add(this.txtDateCreated, 1, 4);
             this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblMain.Location = new System.Drawing.Point(0, 0);
             this.tblMain.Margin = new System.Windows.Forms.Padding(4);
@@ -252,14 +252,13 @@
             this.lblDateArchived.Size = new System.Drawing.Size(408, 40);
             this.lblDateArchived.TabIndex = 26;
             // 
-            // dtpDateCreated
+            // txtDateCreated
             // 
-            this.dtpDateCreated.Dock = System.Windows.Forms.DockStyle.Left;
-            this.dtpDateCreated.Enabled = false;
-            this.dtpDateCreated.Location = new System.Drawing.Point(158, 163);
-            this.dtpDateCreated.Name = "dtpDateCreated";
-            this.dtpDateCreated.Size = new System.Drawing.Size(336, 34);
-            this.dtpDateCreated.TabIndex = 27;
+            this.txtDateCreated.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtDateCreated.Location = new System.Drawing.Point(158, 163);
+            this.txtDateCreated.Name = "txtDateCreated";
+            this.txtDateCreated.Size = new System.Drawing.Size(408, 34);
+            this.txtDateCreated.TabIndex = 27;
             // 
             // frmRecipe
             // 
@@ -298,6 +297,6 @@
         private ComboBox lstUserName;
         private Label lblDatePublished;
         private Label lblDateArchived;
-        private DateTimePicker dtpDateCreated;
+        private TextBox txtDateCreated;
     }
 }
