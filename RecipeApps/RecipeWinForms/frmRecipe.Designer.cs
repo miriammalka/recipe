@@ -96,7 +96,7 @@
             this.lblDateArchived1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDateArchived1.Name = "lblDateArchived1";
             this.lblDateArchived1.Size = new System.Drawing.Size(147, 40);
-            this.lblDateArchived1.TabIndex = 4;
+            this.lblDateArchived1.TabIndex = 12;
             this.lblDateArchived1.Text = "Date Archived:";
             // 
             // lblDatePublished1
@@ -107,7 +107,7 @@
             this.lblDatePublished1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDatePublished1.Name = "lblDatePublished1";
             this.lblDatePublished1.Size = new System.Drawing.Size(147, 40);
-            this.lblDatePublished1.TabIndex = 3;
+            this.lblDatePublished1.TabIndex = 10;
             this.lblDatePublished1.Text = "Date Published:";
             // 
             // lblDateCreated
@@ -118,7 +118,7 @@
             this.lblDateCreated.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDateCreated.Name = "lblDateCreated";
             this.lblDateCreated.Size = new System.Drawing.Size(147, 40);
-            this.lblDateCreated.TabIndex = 2;
+            this.lblDateCreated.TabIndex = 8;
             this.lblDateCreated.Text = "Date Created:";
             // 
             // lblCalories
@@ -129,7 +129,7 @@
             this.lblCalories.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCalories.Name = "lblCalories";
             this.lblCalories.Size = new System.Drawing.Size(147, 40);
-            this.lblCalories.TabIndex = 1;
+            this.lblCalories.TabIndex = 6;
             this.lblCalories.Text = "Calories:";
             // 
             // txtCalories
@@ -139,7 +139,7 @@
             this.txtCalories.Location = new System.Drawing.Point(158, 123);
             this.txtCalories.Name = "txtCalories";
             this.txtCalories.Size = new System.Drawing.Size(408, 34);
-            this.txtCalories.TabIndex = 8;
+            this.txtCalories.TabIndex = 7;
             // 
             // lblRecipeName
             // 
@@ -149,7 +149,7 @@
             this.lblRecipeName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblRecipeName.Name = "lblRecipeName";
             this.lblRecipeName.Size = new System.Drawing.Size(147, 40);
-            this.lblRecipeName.TabIndex = 0;
+            this.lblRecipeName.TabIndex = 4;
             this.lblRecipeName.Text = "Recipe Name:";
             // 
             // txtRecipeName
@@ -159,7 +159,7 @@
             this.txtRecipeName.Location = new System.Drawing.Point(158, 83);
             this.txtRecipeName.Name = "txtRecipeName";
             this.txtRecipeName.Size = new System.Drawing.Size(408, 34);
-            this.txtRecipeName.TabIndex = 7;
+            this.txtRecipeName.TabIndex = 5;
             // 
             // lblCuisineName
             // 
@@ -168,7 +168,7 @@
             this.lblCuisineName.Location = new System.Drawing.Point(3, 0);
             this.lblCuisineName.Name = "lblCuisineName";
             this.lblCuisineName.Size = new System.Drawing.Size(149, 40);
-            this.lblCuisineName.TabIndex = 14;
+            this.lblCuisineName.TabIndex = 0;
             this.lblCuisineName.Text = "Cuisine Name:";
             // 
             // lblUserName
@@ -178,7 +178,7 @@
             this.lblUserName.Location = new System.Drawing.Point(3, 40);
             this.lblUserName.Name = "lblUserName";
             this.lblUserName.Size = new System.Drawing.Size(149, 40);
-            this.lblUserName.TabIndex = 15;
+            this.lblUserName.TabIndex = 2;
             this.lblUserName.Text = "User Name:";
             // 
             // tblButtons
@@ -194,7 +194,7 @@
             this.tblButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tblButtons.Size = new System.Drawing.Size(250, 45);
-            this.tblButtons.TabIndex = 18;
+            this.tblButtons.TabIndex = 14;
             // 
             // btnSave
             // 
@@ -222,7 +222,7 @@
             this.lstCuisineName.Location = new System.Drawing.Point(158, 3);
             this.lstCuisineName.Name = "lstCuisineName";
             this.lstCuisineName.Size = new System.Drawing.Size(232, 36);
-            this.lstCuisineName.TabIndex = 22;
+            this.lstCuisineName.TabIndex = 1;
             // 
             // lstUserName
             // 
@@ -230,7 +230,7 @@
             this.lstUserName.Location = new System.Drawing.Point(158, 43);
             this.lstUserName.Name = "lstUserName";
             this.lstUserName.Size = new System.Drawing.Size(232, 36);
-            this.lstUserName.TabIndex = 23;
+            this.lstUserName.TabIndex = 3;
             // 
             // lblDatePublished
             // 
@@ -240,7 +240,7 @@
             this.lblDatePublished.Location = new System.Drawing.Point(158, 200);
             this.lblDatePublished.Name = "lblDatePublished";
             this.lblDatePublished.Size = new System.Drawing.Size(408, 40);
-            this.lblDatePublished.TabIndex = 25;
+            this.lblDatePublished.TabIndex = 11;
             // 
             // lblDateArchived
             // 
@@ -250,7 +250,7 @@
             this.lblDateArchived.Location = new System.Drawing.Point(158, 240);
             this.lblDateArchived.Name = "lblDateArchived";
             this.lblDateArchived.Size = new System.Drawing.Size(408, 40);
-            this.lblDateArchived.TabIndex = 26;
+            this.lblDateArchived.TabIndex = 13;
             // 
             // txtDateCreated
             // 
@@ -258,7 +258,7 @@
             this.txtDateCreated.Location = new System.Drawing.Point(158, 163);
             this.txtDateCreated.Name = "txtDateCreated";
             this.txtDateCreated.Size = new System.Drawing.Size(408, 34);
-            this.txtDateCreated.TabIndex = 27;
+            this.txtDateCreated.TabIndex = 9;
             // 
             // frmRecipe
             // 
