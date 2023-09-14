@@ -9,7 +9,7 @@ namespace RecipeWinForms
             InitializeComponent();
             btnSearch.Click += BtnSearch_Click;
             gRecipe.CellDoubleClick += GRecipe_CellDoubleClick;
-            WindowsFormsUtility.FormatGridForSearchResults(gRecipe);
+            WindowsFormsUtility.FormatGridForSearchResults(gRecipe, "Recipe");
             btnNew.Click += BtnNew_Click;
         }
 
