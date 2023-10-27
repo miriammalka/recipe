@@ -45,6 +45,8 @@
             this.mnuEditData = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuWindows = new System.Windows.Forms.ToolStripMenuItem();
             this.tsMain = new System.Windows.Forms.ToolStrip();
+            this.mnuTile = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuCascade = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -166,6 +168,9 @@
             // 
             // mnuWindows
             // 
+            this.mnuWindows.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuTile,
+            this.mnuCascade});
             this.mnuWindows.Name = "mnuWindows";
             this.mnuWindows.Size = new System.Drawing.Size(107, 32);
             this.mnuWindows.Text = "Windows";
@@ -179,6 +184,18 @@
             this.tsMain.TabIndex = 1;
             this.tsMain.Text = "toolStrip1";
             // 
+            // mnuTile
+            // 
+            this.mnuTile.Name = "mnuTile";
+            this.mnuTile.Size = new System.Drawing.Size(224, 32);
+            this.mnuTile.Text = "Tile";
+            // 
+            // mnuCascade
+            // 
+            this.mnuCascade.Name = "mnuCascade";
+            this.mnuCascade.Size = new System.Drawing.Size(224, 32);
+            this.mnuCascade.Text = "Cascade";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 28F);
@@ -191,7 +208,7 @@
             this.MainMenuStrip = this.mnuMain;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmMain";
-            this.Text = "Recipe";
+            this.Text = "Hearty Hearth";
             this.mnuMain.ResumeLayout(false);
             this.mnuMain.PerformLayout();
             this.ResumeLayout(false);
@@ -218,5 +235,7 @@
         private ToolStripMenuItem mnuEditData;
         private ToolStripMenuItem mnuWindows;
         private ToolStrip tsMain;
+        private ToolStripMenuItem mnuTile;
+        private ToolStripMenuItem mnuCascade;
     }
 }

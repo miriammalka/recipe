@@ -13,6 +13,7 @@ begin
 
 	begin try
 		begin tran
+		delete mealcourserecipe where RecipeId = @RecipeId
 		delete recipeingredient where RecipeId = @RecipeId
 		delete instruction where RecipeId = @RecipeId
 		delete recipe where RecipeId = @RecipeId
@@ -27,3 +28,6 @@ begin
 	return @return
 end
 go
+
+exec RecipeDelete @RecipeId = 1
+select * from recipe

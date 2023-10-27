@@ -7,20 +7,15 @@ namespace RecipeWinForms
         public frmSearch()
         {
             InitializeComponent();
-            btnSearch.Click += BtnSearch_Click;
             gRecipe.CellDoubleClick += GRecipe_CellDoubleClick;
             WindowsFormsUtility.FormatGridForSearchResults(gRecipe, "Recipe");
-            btnNew.Click += BtnNew_Click;
+            btnNewRecipe.Click += BtnNewRecipe_Click;
+            this.Activated += FrmSearch_Activated;
         }
 
-
-        private void SearchForRecipe(string recipe)
+        private void FrmSearch_Activated(object? sender, EventArgs e)
         {
-            DataTable dt = Recipe.SearchRecipes(recipe);
-            gRecipe.DataSource = dt;
-            gRecipe.Columns["RecipeId"].Visible = false;
-            gRecipe.Columns["CuisineId"].Visible = false;
-            gRecipe.Columns["UserId"].Visible = false;
+            BindData();
         }
 
         private void ShowRecipeForm(int rowindex)
@@ -28,10 +23,12 @@ namespace RecipeWinForms
             int id = 0;
             if(rowindex > -1)
             {
-                id = (int)gRecipe.Rows[rowindex].Cells["RecipeId"].Value;
+                id = WindowsFormsUtility.GetIdFromGrid(gRecipe, rowindex, "RecipeId");
             }
-            frmRecipe frm = new();
-            frm.ShowForm(id);
+            if (this.MdiParent != null && this.MdiParent is frmMain)
+            {
+                ((frmMain)this.MdiParent).OpenForm(typeof(frmRecipe), id);
+            }
         }
 
         private void GRecipe_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
@@ -39,14 +36,19 @@ namespace RecipeWinForms
             ShowRecipeForm(e.RowIndex);
         }
 
-        private void BtnSearch_Click(object? sender, EventArgs e)
-        {
-            SearchForRecipe(txtRecipe.Text);
-        }
-
-        private void BtnNew_Click(object? sender, EventArgs e)
+        private void BtnNewRecipe_Click(object? sender, EventArgs e)
         {
             ShowRecipeForm(-1);
+        }
+
+        private void BindData()
+        {
+            gRecipe.DataSource = Recipe.GetRecipeList();
+            WindowsFormsUtility.FormatGridForSearchResults(gRecipe, "Recipes");
+            gRecipe.Columns["DateCreated"].Visible = false;
+            gRecipe.Columns["DatePublished"].Visible = false;
+            gRecipe.Columns["DateArchived"].Visible = false;
+           
         }
     }
 }

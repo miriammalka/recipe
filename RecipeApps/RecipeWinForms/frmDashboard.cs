@@ -46,17 +46,19 @@ namespace RecipeWinForms
 
         private void BtnCookbookList_Click(object? sender, EventArgs e)
         {
-
+            ShowForm(typeof(frmCookbookList));
         }
 
         private void BtnMealList_Click(object? sender, EventArgs e)
         {
-
+            ShowForm(typeof(frmMeals));
         }
 
         private void BtnRecipeList_Click(object? sender, EventArgs e)
         {
-            ShowForm(typeof(frmRecipe));
+            ShowForm(typeof(frmSearch));
+
+            
         }
 
     }

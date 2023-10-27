@@ -51,7 +51,7 @@
             this.tblMain.Controls.Add(this.tblButtons, 0, 3);
             this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblMain.Location = new System.Drawing.Point(0, 0);
-            this.tblMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tblMain.Margin = new System.Windows.Forms.Padding(4);
             this.tblMain.Name = "tblMain";
             this.tblMain.RowCount = 4;
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
@@ -84,7 +84,8 @@
             this.lblWelcome.Name = "lblWelcome";
             this.lblWelcome.Size = new System.Drawing.Size(1092, 126);
             this.lblWelcome.TabIndex = 1;
-            this.lblWelcome.Text = "Welcome...";
+            this.lblWelcome.Text = "Welcome to the Hearty Hearth Desktop App. In this app you can create recipes and " +
+    "cookbooks and edit them.";
             this.lblWelcome.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // gdata
@@ -110,7 +111,7 @@
             this.tblButtons.Controls.Add(this.btnCookbookList, 2, 0);
             this.tblButtons.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblButtons.Location = new System.Drawing.Point(4, 571);
-            this.tblButtons.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tblButtons.Margin = new System.Windows.Forms.Padding(4);
             this.tblButtons.Name = "tblButtons";
             this.tblButtons.RowCount = 1;
             this.tblButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -156,7 +157,7 @@
             this.ClientSize = new System.Drawing.Size(1100, 630);
             this.Controls.Add(this.tblMain);
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmDashboard";
             this.Text = "Dashboard";
             this.tblMain.ResumeLayout(false);

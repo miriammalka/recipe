@@ -1,17 +1,20 @@
 create or alter procedure dbo.RecipeUpdate(
 @RecipeId int output,
 @CuisineId int,
-@UserId int,
+@UsersId int,
 @RecipeName varchar (100),
 @Calories int,
-@DateCreated datetime,
+@DateCreated datetime output,
+@DatePublished datetime,
+@DateArchived datetime,
+@RecipeStatus varchar(25) output,
 @Message varchar(500) = '' output
 )
 as
 begin
 	declare @return int = 0
 
-	select @RecipeId = isnull(@RecipeId, 0)
+	select @RecipeId = isnull(@RecipeId, 0), @DatePublished = nullif(@DatePublished, ''), @DateArchived = nullif(@DateArchived, '')
 	if exists (select * from recipe r where r.RecipeName = @RecipeName and @RecipeId = 0)
 	begin
 		select @return = 1, @Message = 'Recipe name must be unique'
@@ -20,8 +23,14 @@ begin
 
 	if @RecipeId = 0
 	begin
-		insert Recipe(CuisineId, UserId, RecipeName, Calories, DateCreated)
-		values (@CuisineId, @UserId, @RecipeName, @Calories, @DateCreated) 
+
+		if @DateCreated is null
+		begin
+			select @DateCreated = GETDATE(), @RecipeStatus = 'Draft'
+		end
+
+		insert Recipe(CuisineId, UsersId, RecipeName, Calories, DateCreated, DatePublished, DateArchived)
+		values (@CuisineId, @UsersId, @RecipeName, @Calories, @DateCreated, @DatePublished, @DateArchived) 
 	
 		select @RecipeId = SCOPE_IDENTITY()
 	end
@@ -31,10 +40,13 @@ begin
 		update Recipe
 		set
 		CuisineId = @CuisineId, 
-		UserId = @UserId, 
+		UsersId = @UsersId, 
 		RecipeName = @RecipeName, 
 		Calories = @Calories, 
-		DateCreated = @DateCreated
+		DateCreated = @DateCreated,
+		DatePublished = @DatePublished,
+		DateArchived = @DateArchived
+		
   where RecipeId = @RecipeId
 	end
 
@@ -42,3 +54,5 @@ begin
 	return @return
 end
 go
+
+

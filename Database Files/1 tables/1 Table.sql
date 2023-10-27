@@ -59,7 +59,7 @@ create table dbo.MeasurementType(
 )
 go
 create table dbo.Users( 
-    UserId int not null identity primary key,
+    UsersId int not null identity primary key,
     FirstName varchar (50) not null 
         constraint ck_User_FirstName_cannot_be_blank check(FirstName > ''), 
     LastName varchar (50) not null 
@@ -72,7 +72,7 @@ go
 create table dbo.Recipe(
     RecipeId int not null identity primary key,
     CuisineId int not null constraint f_Cuisine_recipe foreign key references Cuisine(CuisineId),
-    UserId int not null constraint f_User_Recipe foreign key references Users(UserId),
+    UsersId int not null constraint f_User_Recipe foreign key references Users(UsersId),
     RecipeName varchar(100) not null 
         constraint ck_Recipe_RecipeName_cannot_be_blank check(RecipeName > '') 
         constraint u_Recipe_RecipeName unique,
@@ -118,7 +118,7 @@ create table dbo.Instruction(
 go 
 create table dbo.Meal(
     MealId int not null identity primary key,
-    UserId int not null constraint f_User_Meal foreign key references Users(UserId),
+    UsersId int not null constraint f_User_Meal foreign key references Users(UsersId),
     MealName varchar(50) not null 
         constraint ck_Meal_MealName_cannot_be_blank check(MealName > '')
         constraint u_Meal_MealName unique,
@@ -147,7 +147,7 @@ create table dbo.MealCourseRecipe(
 go 
 create table dbo.Cookbook(
     CookbookId int not null identity primary key,
-    UserId int not null constraint f_User_Cookbook foreign key references Users(UserId),
+    UsersId int not null constraint f_User_Cookbook foreign key references Users(UsersId),
     CookbookName varchar(75) not null
         constraint ck_Cookbook_CookbookName_cannot_be_blank check(CookbookName > '')
         constraint u_Cookbook_CookbookName unique,
@@ -164,6 +164,8 @@ create table dbo.CookbookRecipe(
     CookbookRecipeId int not null identity primary key, 
     CookbookId int not null constraint f_Cookbook_CookbookRecipe foreign key references Cookbook(CookbookId),
     RecipeId int not null constraint f_Recipe_CookbookRecipe foreign key references Recipe(RecipeId),
+	SequenceOrder int not null 
+    constraint ck_CookbookRecipe_Sequence_must_be_between_1_and_50 check(SequenceOrder between 1 and 50), 
     constraint u_CookbookRecipe_CookbookId_RecipeId unique(CookbookId, RecipeId)
 )
 go 

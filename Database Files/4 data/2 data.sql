@@ -106,8 +106,8 @@ go
     union select 'French', 'IRosen123', 'Cranberry Cobbler', 150, '2022-12-13', '2023-01-09', null
     union select 'American', 'IRosen123', 'Potato Kugel', 150, '2019-12-13', '2020-01-09', null
 )
-insert Recipe(CuisineId, UserId, RecipeName, Calories, DateCreated, DatePublished, DateArchived)
-select c.CuisineId, u.UserId, x.RecipeName, x.Calories, x.DateCreated, x.DatePublished, x.DateArchived
+insert Recipe(CuisineId, UsersId, RecipeName, Calories, DateCreated, DatePublished, DateArchived)
+select c.CuisineId, u.UsersId, x.RecipeName, x.Calories, x.DateCreated, x.DatePublished, x.DateArchived
 from x
 join Cuisine c 
 on c.CuisineName = x.Cuisine
@@ -198,17 +198,17 @@ with x as (
     union select 'Chocolate Chip Cookies', 7, 'roll into balls and place spread out on a cookie sheet'
     union select 'Chocolate Chip Cookies', 8, 'bake on 350 for 10 min'
     union select 'Apple Yogurt Smoothie', 1, 'Peel the apples and dice'
-    union select 'Apple Yogurt Smoothie', 2, 'Combine all ingredients in bowl except for apples and ice cubes'
+    union select 'Apple Yogurt Smoothie', 2, 'Combine all Ingredients in bowl except for apples and ice cubes'
     union select 'Apple Yogurt Smoothie', 3, 'mix until smooth'
     union select 'Apple Yogurt Smoothie', 4, 'add apples and ice cubes'
     union select 'Apple Yogurt Smoothie', 5, 'pour into glasses'
     union select 'Cheese Bread', 1, 'Slit bread every 3/4 inch'
-    union select 'Cheese Bread', 2, 'Combine all ingredients in bowl'
+    union select 'Cheese Bread', 2, 'Combine all Ingredients in bowl'
     union select 'Cheese Bread', 3, 'fill slits with cheese mixture'
     union select 'Cheese Bread', 4, 'wrap bread into a foil and bake for 30 minutes.'
     union select 'Butter Muffins', 1, 'Cream butter with sugars'
     union select 'Butter Muffins', 2, 'Add eggs and mix well'
-    union select 'Butter Muffins', 3, 'Slowly add rest of ingredients and mix well'
+    union select 'Butter Muffins', 3, 'Slowly add rest of Ingredients and mix well'
     union select 'Butter Muffins', 4, 'fill muffin pans 3/4 full and bake for 30 minutes'
     union select 'Fried Chicken Cutlets', 1, 'cut up the chicken breast into think pieces, about 1/4 inch thick'
     union select 'Fried Chicken Cutlets', 2, 'crack the egg into a bowl and whisk it up'
@@ -238,7 +238,7 @@ with x as (
     union select 'Peanut Butter Truffles', 5, 'dip each peanut butter ball in the chocolate mixture'
     union select 'Peanut Butter Truffles', 6, 'freeze the balls for an hour and then enjoy'
     union select 'Ice Coffee Crush', 1, 'dissolve the coffee in the hot water'
-    union select 'Ice Coffee Crush', 2, 'put all the ingredients in a blender and blend untill all ice is fully crushed'
+    union select 'Ice Coffee Crush', 2, 'put all the Ingredients in a blender and blend untill all ice is fully crushed'
     union select 'Ice Coffee Crush', 3, 'put in glasses and enjoy'
 )
 insert Instruction(RecipeId, SequenceOrder, Instruction)
@@ -248,11 +248,11 @@ join recipe r
 on r.RecipeName = x.Recipe
 
 go 
-insert Meal (UserId, MealName, DateCreated, Active)
-select (select u.UserId from users u where u.Username = 'MGross123'),'Breakfast Bash', '2022-03-11', 0
-union select (select u.UserId from users u where u.Username = 'IRosen123'), 'Family Brunch', '2022-06-21', 1
-union select (select u.UserId from users u where u.Username = 'AMarks123'), 'Fiesta', '2022-02-13', 1
-union select (select u.UserId from users u where u.Username = 'SJohnson123'), 'Classic Shabbos Meal',  '2022-01-09', 1
+insert Meal (UsersId, MealName, DateCreated, Active)
+select (select u.UsersId from users u where u.Username = 'MGross123'),'Breakfast Bash', '2022-03-11', 0
+union select (select u.UsersId from users u where u.Username = 'IRosen123'), 'Family Brunch', '2022-06-21', 1
+union select (select u.UsersId from users u where u.Username = 'AMarks123'), 'Fiesta', '2022-02-13', 1
+union select (select u.UsersId from users u where u.Username = 'SJohnson123'), 'Classic Shabbos Meal',  '2022-01-09', 1
 go 
 ;
 with x as (
@@ -308,32 +308,32 @@ join recipe r
 on r.RecipeName = x.Recipe
 go 
 
-insert Cookbook (UserId, CookbookName, Price, DateCreated, Active)
-select (select u.UserId from users u where u.Username = 'IRosen123'), 'Treats for Two', 30, '2022-06-23', 1
-union select (select u.UserId from users u where u.Username = 'MGross123'), 'Jewish Cooking', 45, '2022-04-01', 1
-union select (select u.UserId from users u where u.Username = 'SJohnson123'), 'Easy Vegetarian Recipes', 0, '2022-03-11', 0 
-union select (select u.UserId from users u where u.Username = 'AMarks123'), 'Breakfast Made Easy', 25, '2022-01-13', 1
+insert Cookbook (UsersId, CookbookName, Price, DateCreated, Active)
+select (select u.UsersId from users u where u.Username = 'IRosen123'), 'Treats for Two', 30, '2022-06-23', 1
+union select (select u.UsersId from users u where u.Username = 'MGross123'), 'Jewish Cooking', 45, '2022-04-01', 1
+union select (select u.UsersId from users u where u.Username = 'SJohnson123'), 'Easy Vegetarian Recipes', 0, '2022-03-11', 0 
+union select (select u.UsersId from users u where u.Username = 'AMarks123'), 'Breakfast Made Easy', 25, '2022-01-13', 1
 go 
 ;
 with x as (
-    select Cookbook = 'Treats for Two', Recipe = 'Chocolate Chip Cookies'
-    union select 'Treats for Two', 'Apple Yogurt Smoothie'
-    union select 'Treats for Two', 'Cheese Bread'
-    union select 'Treats for Two', 'Butter Muffins'
-    union select 'Jewish Cooking', 'Fried Chicken Cutlets'
-    union select 'Jewish Cooking', 'Crispy Potato Roast'
-    union select 'Jewish Cooking', 'Chocolate Chip Cookies'
-    union select 'Easy Vegetarian Recipes', 'Apple Yogurt Smoothie'
-    union select 'Easy Vegetarian Recipes', 'Quesadillas'
-    union select 'Easy Vegetarian Recipes', 'Cheese Bread'
-    union select 'Easy Vegetarian Recipes', 'Chocolate Chip Cookies'
-    union select 'Breakfast Made Easy', 'Apple Yogurt Smoothie'
-    union select 'Breakfast Made Easy', 'Cheese Bread'
-    union select 'Breakfast Made Easy', 'Butter Muffins'
-    union select 'Breakfast Made Easy', 'Chocolate Chip Cookies'
+    select Cookbook = 'Treats for Two', Recipe = 'Chocolate Chip Cookies', SequenceOrder = 1
+    union select 'Treats for Two', 'Apple Yogurt Smoothie', 2
+    union select 'Treats for Two', 'Cheese Bread', 3
+    union select 'Treats for Two', 'Butter Muffins', 4
+    union select 'Jewish Cooking', 'Fried Chicken Cutlets', 1
+    union select 'Jewish Cooking', 'Crispy Potato Roast', 2
+    union select 'Jewish Cooking', 'Chocolate Chip Cookies', 3
+    union select 'Easy Vegetarian Recipes', 'Apple Yogurt Smoothie', 1
+    union select 'Easy Vegetarian Recipes', 'Quesadillas', 2
+    union select 'Easy Vegetarian Recipes', 'Cheese Bread', 3
+    union select 'Easy Vegetarian Recipes', 'Chocolate Chip Cookies', 4
+    union select 'Breakfast Made Easy', 'Apple Yogurt Smoothie', 1
+    union select 'Breakfast Made Easy', 'Cheese Bread', 2
+    union select 'Breakfast Made Easy', 'Butter Muffins', 3
+    union select 'Breakfast Made Easy', 'Chocolate Chip Cookies', 4
 )
-insert CookbookRecipe (CookbookId, RecipeId)
-select c.cookbookId, r.RecipeId
+insert CookbookRecipe (CookbookId, RecipeId, SequenceOrder)
+select c.cookbookId, r.RecipeId, x.SequenceOrder
 from x 
 join Cookbook c 
 on c.CookbookName = x.Cookbook
@@ -349,6 +349,7 @@ select * from  Instruction order by RecipeId
 select * from  RecipeIngredient order by RecipeId
 select * from  Recipe  
 select * from  Users  
+select * from MeasurementType
 select * from  Ingredient
 select * from  Course  
 select * from  Cuisine
