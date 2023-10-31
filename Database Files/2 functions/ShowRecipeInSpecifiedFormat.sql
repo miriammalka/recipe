@@ -1,3 +1,5 @@
+--AF Very nice work! 
+--AF The function name can be more concise while still being clear - for example, FormatRecipe
 create or alter function dbo.ShowRecipeInSpecifiedFormat(@RecipeId int)
 returns varchar(150)
 as
@@ -21,3 +23,4 @@ go
 
 select RecipeInSpecifiedFormat = dbo.ShowRecipeInSpecifiedFormat(r.RecipeId) ,*
 from recipe r
+
