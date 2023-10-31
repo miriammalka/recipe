@@ -10,8 +10,8 @@ begin
 	declare @return int = 1
 
 	select @DateCreated = nullif(@DateCreated, '')
-	select @DateCreated = nullif(@DatePublished, '')
-	select @DateCreated = nullif(@DateArchived, '')
+	select @DatePublished = nullif(@DatePublished, '')
+	select @DateArchived = nullif(@DateArchived, '')
 
 	select r.DateCreated, r.DatePublished, r.DateArchived
 	from recipe r

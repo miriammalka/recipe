@@ -52,5 +52,12 @@ namespace RecipeSystem
             SQLUtility.SetParamValue(cmd, "@CookbookId", id);
             SQLUtility.ExecuteSQL(cmd);
         }
+
+        public static void AutoCreateCookbook(int usersid)
+        {
+            SqlCommand cmd = SQLUtility.GetSQLCommand("AutoCreateCookbook");
+            SQLUtility.SetParamValue(cmd, "@UsersId", usersid);
+            SQLUtility.ExecuteSQL(cmd);
+        }
     }
 }

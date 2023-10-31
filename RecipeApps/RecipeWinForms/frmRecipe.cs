@@ -120,7 +120,6 @@ namespace RecipeWinForms
                 this.Tag = recipeid;
                 SetButtonsEnabledBasedOnNewRecord();
                 this.Text = GetRecipeDesc();
-                
             }
             catch(Exception ex)
             {

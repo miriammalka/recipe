@@ -27,5 +27,4 @@ go
 exec RecipeGet @All = 1
 
 
-
-select * from RecipeIngredient where recipeid = 22
+--how to order by column values? Maybe with a computed column called iSequence? iSequence is part 1 session 6 and computed column is part 1 session 17

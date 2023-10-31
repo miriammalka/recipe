@@ -164,7 +164,7 @@ create table dbo.CookbookRecipe(
     CookbookRecipeId int not null identity primary key, 
     CookbookId int not null constraint f_Cookbook_CookbookRecipe foreign key references Cookbook(CookbookId),
     RecipeId int not null constraint f_Recipe_CookbookRecipe foreign key references Recipe(RecipeId),
-	SequenceOrder int not null 
+	SequenceOrder int not null,
     constraint ck_CookbookRecipe_Sequence_must_be_between_1_and_50 check(SequenceOrder between 1 and 50), 
     constraint u_CookbookRecipe_CookbookId_RecipeId unique(CookbookId, RecipeId)
 )
