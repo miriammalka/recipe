@@ -1,11 +1,12 @@
 create or alter procedure dbo.RecipeIngredientDelete(
-@RecipeIngredientId int,
+@RecipeIngredientId int = 0,
 @Message varchar(500) = '' output
 )
 as
 begin
 	declare @return int = 0
 	
+	select @RecipeIngredientId = isnull(@RecipeIngredientId, 0)
 
 	begin try
 		begin tran
@@ -17,10 +18,6 @@ begin
 		throw
 	end catch
 
-
 	return @return
 end
 go
-
-exec RecipeIngredientDelete @RecipeIngredientId = 1085
-select * from recipeingredient

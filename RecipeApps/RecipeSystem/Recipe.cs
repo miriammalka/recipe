@@ -13,13 +13,6 @@ namespace RecipeSystem
             return SQLUtility.GetDataTable(cmd);
         }
 
-        //public static DataTable GetRecipeBasedOnId(int recipeid)
-        //{
-        //    SqlCommand cmd = SQLUtility.GetSQLCommand("RecipeGet");
-        //    SQLUtility.SetParamValue(cmd, "@RecipeId", recipeid);
-        //    return SQLUtility.GetDataTable(cmd);
-        //}
-
         public static DataTable Load(int recipeid)
         {
             DataTable dt = new();

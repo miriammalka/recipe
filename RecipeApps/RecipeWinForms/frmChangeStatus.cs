@@ -17,8 +17,6 @@ namespace RecipeWinForms
         BindingSource bindsource = new();
         int loadedrecipeid = 0;
 
-        // private enum RecipeStatusEnum { Draft, Publish, Archived };
-
         DataTable dtrecipe;
         public frmChangeStatus()
         {
@@ -62,15 +60,15 @@ namespace RecipeWinForms
                     switch (status)
                     {
                         case "Draft":
-                            txtDatePublished.Text = "";
-                            txtDateArchived.Text = "";
+                            dtrecipe.Rows[0]["DatePublished"] = DBNull.Value;
+                            dtrecipe.Rows[0]["DateArchived"] = DBNull.Value;
                             break;
                         case "Published":
-                            txtDatePublished.Text = txtDatePublished.Text == "" ? DateTime.Now.ToString() : txtDatePublished.Text;
-                            txtDateArchived.Text = "";
+                            dtrecipe.Rows[0]["DatePublished"] = txtDatePublished.Text == "" ? DateTime.Now.ToString() : dtrecipe.Rows[0]["DatePublished"];
+                            dtrecipe.Rows[0]["DateArchived"] = DBNull.Value;
                             break;
                         case "Archived":
-                            txtDateArchived.Text = DateTime.Now.ToString();
+                            dtrecipe.Rows[0]["DateArchived"] = DateTime.Now.ToString();
                             break;
                     }
                     Recipe.Save(dtrecipe);
@@ -117,114 +115,10 @@ namespace RecipeWinForms
             {
                 if (f is frmRecipe)
                 {
-                    bindsource.ResetBindings(true);
                     ((frmRecipe)f).bindsource.DataSource = Recipe.Load(recipeid);
                 }
             }
         }
-
-        //private void BtnPublished_Click(object? sender, EventArgs e)
-        //{
-        //    var response = MessageBox.Show("Are you sure you want to change this recipe status to published?", Application.ProductName, MessageBoxButtons.YesNo);
-        //    if (response == DialogResult.No)
-        //    {
-        //        return;
-        //    }
-        //    Application.UseWaitCursor = true;
-        //    try
-        //    {
-        //        RecipeStatusEnum currentstatus = RecipeStatusEnum.Publish;
-        //        currentstatus = RecipeStatusEnum.Publish;
-        //        lblRecipeStatus.Text = currentstatus.ToString();
-        //        txtDatePublished.Text = DateTime.Now.ToString();
-        //        txtDateArchived.Text = null;
-        //        //how to set the value in the column to the recipe status?
-        //        Recipe.Save(dtrecipe);
-        //        //bindsource.DataSource = dtrecipe;
-        //        //Recipe.Load(recipeid);
-        //        bindsource.ResetBindings(true);
-        //        SetButtonsEnabledBasedOnStatus();
-        //        LoadRecipeForm(loadedrecipeid);
-        //        this.Close();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message, Application.ProductName);
-        //    }
-        //    finally
-        //    {
-        //        Application.UseWaitCursor = false;
-        //    }
-        //}
-
-        //private void BtnDraft_Click(object? sender, EventArgs e)
-        //{
-        //    var response = MessageBox.Show("Are you sure you want to change this recipe status to draft?", Application.ProductName, MessageBoxButtons.YesNo);
-        //    if (response == DialogResult.No)
-        //    {
-        //        return;
-        //    }
-        //    Application.UseWaitCursor = true;
-        //    try
-        //    {
-        //        RecipeStatusEnum currentstatus = RecipeStatusEnum.Draft;
-        //        currentstatus = RecipeStatusEnum.Draft;
-        //        lblRecipeStatus.Text = currentstatus.ToString();
-        //        txtDateCreated.Text = DateTime.Now.ToString();
-        //        txtDatePublished.Text = "";
-        //        txtDateArchived.Text = "";
-        //        //how to set the value in the column to the recipe status?
-        //        Recipe.Save(dtrecipe);
-        //        //bindsource.DataSource = dtrecipe;
-        //        //Recipe.Load(recipeid);
-        //        bindsource.ResetBindings(true);
-        //        SetButtonsEnabledBasedOnStatus();
-        //        LoadRecipeForm(loadedrecipeid);
-        //        this.Close();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message, Application.ProductName);
-        //    }
-        //    finally
-        //    {
-        //        Application.UseWaitCursor = false;
-        //    }
-        //}
-
-
-        //private void BtnArchived_Click(object? sender, EventArgs e)
-        //{
-        //    var response = MessageBox.Show("Are you sure you want to change this recipe status to archived?", Application.ProductName, MessageBoxButtons.YesNo);
-        //    if (response == DialogResult.No)
-        //    {
-        //        return;
-        //    }
-        //    Application.UseWaitCursor = true;
-        //    try
-        //    {
-        //        RecipeStatusEnum currentstatus = RecipeStatusEnum.Archived;
-        //        currentstatus = RecipeStatusEnum.Archived;
-        //        lblRecipeStatus.Text = currentstatus.ToString();
-        //        txtDateArchived.Text = DateTime.Now.ToString();
-        //        //how to set the value in the column to the recipe status?
-        //        Recipe.Save(dtrecipe);
-        //        //bindsource.DataSource = dtrecipe;
-        //        //Recipe.Load(recipeid);
-        //        bindsource.ResetBindings(true);
-        //        SetButtonsEnabledBasedOnStatus();
-        //        LoadRecipeForm(loadedrecipeid);
-        //        this.Close();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message, Application.ProductName);
-        //    }
-        //    finally
-        //    {
-        //        Application.UseWaitCursor = false;
-        //    }
-        //}
 
     }
 }

@@ -12,7 +12,7 @@ begin
 	
 	declare @return int = 0
 
-	select @RecipeIngredientId = isnull(@RecipeIngredientId, 0)
+	select @RecipeIngredientId = isnull(@RecipeIngredientId, 0), @RecipeId = isnull(@RecipeId, 0), @IngredientId = isnull(@IngredientId, 0)
 
 	if @RecipeIngredientId = 0
 	begin

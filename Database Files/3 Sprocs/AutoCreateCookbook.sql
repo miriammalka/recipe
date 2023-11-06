@@ -10,19 +10,11 @@ begin
 
 	select @Username = concat(u.FirstName, ' ', u.LastName) from Users u where @UsersId = u.UsersId 
 	select @NumRecipes = count(r.RecipeId) from Recipe r where r.UsersId = @UsersId
-	--select @SequenceOrder = max(cr.CookbookRecipeId) + 1 from cookbookrecipe cr
-
-
-
 		
 	insert Cookbook(UsersId, CookbookName, Price, DateCreated, Active)
 	select @UsersId, concat('Recipes by', ' ', @Username), @NumRecipes * 1.33, GetDate(), 1
 	
 	select @CookbookId = SCOPE_IDENTITY()
-
-	--Tip: To get a unique sequential number for each row in the result set use the ROW_NUMBER() function. See Microsoft Docs.
-	 --The following can be a column in your select statement: Sequence = ROW_NUMBER() 
-	 --over (order by colum name) , replace column name with the name of the column that the row number should be sorted
 
 	insert CookbookRecipe(CookbookId, RecipeId, SequenceOrder )
 	select @CookbookId, r.RecipeId, SequenceOrder = ROW_NUMBER() over (order by RecipeName)
@@ -30,7 +22,7 @@ begin
 	where r.UsersId = @UsersId
 	order by r.RecipeName
 
-return @return
+	return @return
 
 end
 go

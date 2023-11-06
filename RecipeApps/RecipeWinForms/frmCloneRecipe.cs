@@ -23,9 +23,7 @@ namespace RecipeWinForms
 
         private void BindData()
         {
-           DataTable dtrecipe = Recipe.GetRecipeList();
-           // WindowsFormsUtility.SetListBinding(lstRecipeName, dtrecipe, dtrecipe, "Recipe");
-           WindowsFormsUtility.SetListBinding(lstRecipeName, DataMaintenance.GetDataList("Recipe", false), dtrecipe, "Recipe");
+           WindowsFormsUtility.SetListBinding(lstRecipeName, DataMaintenance.GetDataList("Recipe", true), dtrecipe, "Recipe");
         }
 
         private void CloneARecipe()
@@ -40,8 +38,7 @@ namespace RecipeWinForms
                 
                     if(this.MdiParent != null && this.MdiParent is frmMain)
                 {
-                    ((frmMain)this.MdiParent).OpenForm(typeof(frmRecipe), newrecipeid);
-                   // this.Close();                    
+                    ((frmMain)this.MdiParent).OpenForm(typeof(frmRecipe), newrecipeid);                 
                 }
             }
             catch (Exception ex)

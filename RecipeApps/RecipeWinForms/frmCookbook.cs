@@ -46,12 +46,10 @@ namespace RecipeWinForms
             
             WindowsFormsUtility.SetControlBinding(txtPrice, bindsource);
             WindowsFormsUtility.SetControlBinding(txtDateCreated, bindsource);
-            //Check.DataBindings.Add("Checked", dt, "check", false, DataSourceUpdateMode.OnPropertyChanged);
             WindowsFormsUtility.SetControlBinding(chkActive, bindsource);
             this.Text = GetCookbookDesc();
             SetButtonsEnableBasedOnNewRecord();
             LoadCookbookRecipe();
-
         }
 
         private void SetButtonsEnableBasedOnNewRecord()
@@ -77,7 +75,7 @@ namespace RecipeWinForms
             dtcookbookrecipe = CookbookRecipe.LoadByCookbookId(cookbookid);
             gRecipes.Columns.Clear();
             gRecipes.DataSource = dtcookbookrecipe;
-            WindowsFormsUtility.AddComboBoxToGrid(gRecipes, DataMaintenance.GetDataList("Recipe"), "Recipe", "RecipeName");
+            WindowsFormsUtility.AddComboBoxToGrid(gRecipes, DataMaintenance.GetDataList("Recipe",true), "Recipe", "RecipeName");
             WindowsFormsUtility.AddDeleteButtonToGrid(gRecipes, deletecolname);
             WindowsFormsUtility.FormatGridForEdit(gRecipes, "Recipe");
         }

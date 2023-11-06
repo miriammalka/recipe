@@ -7,7 +7,9 @@ as
 begin
 	declare @return int = 0
 
-	select m.MealName, u.UserName, NumCalories = sum(r.Calories), NumCourses = count(distinct mc.CourseId), NumRecipes = count(distinct mcr.MealCourseRecipeId)
+	select @All = isnull(@All,0), @MealId = isnull(@MealId,0)
+
+	select m.MealName, u.UserName, NumCalories = sum(r.Calories), NumCourses = count(distinct mc.CourseId), NumRecipes = count(distinct r.RecipeId)
 	from meal m
 	join users u
 	on m.UsersId = u.UsersId

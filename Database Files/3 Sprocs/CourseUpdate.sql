@@ -1,8 +1,8 @@
 create or alter procedure dbo.CourseUpdate(
-		@CourseId int  output,
-		@CourseName varchar (100),
-		@SequenceOrder int,
-		@Message varchar(500) = ''  output
+	@CourseId int  output,
+	@CourseName varchar (100),
+	@SequenceOrder int,
+	@Message varchar(500) = ''  output
 )
 as
 begin
@@ -21,8 +21,8 @@ begin
 	begin
 		update Course
 		set	
-			CourseName = @CourseName,
-			SequenceOrder = @SequenceOrder
+		CourseName = @CourseName,
+		SequenceOrder = @SequenceOrder
 		where CourseId = @CourseId
 	end
 	

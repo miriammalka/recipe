@@ -21,7 +21,7 @@ namespace RecipeWinForms
         private void ShowRecipeForm(int rowindex)
         {
             int id = 0;
-            if(rowindex > -1)
+            if (rowindex > -1)
             {
                 id = WindowsFormsUtility.GetIdFromGrid(gRecipe, rowindex, "RecipeId");
             }
@@ -48,7 +48,8 @@ namespace RecipeWinForms
             gRecipe.Columns["DateCreated"].Visible = false;
             gRecipe.Columns["DatePublished"].Visible = false;
             gRecipe.Columns["DateArchived"].Visible = false;
-           
+            gRecipe.Columns["isequence"].Visible = false;
+
         }
     }
 }

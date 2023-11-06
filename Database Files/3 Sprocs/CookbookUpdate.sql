@@ -11,7 +11,7 @@ as
 begin
 	declare @return int = 0
 
-	select @CookbookId = isnull(@CookbookId, 0)
+	select @CookbookId = isnull(@CookbookId, 0), @UsersId = isnull(@UsersId,0)
 		
 	if exists (select * from Cookbook c where @Active = 0 and @Price > 0)
 	begin

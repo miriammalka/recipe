@@ -1,10 +1,12 @@
 create or alter procedure dbo.CookbookDelete(
-@CookbookId int,
+@CookbookId int = 0,
 @Message varchar(500) = '' output
 )
 as
 begin
 	declare @return int = 0
+
+	select @CookbookId = isnull(@CookbookId,0)
 
 	begin try
 		begin tran
@@ -17,11 +19,6 @@ begin
 		throw
 	end catch
 
-	finished:
 	return @return
 end
 go
-
-exec CookbookDelete @CookbookId = 2
-
-select * from cookbook

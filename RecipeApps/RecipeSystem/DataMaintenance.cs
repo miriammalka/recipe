@@ -27,7 +27,6 @@ namespace RecipeSystem
                 SQLUtility.SetParamValue(cmd, "@IncludeBlank", includeblank);
             }
             dt = SQLUtility.GetDataTable(cmd);
-            Console.Write("data", dt);
             return dt;
         }
 

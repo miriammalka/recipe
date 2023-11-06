@@ -10,6 +10,7 @@ begin
 	declare @return int = 0
 
 	select @All = isnull(@All,0), @CourseId = isnull(@CourseId, 0)
+	
 	select c.CourseId, c.CourseName, c.SequenceOrder
 	from Course c
 	where c.CourseId = @CourseId

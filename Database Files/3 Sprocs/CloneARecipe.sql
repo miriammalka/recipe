@@ -17,7 +17,6 @@ begin
 	from RecipeIngredient ri
 	where ri.RecipeId = @BaseRecipeId
 
-	--review this code
 	insert Instruction(RecipeId, SequenceOrder, Instruction)
 	select @RecipeId, i.SequenceOrder, i.Instruction
 	from Instruction i

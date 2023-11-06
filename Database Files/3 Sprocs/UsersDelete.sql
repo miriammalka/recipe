@@ -1,13 +1,15 @@
 create or alter proc dbo.UsersDelete(
-	@UsersId int,
+	@UsersId int = 0,
 	@Message varchar(500) = '' output
 )
 as
 begin
 	declare @return int = 0
 
+	select @UsersId = isnull(@UsersId,0)
+
 	begin try
-	begin tran
+		begin tran
 
 		delete cr 
 		from CookbookRecipe cr 
@@ -24,7 +26,7 @@ begin
 		from Cookbook cb 
 		join Users u 
 		on u.UsersId = cb.UsersId 
-		where cb.UsersId = @UsersId
+		where u.UsersId = @UsersId
 
 		delete mcr 
 		from MealcourseRecipe mcr 
@@ -37,8 +39,7 @@ begin
 		join Users u 
 		on u.UsersId = m.UsersId 
 		or u.UsersId = r.UsersId
-		where r.UsersId = @UsersId 
-		or m.UsersId = @UsersId
+		where u.UsersId = @UsersId 
 
 		delete  mc 
 		from MealCourse mc 
@@ -46,13 +47,13 @@ begin
 		on m.MealId = mc.mealId
 		join Users u 
 		on u.UsersId = m.UsersId
-		where m.UsersId = @UsersId
+		where u.UsersId = @UsersId
 
 		delete m
 		from meal m 
 		join Users u 
 		on u.UsersId = m.UsersId
-		where m.UsersId = @UsersId
+		where u.UsersId = @UsersId
 
 		delete s
 		from Instruction s 
@@ -60,8 +61,7 @@ begin
 		on r.RecipeId = s.RecipeId
 		join Users u 
 		on u.UsersId = r.UsersId
-		where r.UsersId = @UsersId
-
+		where u.UsersId = @UsersId
 
 		delete ri
 		from RecipeIngredient ri 
@@ -69,15 +69,13 @@ begin
 		on r.RecipeId = ri.RecipeId
 		join Users u 
 		on u.UsersId = r.UsersId 
-		where r.UsersId = @UsersId
-
-
+		where u.UsersId = @UsersId
 
 		delete r
 		from recipe r 
 		join Users u 
 		on u.UsersId = r.UsersId
-		where r.UsersId = @UsersId
+		where u.UsersId = @UsersId
 
 		delete u
 		from Users u 
@@ -94,6 +92,3 @@ begin
 end
 go
 
-exec UsersDelete @UsersId = 90
-
-select * from users

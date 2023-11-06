@@ -20,7 +20,7 @@ begin
 	begin
 		update Cuisine
 		set	
-			CuisineName = @CuisineName
+		CuisineName = @CuisineName
 		where CuisineId = @CuisineId
 	end
 	

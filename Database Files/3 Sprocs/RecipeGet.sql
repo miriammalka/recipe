@@ -1,4 +1,3 @@
---how do I program the @IncludeBlank?
 create or alter procedure dbo.RecipeGet(
 @RecipeId int = 0, 
 @All bit = 0, 
@@ -7,9 +6,17 @@ create or alter procedure dbo.RecipeGet(
 )
 as
 begin
+
+	select @All = isnull(@All,0), @RecipeId = isnull(@RecipeId,0), @IncludeBlank = isnull(@IncludeBlank,0)
+
 	select r.RecipeId, r.CuisineId, r.UsersId, r.RecipeName, r.RecipeStatus, 'User' = concat(u.FirstName, ' ', u.LastName),r.Calories, 
 	'Num Ingredients' = count(ri.RecipeIngredientId),	
-	r.DateCreated, r.DatePublished, r.DateArchived 
+	r.DateCreated, r.DatePublished, r.DateArchived , isequence = case r.recipestatus
+		 
+		when 'published' then 1
+		when  'draft' then 2
+		when  'archived' then 3
+		end
 	from recipe r
 	join users u
 	on u.UsersId = r.UsersId
@@ -17,14 +24,12 @@ begin
 	on ri.RecipeId = r.RecipeId
 	where r.RecipeId = @RecipeId
 	or @All = 1
-	--union select 0, 0, 0, '', '', '', 0, 0, '', '', ''
-	--where @IncludeBlank = 1
 	group by r.RecipeId, r.CuisineId, r.UsersId, r.RecipeName, r.RecipeStatus, concat(u.FirstName, ' ', u.LastName), r.Calories, r.DateCreated, 
 	r.DatePublished, r.DateArchived
-	order by r.RecipeStatus desc
+	union select 0, 0, 0, '', '', '', 0, 0, '', '', '', 0
+	where @IncludeBlank = 1
+	order by isequence
 end
 go
-exec RecipeGet @All = 1
+exec RecipeGet @All = 1, @IncludeBlank = 1
 
-
---how to order by column values? Maybe with a computed column called iSequence? iSequence is part 1 session 6 and computed column is part 1 session 17

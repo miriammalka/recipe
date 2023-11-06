@@ -76,8 +76,8 @@ namespace RecipeWinForms
             dtrecipeingredient = RecipeIngredient.LoadByRecipeId(recipeid);
             gIngredients.Columns.Clear();
             gIngredients.DataSource = dtrecipeingredient;
-            WindowsFormsUtility.AddComboBoxToGrid(gIngredients, DataMaintenance.GetDataList("Ingredient"), "Ingredient", "IngredientName");
-            WindowsFormsUtility.AddComboBoxToGrid(gIngredients, DataMaintenance.GetDataList("MeasurementType"), "MeasurementType", "MeasurementType");
+            WindowsFormsUtility.AddComboBoxToGrid(gIngredients, DataMaintenance.GetDataList("Ingredient",true), "Ingredient", "IngredientName");
+            WindowsFormsUtility.AddComboBoxToGrid(gIngredients, DataMaintenance.GetDataList("MeasurementType",true), "MeasurementType", "MeasurementType");
             WindowsFormsUtility.AddDeleteButtonToGrid(gIngredients, deletecolname);
             WindowsFormsUtility.FormatGridForEdit(gIngredients, "RecipeIngredient");
             
@@ -243,8 +243,7 @@ namespace RecipeWinForms
             btnDelete.Enabled = b;
             btnChangeStatus.Enabled = b;
             btnSaveIngredients.Enabled = b;
-            btnSaveInstruction.Enabled = b;
-            
+            btnSaveInstruction.Enabled = b;           
         }
 
 

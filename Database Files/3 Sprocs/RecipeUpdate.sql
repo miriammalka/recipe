@@ -7,14 +7,16 @@ create or alter procedure dbo.RecipeUpdate(
 @DateCreated datetime output,
 @DatePublished datetime,
 @DateArchived datetime,
-@RecipeStatus varchar(25) output,
+--@RecipeStatus varchar(25) output,
 @Message varchar(500) = '' output
 )
 as
 begin
 	declare @return int = 0
 
-	select @RecipeId = isnull(@RecipeId, 0), @DatePublished = nullif(@DatePublished, ''), @DateArchived = nullif(@DateArchived, '')
+	select @RecipeId = isnull(@RecipeId, 0), @CuisineId = isnull(@CuisineId, 0), @UsersId = isnull(@UsersId, 0), 
+	@DatePublished = nullif(@DatePublished, ''), @DateArchived = nullif(@DateArchived, '')
+	
 	if exists (select * from recipe r where r.RecipeName = @RecipeName and @RecipeId = 0)
 	begin
 		select @return = 1, @Message = 'Recipe name must be unique'
@@ -26,7 +28,7 @@ begin
 
 		if @DateCreated is null
 		begin
-			select @DateCreated = GETDATE(), @RecipeStatus = 'Draft'
+			select @DateCreated = GETDATE()--, @RecipeStatus = 'Draft'
 		end
 
 		insert Recipe(CuisineId, UsersId, RecipeName, Calories, DateCreated, DatePublished, DateArchived)
@@ -46,8 +48,7 @@ begin
 		DateCreated = @DateCreated,
 		DatePublished = @DatePublished,
 		DateArchived = @DateArchived
-		
-  where RecipeId = @RecipeId
+	    where RecipeId = @RecipeId
 	end
 
 	finished:

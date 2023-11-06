@@ -1,11 +1,12 @@
---check if I'm doing this delete correctly
 create or alter proc dbo.CuisineDelete(
-@CuisineId int,
+@CuisineId int = 0,
 @Message varchar(500) = '' output
 )
 as
 begin
 	declare @return int = 0
+
+	select @CuisineId = isnull(@CuisineId, 0)
 
 	begin try
 	begin tran
@@ -16,7 +17,7 @@ begin
 		on r.RecipeId = cr.RecipeId 
 		join Cuisine c
 		on c.CuisineId = r.CuisineId
-		where r.CuisineId = @CuisineId
+		where c.CuisineId = @CuisineId
 
 		delete mcr 
 		from MealcourseRecipe mcr 
@@ -24,7 +25,7 @@ begin
 		on r.RecipeId = mcr.RecipeId 
 		join Cuisine c
 		on c.CuisineId = r.CuisineId
-		where r.CuisineId = @CuisineId
+		where c.CuisineId = @CuisineId
 
 		delete s
 		from Instruction s 
@@ -32,7 +33,7 @@ begin
 		on r.RecipeId = s.RecipeId
 		join Cuisine c
 		on c.CuisineId = r.CuisineId
-		where r.CuisineId = @CuisineId
+		where c.CuisineId = @CuisineId
 
 
 		delete ri
@@ -41,13 +42,13 @@ begin
 		on r.RecipeId = ri.RecipeId
 		join Cuisine c
 		on c.CuisineId = r.CuisineId
-		where r.CuisineId = @CuisineId
+		where c.CuisineId = @CuisineId
 
 		delete r
 		from recipe r 
 		join Cuisine c
 		on c.CuisineId = r.CuisineId
-		where r.CuisineId = @CuisineId
+		where c.CuisineId = @CuisineId
 		
 		delete c
 		from Cuisine c
@@ -63,8 +64,3 @@ begin
 	return @return
 end
 go
-
---tests
-
---exec CuisineDelete @CuisineId = 111
---select * from cuisine

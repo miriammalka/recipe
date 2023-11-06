@@ -15,12 +15,10 @@ begin
 	where i.InstructionId = @InstructionId
 	or i.RecipeId = @RecipeId
 	or @All = 1
-	or i.RecipeId = @RecipeId
-	order by i.SequenceOrder
+	order by i.RecipeId, i.SequenceOrder
 
 	return @return
 end
 go
 
 exec InstructionGet @All = 1
-exec InstructionGet @RecipeId = 351

@@ -10,10 +10,8 @@ begin
 
 	select @All = isnull(@All,0), @RecipeIngredientId = isnull(@RecipeIngredientId,0), @RecipeId = isnull(@RecipeId,0)
 
-	select ri.RecipeIngredientId, ri.RecipeId, ri.IngredientId, mt.MeasurementTypeId, ri.Amount, ri.SequenceOrder
+	select ri.RecipeIngredientId, ri.RecipeId, ri.IngredientId, ri.MeasurementTypeId, ri.Amount, ri.SequenceOrder
 	from RecipeIngredient ri
-	join MeasurementType mt
-	on mt.MeasurementTypeId = ri.MeasurementTypeId
 	where ri.RecipeIngredientId = @RecipeIngredientId
 	or @All = 1
 	or ri.RecipeId = @RecipeId
@@ -24,15 +22,11 @@ end
 go
 
 exec RecipeIngredientGet @All = 1
-exec RecipeIngredientGet @RecipeId = 351
 
-select * from recipeingredient
-
-select *from recipe r
-join recipeingredient ri
-on r.recipeid = ri.recipeid
-join ingredient i
-on i.ingredientid = ri.ingredientid
-join instruction s
-on s.recipeid = r.recipeid
-where r.recipename = 'iced tea'
+--select *from recipe r
+--join recipeingredient ri
+--on r.recipeid = ri.recipeid
+--join ingredient i
+--on i.ingredientid = ri.ingredientid
+--join instruction s
+--on s.recipeid = r.recipeid

@@ -24,9 +24,7 @@ namespace RecipeWinForms
 
         private void BindData()
         {
-            dtusers = Recipe.GetUsersList();
-            dtcookbook = Cookbook.GetCookbookList();
-            WindowsFormsUtility.SetListBinding(lstUsers, dtusers, dtcookbook, "Users");
+            WindowsFormsUtility.SetListBinding(lstUsers, DataMaintenance.GetDataList("Users",true), Cookbook.GetCookbookList(), "Users");
         }
 
         private void AutoCreateCookbook()
@@ -40,8 +38,7 @@ namespace RecipeWinForms
                 int newcookbookid = SQLUtility.GetValueFromFirstRowAsInt(dtcookbook, "CookbookId");
                 if (this.MdiParent != null && this.MdiParent is frmMain)
                 {
-                    ((frmMain)this.MdiParent).OpenForm(typeof(frmCookbook), newcookbookid);
-                    // this.Close();                    
+                    ((frmMain)this.MdiParent).OpenForm(typeof(frmCookbook), newcookbookid);                   
                 }
 
             }
