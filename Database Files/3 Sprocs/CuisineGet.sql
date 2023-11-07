@@ -13,7 +13,7 @@ begin
 	from Cuisine c
 	where c.CuisineId = @CuisineId
 	or @All = 1
-	union select 0,''
+	union select 0,' '
 	where @IncludeBlank = 1
 	order by c.CuisineId
 end

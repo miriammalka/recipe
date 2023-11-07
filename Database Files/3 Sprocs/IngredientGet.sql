@@ -16,7 +16,7 @@ begin
 	from Ingredient i
 	where i.IngredientId = @IngredientId
 	or @All = 1
-	union select 0, ''
+	union select 0, ' '
 	where @IncludeBlank = 1
 	order by i.IngredientId
 

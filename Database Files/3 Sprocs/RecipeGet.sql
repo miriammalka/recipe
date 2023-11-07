@@ -26,7 +26,7 @@ begin
 	or @All = 1
 	group by r.RecipeId, r.CuisineId, r.UsersId, r.RecipeName, r.RecipeStatus, concat(u.FirstName, ' ', u.LastName), r.Calories, r.DateCreated, 
 	r.DatePublished, r.DateArchived
-	union select 0, 0, 0, '', '', '', 0, 0, '', '', '', 0
+	union select 0, 0, 0, ' ', ' ', ' ', 0, 0, ' ', ' ', ' ', 0
 	where @IncludeBlank = 1
 	order by isequence
 end

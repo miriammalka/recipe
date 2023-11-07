@@ -13,7 +13,7 @@ begin
 	from Users u
 	where u.UsersId = @UsersId
 	or @All = 1
-	union select 0,'','','',''
+	union select 0,' ',' ',' ',' '
 	where @IncludeBlank = 1
 	order by u.UsersId
 end
