@@ -17,6 +17,7 @@ begin
 	select @RecipeId = isnull(@RecipeId, 0), @CuisineId = isnull(@CuisineId, 0), @UsersId = isnull(@UsersId, 0), 
 	@DatePublished = nullif(@DatePublished, ''), @DateArchived = nullif(@DateArchived, '')
 	
+	--AF If you are matching on @RecipeId = 0, you should give @RecipeId a default value of 0 just in case it doesn't come in at all
 	if exists (select * from recipe r where r.RecipeName = @RecipeName and @RecipeId = 0)
 	begin
 		select @return = 1, @Message = 'Recipe name must be unique'
@@ -26,6 +27,7 @@ begin
 	if @RecipeId = 0
 	begin
 
+		--AF It's more concise for this to be set in isnull()
 		if @DateCreated is null
 		begin
 			select @DateCreated = GETDATE()--, @RecipeStatus = 'Draft'

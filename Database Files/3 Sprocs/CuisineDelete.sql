@@ -15,6 +15,7 @@ begin
 		from CookbookRecipe cr 
 		join Recipe r 
 		on r.RecipeId = cr.RecipeId 
+		--AF You don't need to join to cuisine, Recipe has CuisineId
 		join Cuisine c
 		on c.CuisineId = r.CuisineId
 		where c.CuisineId = @CuisineId
@@ -23,10 +24,12 @@ begin
 		from MealcourseRecipe mcr 
 		join Recipe r 
 		on r.RecipeId = mcr.RecipeId 
+		--AF You don't need to join to cuisine, Recipe has CuisineId
 		join Cuisine c
 		on c.CuisineId = r.CuisineId
 		where c.CuisineId = @CuisineId
 
+		--AF Instructions are not dependent on cuisines, they should not be deleted
 		delete s
 		from Instruction s 
 		join Recipe r 
@@ -35,7 +38,7 @@ begin
 		on c.CuisineId = r.CuisineId
 		where c.CuisineId = @CuisineId
 
-
+		--AF RecipeIngredients are not dependent on cuisines, they should not be deleted
 		delete ri
 		from RecipeIngredient ri 
 		join recipe r 
@@ -46,6 +49,7 @@ begin
 
 		delete r
 		from recipe r 
+		--AF You don't need to join to cuisine, Recipe has CuisineId
 		join Cuisine c
 		on c.CuisineId = r.CuisineId
 		where c.CuisineId = @CuisineId

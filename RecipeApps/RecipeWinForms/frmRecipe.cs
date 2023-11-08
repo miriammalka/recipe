@@ -1,8 +1,14 @@
 ﻿using CPUFramework;
 using RecipeSystem;
 using System.Data;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Diagnostics.Metrics;
 
-
+/*AF After a new recipe is saved the status should automatically be presented on the screen
+The window to edit the ingredients for  a recipe should be bigger, so it doesn't look cut off, no need for a scroll when it can just be wider, and same
+for the steps tab
+The buttons to save, delete and change status of recipe should be at the top of the form, as shown in the wireframe
+*/
 namespace RecipeWinForms
 {
     public partial class frmRecipe : Form
@@ -26,7 +32,7 @@ namespace RecipeWinForms
             tabIngedients.Click += TabIngedients_Click;
             tabSteps.Click += TabSteps_Click;
             this.FormClosing += FrmRecipe_FormClosing;
-            
+
         }
 
 
@@ -45,7 +51,7 @@ namespace RecipeWinForms
 
             DataTable dtusers = Recipe.GetUsersList();
             WindowsFormsUtility.SetListBinding(lstUsers, dtusers, dtrecipe, "Users");
-         
+
             WindowsFormsUtility.SetControlBinding(txtRecipeName, bindsource);
             WindowsFormsUtility.SetControlBinding(txtCalories, bindsource);
             WindowsFormsUtility.SetControlBinding(txtRecipeStatus, bindsource);
@@ -57,7 +63,7 @@ namespace RecipeWinForms
             LoadRecipeInstructions();
             SetButtonsEnabledBasedOnNewRecord();
             this.Text = GetRecipeDesc();
-           
+
         }
 
         private string GetRecipeDesc()
@@ -76,11 +82,11 @@ namespace RecipeWinForms
             dtrecipeingredient = RecipeIngredient.LoadByRecipeId(recipeid);
             gIngredients.Columns.Clear();
             gIngredients.DataSource = dtrecipeingredient;
-            WindowsFormsUtility.AddComboBoxToGrid(gIngredients, DataMaintenance.GetDataList("Ingredient",true), "Ingredient", "IngredientName");
-            WindowsFormsUtility.AddComboBoxToGrid(gIngredients, DataMaintenance.GetDataList("MeasurementType",true), "MeasurementType", "MeasurementType");
+            WindowsFormsUtility.AddComboBoxToGrid(gIngredients, DataMaintenance.GetDataList("Ingredient", true), "Ingredient", "IngredientName");
+            WindowsFormsUtility.AddComboBoxToGrid(gIngredients, DataMaintenance.GetDataList("MeasurementType", true), "MeasurementType", "MeasurementType");
             WindowsFormsUtility.AddDeleteButtonToGrid(gIngredients, deletecolname);
             WindowsFormsUtility.FormatGridForEdit(gIngredients, "RecipeIngredient");
-            
+
         }
 
         private void LoadRecipeInstructions()
@@ -121,7 +127,7 @@ namespace RecipeWinForms
                 SetButtonsEnabledBasedOnNewRecord();
                 this.Text = GetRecipeDesc();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, Application.ProductName);
             }
@@ -139,7 +145,7 @@ namespace RecipeWinForms
             {
                 RecipeIngredient.SaveTable(dtrecipeingredient, recipeid);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, Application.ProductName);
             }
@@ -149,7 +155,7 @@ namespace RecipeWinForms
         {
             try
             {
-               Instruction.SaveTable(dtInstruction, recipeid);
+                Instruction.SaveTable(dtInstruction, recipeid);
             }
             catch (Exception ex)
             {
@@ -188,7 +194,7 @@ namespace RecipeWinForms
             {
                 Application.UseWaitCursor = false;
             }
-            
+
         }
         private void BtnDelete_Click(object? sender, EventArgs e)
         {
@@ -198,19 +204,19 @@ namespace RecipeWinForms
         private void DeleteRecipeIngredient(int rowindex)
         {
             int id = WindowsFormsUtility.GetIdFromGrid(gIngredients, rowindex, "RecipeIngredientId");
-            if(id > 0)
+            if (id > 0)
             {
                 try
                 {
                     RecipeIngredient.Delete(id);
                     LoadRecipeIngredients();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, Application.ProductName);
                 }
             }
-            else if(id < gIngredients.Rows.Count)
+            else if (id < gIngredients.Rows.Count)
             {
                 gIngredients.Rows.RemoveAt(rowindex);
             }
@@ -243,7 +249,7 @@ namespace RecipeWinForms
             btnDelete.Enabled = b;
             btnChangeStatus.Enabled = b;
             btnSaveIngredients.Enabled = b;
-            btnSaveInstruction.Enabled = b;           
+            btnSaveInstruction.Enabled = b;
         }
 
 
@@ -268,7 +274,7 @@ namespace RecipeWinForms
                 {
                     case DialogResult.Yes:
                         bool b = Save();
-                        if(b == false)
+                        if (b == false)
                         {
                             e.Cancel = true;
                             this.Activate();
@@ -286,10 +292,10 @@ namespace RecipeWinForms
         {
             if (this.MdiParent != null && this.MdiParent is frmMain)
             {
-                ((frmMain)this.MdiParent).OpenForm(typeof(frmChangeStatus),recipeid);
-                
+                ((frmMain)this.MdiParent).OpenForm(typeof(frmChangeStatus), recipeid);
+
             }
-            
+
         }
     }
 }

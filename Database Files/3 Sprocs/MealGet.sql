@@ -17,6 +17,7 @@ begin
 	on mc.MealId = m.MealId
 	join mealcourserecipe mcr
 	on mcr.mealcourseId = mc.MealCourseId
+	--AF No need to join to recipe, you can get the count of distinct MealCourseRecipeId
 	join recipe r 
 	on r.RecipeId = mcr.RecipeId
 	where m.MealId = @MealId

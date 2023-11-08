@@ -17,12 +17,14 @@ begin
 		from MealCourseRecipe mcr
 		join MealCourse mc 
 		on mc.MealCourseId = mcr.MealcourseId
+		--AF No need to join to course, MealCourse has a courseid
 		join Course c
 		on c.CourseId = mc.CourseId
 		where c.CourseId = @CourseId
 
 		delete mc
 		from MealCourse mc
+		--AF No need to join to course, MealCourse has a courseid
 		join Course c
 		on c.CourseId = mc.CourseId
 		where c.CourseId = @CourseId

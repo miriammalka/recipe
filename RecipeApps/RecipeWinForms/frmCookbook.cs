@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+//AF When I click on a cookbook in the list, it shows a new cookbook page, not the details for that cookbook
+
 namespace RecipeWinForms
 {
     public partial class frmCookbook : Form
@@ -43,7 +45,7 @@ namespace RecipeWinForms
 
             DataTable dtusers = Cookbook.GetUsersList();
             WindowsFormsUtility.SetListBinding(lstUsers, dtusers, dtcookbook, "Users");
-            
+
             WindowsFormsUtility.SetControlBinding(txtPrice, bindsource);
             WindowsFormsUtility.SetControlBinding(txtDateCreated, bindsource);
             WindowsFormsUtility.SetControlBinding(chkActive, bindsource);
@@ -75,7 +77,7 @@ namespace RecipeWinForms
             dtcookbookrecipe = CookbookRecipe.LoadByCookbookId(cookbookid);
             gRecipes.Columns.Clear();
             gRecipes.DataSource = dtcookbookrecipe;
-            WindowsFormsUtility.AddComboBoxToGrid(gRecipes, DataMaintenance.GetDataList("Recipe",true), "Recipe", "RecipeName");
+            WindowsFormsUtility.AddComboBoxToGrid(gRecipes, DataMaintenance.GetDataList("Recipe", true), "Recipe", "RecipeName");
             WindowsFormsUtility.AddDeleteButtonToGrid(gRecipes, deletecolname);
             WindowsFormsUtility.FormatGridForEdit(gRecipes, "Recipe");
         }

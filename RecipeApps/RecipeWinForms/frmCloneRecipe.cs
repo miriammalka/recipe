@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+//AF Please improve the page design, the button is very far from the dropdown
+
 namespace RecipeWinForms
 {
     public partial class frmCloneRecipe : Form
@@ -32,7 +34,11 @@ namespace RecipeWinForms
             Cursor = Cursors.WaitCursor;
             try
             {
-                Recipe.CloneARecipe(basedonid);               
+                Recipe.CloneARecipe(basedonid); 
+                /*AF here and any other places in this project where you passed in a SQL statement to get all should be refactored.  It's not good to have
+                a sql statement hardcoded in, it's more prone to mistakes.  Instead, in the Recipe class, you can add a method to get all recipes 
+                (which uses the sproc name and passes in the parameter @all = 1
+                */
                 dtrecipe = SQLUtility.GetDataTable("select * from recipe r order by r.recipeid desc");
                 int newrecipeid = SQLUtility.GetValueFromFirstRowAsInt(dtrecipe, "RecipeId");
                 

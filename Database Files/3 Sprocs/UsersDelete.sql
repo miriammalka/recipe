@@ -24,6 +24,7 @@ begin
 
 		delete cb 
 		from Cookbook cb 
+		--AF Cookbook has a column UserId, it's not necessary to join to Users
 		join Users u 
 		on u.UsersId = cb.UsersId 
 		where u.UsersId = @UsersId
@@ -45,12 +46,14 @@ begin
 		from MealCourse mc 
 		join meal m 
 		on m.MealId = mc.mealId
+		--AF Meal has a column UserId, it's not necessary to join to Users
 		join Users u 
 		on u.UsersId = m.UsersId
 		where u.UsersId = @UsersId
 
 		delete m
 		from meal m 
+		--AF Meal has a column UserId, it's not necessary to join to Users
 		join Users u 
 		on u.UsersId = m.UsersId
 		where u.UsersId = @UsersId
@@ -67,12 +70,14 @@ begin
 		from RecipeIngredient ri 
 		join recipe r 
 		on r.RecipeId = ri.RecipeId
+		--AF Recipe has a column UserId, it's not necessary to join to Users
 		join Users u 
 		on u.UsersId = r.UsersId 
 		where u.UsersId = @UsersId
 
 		delete r
 		from recipe r 
+		--AF Recipe has a column UserId, it's not necessary to join to Users
 		join Users u 
 		on u.UsersId = r.UsersId
 		where u.UsersId = @UsersId

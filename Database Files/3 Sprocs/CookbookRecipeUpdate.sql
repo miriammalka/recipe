@@ -1,3 +1,4 @@
+--Af It would be good to add  a default value for the below parameters
 create or alter proc dbo.CookbookRecipeUpdate(
 @CookbookRecipeId int  output,
 @CookbookId int ,
@@ -10,6 +11,7 @@ begin
 	
 	declare @return int = 0
 
+	--AF You are missing isnull() for @SequenceOrder
 	select @CookbookRecipeId = isnull(@CookbookRecipeId, 0), @CookbookId = isnull(@CookbookId, 0), @RecipeId = isnull(@RecipeId,0)
 
 	if @CookbookRecipeId = 0

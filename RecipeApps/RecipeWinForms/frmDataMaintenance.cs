@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+//AF The users tab has an extra column "Users" which is repetitive
+
 namespace RecipeWinForms
 {
     public partial class frmDataMaintenance : Form

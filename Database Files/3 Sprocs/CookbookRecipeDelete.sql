@@ -8,6 +8,7 @@ begin
 	
 	select @CookbookRecipeId = isnull(@CookbookRecipeId,0)
 
+--AF It's only useful to use a SQL transaction when running more than one SQL statement, a regular delete should be used here
 	begin try
 		begin tran
 		delete CookbookRecipe where CookbookRecipeId = @CookbookRecipeId

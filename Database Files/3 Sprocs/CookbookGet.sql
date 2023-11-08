@@ -14,6 +14,7 @@ begin
 	from cookbook c
 	left join cookbookrecipe cr
 	on c.cookbookId = cr.cookbookId
+	--AF It doesn't seem necessary to have a left join here, as all cookbooks must have a foreign key for userid, so the tables should always connect
 	left join users u
 	on u.usersId = c.usersId
 	where c.CookbookId = @CookbookId 

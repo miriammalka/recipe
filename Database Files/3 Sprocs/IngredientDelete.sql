@@ -14,6 +14,7 @@ begin
 
 		delete ri
 		from RecipeIngredient ri
+		--AF NO need to join to Ingredient, RecipeINgredient has IngredientId
 		join Ingredient i
 		on ri.IngredientId = i.IngredientId
 		where i.IngredientId = @IngredientId
