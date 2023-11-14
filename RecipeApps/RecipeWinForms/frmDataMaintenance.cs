@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 //AF The users tab has an extra column "Users" which is repetitive
 //I had to add that column to the UsersGet Sproc because it was needed in other forms. I wrote code below to make it not visible. Is that sufficient?
-
+//AF That's totally fine, I just didn't want it displayed twice
 namespace RecipeWinForms
 {
     public partial class frmDataMaintenance : Form

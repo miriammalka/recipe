@@ -18,19 +18,18 @@ begin
 		from CookbookRecipe cr 
 		join Recipe r 
 		on r.RecipeId = cr.RecipeId 
-		--AF You don't need to join to cuisine, Recipe has CuisineId		
 		where r.CuisineId = @CuisineId
 
 		delete mcr 
 		from MealcourseRecipe mcr 
 		join Recipe r 
 		on r.RecipeId = mcr.RecipeId 
-		--AF You don't need to join to cuisine, Recipe has CuisineId
 		where r.CuisineId = @CuisineId
 
 		--AF Instructions are not dependent on cuisines, they should not be deleted
 		--MM I have to delete it because if I am deleting all the recipes that are related to the cuisine, recipeid is a foreign key in the instruction table, 
 		--so the cuisine will not delete
+		--AF You're right, you can keep this and the one below as is
 		delete s
 		from Instruction s 
 		join Recipe r 
@@ -39,9 +38,6 @@ begin
 		on c.CuisineId = r.CuisineId
 		where c.CuisineId = @CuisineId
 
-		--AF RecipeIngredients are not dependent on cuisines, they should not be deleted
-		--MM I have to delete it because if I am deleting all the recipes that are related to the cuisine, recipeid is a foreign key in the RecipeIngredient table, 
-		--so the cuisine will not delete
 		delete ri
 		from RecipeIngredient ri 
 		join recipe r 
@@ -52,7 +48,6 @@ begin
 
 		delete r
 		from recipe r 
-		--AF You don't need to join to cuisine, Recipe has CuisineId
 		where r.CuisineId = @CuisineId
 		
 		delete c

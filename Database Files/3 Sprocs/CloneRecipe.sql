@@ -1,6 +1,3 @@
-/*AF This is not too important, but I would take "A" out of this name, it's nice to keep to the same naming convention in general and it's not necessary to have "A", CloneRecipe
-sounds more similiar to all the other sproc names 
- */
 use RecipeDB
 go
 

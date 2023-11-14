@@ -1,5 +1,3 @@
-/*AF I recommend adding "use recipedb" to the top of each sproc file, it's a good precaution to make sure they are always run in the right DB
-*/
 use RecipeDB
 go
 

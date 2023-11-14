@@ -22,6 +22,7 @@ begin
 	on mcr.mealcourseId = mc.MealCourseId
 	--AF No need to join to recipe, you can get the count of distinct MealCourseRecipeId
 	--MM I need to join it anyways to get the sum of calories in a meal
+	--AF I see that you have a function for that already, so I would assume you would use it.  You don't need to to if you don't want, and then you can leave this as is
 	join recipe r 
 	on r.RecipeId = mcr.RecipeId
 	where m.MealId = @MealId

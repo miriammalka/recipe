@@ -3,6 +3,7 @@ go
 
 --Af It would be good to add  a default value for the below parameters
 --MM can you explain why?
+--Af Sorry, this comment was put here mistakenly
 create or alter proc dbo.CookbookRecipeUpdate(
 @CookbookRecipeId int = 0 output,
 @CookbookId int = 0,
@@ -15,8 +16,6 @@ begin
 	
 	declare @return int = 0
 
-	--AF You are missing isnull() for @SequenceOrder
-	--fixed
 	select @CookbookRecipeId = isnull(@CookbookRecipeId, 0), @CookbookId = isnull(@CookbookId, 0), @RecipeId = isnull(@RecipeId,0), 
 	@SequenceOrder = isnull(@SequenceOrder,0)
 
@@ -43,3 +42,8 @@ end
 go
 
 select * from cookbookrecipe
+
+exec CookbookRecipeUpdate @CookbookId= 2,
+@RecipeId = 12
+
+select * from Recipe

@@ -10,8 +10,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-//AF Please design the grid with the count of recipes, meals and cookbooks the way it's displayed in the wireframe
-
 namespace RecipeWinForms
 {
     public partial class frmDashboard : Form

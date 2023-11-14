@@ -19,6 +19,8 @@ begin
 	on c.cookbookId = cr.cookbookId
 	--AF It doesn't seem necessary to have a left join here, as all cookbooks must have a foreign key for userid, so the tables should always connect
 	--MM I thought once you do a left join in the table, all subsequent joins need to be left joins.
+	/* Af That is correct, but you can have a join and then a left join.  You can join to Users and then left join to CookbookRecipe.  It seems to me like switching the order
+	will be fine, is there a reson you need to join to Users only after CookbookREcipe? */
 	join users u
 	on u.usersId = c.usersId
 	where c.CookbookId = @CookbookId 

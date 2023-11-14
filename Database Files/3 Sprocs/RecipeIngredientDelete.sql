@@ -11,8 +11,6 @@ begin
 	
 	select @RecipeIngredientId = isnull(@RecipeIngredientId, 0)
 
---AF ONe delete statement should not be in  a SQL transaction
-
 	delete recipeingredient where RecipeIngredientId = @RecipeIngredientId
 
 	return @return

@@ -20,13 +20,10 @@ begin
 		from MealCourseRecipe mcr
 		join MealCourse mc 
 		on mc.MealCourseId = mcr.MealcourseId
-		--AF No need to join to course, MealCourse has a courseid
-		--MM ok
 		where mc.CourseId = @CourseId
 
 		delete mc
 		from MealCourse mc
-		--AF No need to join to course, MealCourse has a courseid
 		where mc.CourseId = @CourseId
 
 		delete c

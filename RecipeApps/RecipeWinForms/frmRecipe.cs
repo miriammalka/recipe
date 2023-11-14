@@ -4,11 +4,6 @@ using System.Data;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Diagnostics.Metrics;
 
-/*AF After a new recipe is saved the status should automatically be presented on the screen
-The window to edit the ingredients for  a recipe should be bigger, so it doesn't look cut off, no need for a scroll when it can just be wider, and same
-for the steps tab
-The buttons to save, delete and change status of recipe should be at the top of the form, as shown in the wireframe
-*/
 namespace RecipeWinForms
 {
     public partial class frmRecipe : Form

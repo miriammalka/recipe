@@ -12,9 +12,7 @@ using System.Windows.Forms;
 namespace RecipeWinForms
 {
     public partial class frmAutoCreateCookbook : Form
-    {
-        //AF Seems like this variable is not being used anywhere
-        
+    {        
         DataTable dtcookbook;
         public frmAutoCreateCookbook()
         {
