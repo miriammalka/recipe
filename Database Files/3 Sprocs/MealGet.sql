@@ -1,3 +1,6 @@
+use RecipeDB
+go
+
 create or alter proc dbo.MealGet(
 @MealId int = 0,
 @All bit = 0,
@@ -18,6 +21,7 @@ begin
 	join mealcourserecipe mcr
 	on mcr.mealcourseId = mc.MealCourseId
 	--AF No need to join to recipe, you can get the count of distinct MealCourseRecipeId
+	--MM I need to join it anyways to get the sum of calories in a meal
 	join recipe r 
 	on r.RecipeId = mcr.RecipeId
 	where m.MealId = @MealId

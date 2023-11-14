@@ -1,3 +1,6 @@
+use RecipeDB
+go
+
 create or alter procedure dbo.CuisineUpdate(
 		@CuisineId int  output,
 		@CuisineName varchar (100),

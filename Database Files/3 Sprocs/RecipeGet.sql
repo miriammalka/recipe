@@ -1,3 +1,6 @@
+use RecipeDB
+go
+
 create or alter procedure dbo.RecipeGet(
 @RecipeId int = 0, 
 @All bit = 0, 

@@ -1,11 +1,14 @@
+use RecipeDB
+go
+
 --Af It would be good to add  a default value for the below parameters
 create or alter procedure dbo.CookbookUpdate(
-@CookbookId int output,
-@UsersId int,
-@CookbookName varchar(500),
-@Price int,
-@DateCreated datetime output,
-@Active bit,
+@CookbookId int = 0 output,
+@UsersId int = 0,
+@CookbookName varchar(500) = '',
+@Price int = 0,
+@DateCreated datetime = 0 output,
+@Active bit = 0,
 @Message varchar(500) = '' output
 )
 as
@@ -13,11 +16,15 @@ begin
 	declare @return int = 0
 
 --AF Add isnull() for the other parameters
-	select @CookbookId = isnull(@CookbookId, 0), @UsersId = isnull(@UsersId,0)
+	select @CookbookId = isnull(@CookbookId, 0), @UsersId = isnull(@UsersId,0), @CookbookName = isnull(@CookbookName, ''), @Price = isnull(@Price,0), 
+	@DateCreated = isnull(@DateCreated,0), @Active = isnull(@Active,0)
 
 	/*AF This is not checking the status of a specific cookbook and its price, it's checking if there are any cookbooks in the table that are inactive and have a price greater 
 	than 0.  I'm not sure exactly what this is meant to do, but it seems it needs to be fixed, because whenever this case exists, this if statement will stop the update from 
 	happening and go straight to 'finished', even if the user is trying to update or insert a cookbook that is active	*/
+	
+	--MM There is a rule that a cookbook that is active has to hae a price greater than 0. I just tried editing an existing cookbook that was active and did not run into a problem. 
+	--Can you show me the problem you ran into?
 	if exists (select * from Cookbook c where @Active = 0 and @Price > 0)
 	begin
 		select @return = 1, @Message = 'An inactive cookbook has to have a price of $0.'
@@ -28,7 +35,7 @@ begin
 	begin
 		
 		--AF It would be more concise to just use isnull() on the top of the page for this, instead of an if statement
-		if @DateCreated is null
+		--MM ok
 		begin
 			select @DateCreated = GETDATE()
 		end
@@ -55,3 +62,4 @@ begin
 	return @return
 end
 go
+

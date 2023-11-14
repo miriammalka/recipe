@@ -1,3 +1,6 @@
+use RecipeDB
+go
+
 create or alter proc dbo.IngredientDelete(
 @IngredientId int = 0,
 @Message varchar(500) = '' output
@@ -15,9 +18,7 @@ begin
 		delete ri
 		from RecipeIngredient ri
 		--AF NO need to join to Ingredient, RecipeINgredient has IngredientId
-		join Ingredient i
-		on ri.IngredientId = i.IngredientId
-		where i.IngredientId = @IngredientId
+		where ri.IngredientId = @IngredientId
 
 		delete i
 		from Ingredient i

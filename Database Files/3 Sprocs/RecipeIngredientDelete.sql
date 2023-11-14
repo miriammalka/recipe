@@ -1,3 +1,6 @@
+use RecipeDB
+go
+
 create or alter procedure dbo.RecipeIngredientDelete(
 @RecipeIngredientId int = 0,
 @Message varchar(500) = '' output
@@ -9,15 +12,8 @@ begin
 	select @RecipeIngredientId = isnull(@RecipeIngredientId, 0)
 
 --AF ONe delete statement should not be in  a SQL transaction
-	begin try
-		begin tran
-		delete recipeingredient where RecipeIngredientId = @RecipeIngredientId
-		commit
-	end try
-	begin catch
-		rollback;
-		throw
-	end catch
+
+	delete recipeingredient where RecipeIngredientId = @RecipeIngredientId
 
 	return @return
 end

@@ -1,3 +1,6 @@
+use RecipeDB
+go
+
 create or alter proc dbo.UsersDelete(
 	@UsersId int = 0,
 	@Message varchar(500) = '' output
@@ -25,9 +28,7 @@ begin
 		delete cb 
 		from Cookbook cb 
 		--AF Cookbook has a column UserId, it's not necessary to join to Users
-		join Users u 
-		on u.UsersId = cb.UsersId 
-		where u.UsersId = @UsersId
+		where cb.UsersId = @UsersId
 
 		delete mcr 
 		from MealcourseRecipe mcr 
@@ -54,9 +55,7 @@ begin
 		delete m
 		from meal m 
 		--AF Meal has a column UserId, it's not necessary to join to Users
-		join Users u 
-		on u.UsersId = m.UsersId
-		where u.UsersId = @UsersId
+		where m.UsersId = @UsersId
 
 		delete s
 		from Instruction s 
@@ -71,16 +70,12 @@ begin
 		join recipe r 
 		on r.RecipeId = ri.RecipeId
 		--AF Recipe has a column UserId, it's not necessary to join to Users
-		join Users u 
-		on u.UsersId = r.UsersId 
-		where u.UsersId = @UsersId
+		where r.UsersId = @UsersId
 
 		delete r
 		from recipe r 
 		--AF Recipe has a column UserId, it's not necessary to join to Users
-		join Users u 
-		on u.UsersId = r.UsersId
-		where u.UsersId = @UsersId
+		where r.UsersId = @UsersId
 
 		delete u
 		from Users u 

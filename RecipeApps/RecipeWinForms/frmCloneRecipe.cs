@@ -25,26 +25,28 @@ namespace RecipeWinForms
 
         private void BindData()
         {
-           WindowsFormsUtility.SetListBinding(lstRecipeName, DataMaintenance.GetDataList("Recipe", true), dtrecipe, "Recipe");
+            WindowsFormsUtility.SetListBinding(lstRecipeName, DataMaintenance.GetDataList("Recipe", true), dtrecipe, "Recipe");
         }
 
-        private void CloneARecipe()
+        private void CloneRecipe()
         {
-            int basedonid = WindowsFormsUtility.GetIdFromComboBox(lstRecipeName);       
+            int basedonid = WindowsFormsUtility.GetIdFromComboBox(lstRecipeName);
             Cursor = Cursors.WaitCursor;
             try
             {
-                Recipe.CloneARecipe(basedonid); 
+                Recipe.CloneRecipe(basedonid);
+               
                 /*AF here and any other places in this project where you passed in a SQL statement to get all should be refactored.  It's not good to have
                 a sql statement hardcoded in, it's more prone to mistakes.  Instead, in the Recipe class, you can add a method to get all recipes 
                 (which uses the sproc name and passes in the parameter @all = 1
                 */
+                //MM How will that help? I am trying to access the most recent recipe created. I already have a procedure in the recipe class that returns a list of all the recipes
                 dtrecipe = SQLUtility.GetDataTable("select * from recipe r order by r.recipeid desc");
                 int newrecipeid = SQLUtility.GetValueFromFirstRowAsInt(dtrecipe, "RecipeId");
-                
-                    if(this.MdiParent != null && this.MdiParent is frmMain)
+
+                if (this.MdiParent != null && this.MdiParent is frmMain)
                 {
-                    ((frmMain)this.MdiParent).OpenForm(typeof(frmRecipe), newrecipeid);                 
+                   ((frmMain)this.MdiParent).OpenForm(typeof(frmRecipe), newrecipeid);
                 }
             }
             catch (Exception ex)
@@ -59,7 +61,7 @@ namespace RecipeWinForms
 
         private void BtnClone_Click(object? sender, EventArgs e)
         {
-            CloneARecipe();
+            CloneRecipe();
         }
     }
 }

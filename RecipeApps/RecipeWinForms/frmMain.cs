@@ -19,7 +19,7 @@ namespace RecipeWinForms
             mnuDashboard.Click += MnuDashboard_Click;
             mnuRecipesList.Click += MnuRecipesList_Click;
             mnuNewRecipe.Click += MnuNewRecipe_Click;
-            mnuCloneARecipe.Click += MnuCloneARecipe_Click;
+            mnuCloneRecipe.Click += MnuCloneRecipe_Click;
             mnuMealsList.Click += MnuMealsList_Click;
             mnuCookbooksList.Click += MnuCookbooksList_Click;
             mnuNewCookbook.Click += MnuNewCookbook_Click;
@@ -36,23 +36,23 @@ namespace RecipeWinForms
 
         public void OpenForm(Type frmtype, int pkvalue = 0)
         {
-            bool b = WindowsFormsUtility.IsFormOpen(frmtype);
+            bool b = WindowsFormsUtility.IsFormOpen(frmtype, pkvalue);
             if (b == false)
             {
                 Form? newfrm = null;
-                if(frmtype == typeof(frmRecipe))
+                if (frmtype == typeof(frmRecipe))
                 {
                     frmRecipe f = new();
                     newfrm = f;
                     f.LoadRecipeForm(pkvalue);
                 }
-                
+
                 if (frmtype == typeof(frmDashboard))
                 {
                     frmDashboard f = new();
                     newfrm = f;
                 }
-                else if(frmtype == typeof(frmSearch))
+                else if (frmtype == typeof(frmSearch))
                 {
                     frmSearch f = new();
                     newfrm = f;
@@ -73,23 +73,23 @@ namespace RecipeWinForms
                     newfrm = f;
                     f.LoadCookbookForm(pkvalue);
                 }
-                else if(frmtype == typeof(frmDataMaintenance))
+                else if (frmtype == typeof(frmDataMaintenance))
                 {
                     frmDataMaintenance f = new();
                     newfrm = f;
                 }
-                else if(frmtype == typeof(frmChangeStatus))
+                else if (frmtype == typeof(frmChangeStatus))
                 {
                     frmChangeStatus f = new();
                     newfrm = f;
                     f.LoadRecipeStatusForm(pkvalue);
                 }
-                else if(frmtype == typeof(frmCloneRecipe))
+                else if (frmtype == typeof(frmCloneRecipe))
                 {
                     frmCloneRecipe f = new();
                     newfrm = f;
                 }
-                else if(frmtype == typeof(frmAutoCreateCookbook))
+                else if (frmtype == typeof(frmAutoCreateCookbook))
                 {
                     frmAutoCreateCookbook f = new();
                     newfrm = f;
@@ -141,7 +141,7 @@ namespace RecipeWinForms
             OpenForm(typeof(frmMeals));
         }
 
-        private void MnuCloneARecipe_Click(object? sender, EventArgs e)
+        private void MnuCloneRecipe_Click(object? sender, EventArgs e)
         {
             OpenForm(typeof(frmCloneRecipe));
         }

@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 //AF The users tab has an extra column "Users" which is repetitive
+//I had to add that column to the UsersGet Sproc because it was needed in other forms. I wrote code below to make it not visible. Is that sufficient?
 
 namespace RecipeWinForms
 {
@@ -41,6 +42,10 @@ namespace RecipeWinForms
             gData.DataSource = dtlist;
             WindowsFormsUtility.AddDeleteButtonToGrid(gData, deletecolname);
             WindowsFormsUtility.FormatGridForEdit(gData, currenttabletype.ToString());
+            if(tabletype == TableTypeEnum.Users)
+            {
+                gData.Columns["Users"].Visible = false;
+            }
         }
 
         private void SetupRadioButtons()

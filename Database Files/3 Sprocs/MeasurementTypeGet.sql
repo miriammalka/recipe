@@ -1,3 +1,6 @@
+use RecipeDB
+go
+
 create or alter proc dbo.MeasurementTypeGet(
 @MeasurementTypeId int = 0,
 @All bit = 0,

@@ -1,3 +1,6 @@
+use RecipeDB
+go
+
 create or alter proc dbo.CookbookGet(
 @CookbookId int = 0,
 @All bit = 0,
@@ -15,7 +18,8 @@ begin
 	left join cookbookrecipe cr
 	on c.cookbookId = cr.cookbookId
 	--AF It doesn't seem necessary to have a left join here, as all cookbooks must have a foreign key for userid, so the tables should always connect
-	left join users u
+	--MM I thought once you do a left join in the table, all subsequent joins need to be left joins.
+	join users u
 	on u.usersId = c.usersId
 	where c.CookbookId = @CookbookId 
 	or @All = 1

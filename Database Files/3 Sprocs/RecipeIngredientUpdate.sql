@@ -1,3 +1,6 @@
+use RecipeDB
+go
+
 create or alter proc dbo.RecipeIngredientUpdate(
 @RecipeIngredientId int  output,
 @RecipeId int ,

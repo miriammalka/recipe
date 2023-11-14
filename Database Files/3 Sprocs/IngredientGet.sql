@@ -1,3 +1,6 @@
+use RecipeDB
+go
+
 create or alter proc dbo.IngredientGet(
 @IngredientId int = 0,
 @All bit = 0,

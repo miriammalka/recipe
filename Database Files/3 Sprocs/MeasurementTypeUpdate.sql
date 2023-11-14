@@ -1,3 +1,6 @@
+use RecipeDB
+go
+
 create or alter procedure dbo.MeasurementTypeUpdate(
 		@MeasurementTypeId int  output,
 		@MeasurementType varchar (100),

@@ -6,10 +6,11 @@ namespace RecipeSystem
     public class Recipe
     {
 
-        public static DataTable GetRecipeList()
+        public static DataTable GetRecipeList(int recipeid = 0)
         {
             SqlCommand cmd = SQLUtility.GetSQLCommand("RecipeGet");
             SQLUtility.SetParamValue(cmd, "@All", 1);
+            SQLUtility.SetParamValue(cmd, "@RecipeId", recipeid);
             return SQLUtility.GetDataTable(cmd);
         }
 
@@ -58,9 +59,9 @@ namespace RecipeSystem
             SQLUtility.ExecuteSQL(cmd);
         }
 
-        public static void CloneARecipe(int baserecipeid)
+        public static void CloneRecipe(int baserecipeid)
         {
-            SqlCommand cmd = SQLUtility.GetSQLCommand("CloneARecipe");            
+            SqlCommand cmd = SQLUtility.GetSQLCommand("CloneRecipe");            
             SQLUtility.SetParamValue(cmd, "@BaseRecipeId", baserecipeid);
             SQLUtility.ExecuteSQL(cmd);
         }

@@ -1,3 +1,6 @@
+use RecipeDB
+go
+
 create or alter procedure dbo.CookbookDelete(
 @CookbookId int = 0,
 @Message varchar(500) = '' output

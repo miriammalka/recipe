@@ -1,3 +1,6 @@
+use RecipeDB
+go
+
 create or alter procedure dbo.IngredientUpdate(
 		@IngredientId int  output,
 		@IngredientName varchar (100),

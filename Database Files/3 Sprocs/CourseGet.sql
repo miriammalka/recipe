@@ -1,3 +1,6 @@
+use RecipeDB
+go
+
 create or alter proc dbo.CourseGet(
 @CourseId int = 0,
 @All bit = 0,

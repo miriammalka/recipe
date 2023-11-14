@@ -32,10 +32,9 @@ namespace RecipeWinForms
 
         private void BindData()
         {
-            
+
             gdata.DataSource = DataMaintenance.GetDashboard();
             gdata.Columns["order"].Visible = false;
-           
         }
 
         private void ShowForm(Type frmtype)
@@ -60,7 +59,7 @@ namespace RecipeWinForms
         {
             ShowForm(typeof(frmSearch));
 
-            
+
         }
 
     }

@@ -28,58 +28,56 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tblMain = new System.Windows.Forms.TableLayoutPanel();
-            this.lstRecipeName = new System.Windows.Forms.ComboBox();
-            this.btnClone = new System.Windows.Forms.Button();
-            this.tblMain.SuspendLayout();
-            this.SuspendLayout();
+            tblMain = new TableLayoutPanel();
+            lstRecipeName = new ComboBox();
+            btnClone = new Button();
+            tblMain.SuspendLayout();
+            SuspendLayout();
             // 
             // tblMain
             // 
-            this.tblMain.ColumnCount = 1;
-            this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblMain.Controls.Add(this.lstRecipeName, 0, 0);
-            this.tblMain.Controls.Add(this.btnClone, 0, 1);
-            this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblMain.Location = new System.Drawing.Point(0, 0);
-            this.tblMain.Name = "tblMain";
-            this.tblMain.RowCount = 2;
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblMain.Size = new System.Drawing.Size(582, 160);
-            this.tblMain.TabIndex = 0;
+            tblMain.ColumnCount = 1;
+            tblMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tblMain.Controls.Add(lstRecipeName, 0, 0);
+            tblMain.Controls.Add(btnClone, 0, 1);
+            tblMain.Dock = DockStyle.Fill;
+            tblMain.Location = new Point(0, 0);
+            tblMain.Name = "tblMain";
+            tblMain.RowCount = 2;
+            tblMain.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tblMain.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tblMain.Size = new Size(582, 160);
+            tblMain.TabIndex = 0;
             // 
             // lstRecipeName
             // 
-            this.lstRecipeName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lstRecipeName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lstRecipeName.FormattingEnabled = true;
-            this.lstRecipeName.Location = new System.Drawing.Point(3, 41);
-            this.lstRecipeName.Name = "lstRecipeName";
-            this.lstRecipeName.Size = new System.Drawing.Size(294, 36);
-            this.lstRecipeName.TabIndex = 0;
+            lstRecipeName.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lstRecipeName.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lstRecipeName.FormattingEnabled = true;
+            lstRecipeName.Location = new Point(3, 41);
+            lstRecipeName.Name = "lstRecipeName";
+            lstRecipeName.Size = new Size(294, 36);
+            lstRecipeName.TabIndex = 0;
             // 
             // btnClone
             // 
-            this.btnClone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnClone.Location = new System.Drawing.Point(3, 110);
-            this.btnClone.Name = "btnClone";
-            this.btnClone.Size = new System.Drawing.Size(146, 47);
-            this.btnClone.TabIndex = 1;
-            this.btnClone.Text = "Clone";
-            this.btnClone.UseVisualStyleBackColor = true;
+            btnClone.Location = new Point(3, 83);
+            btnClone.Name = "btnClone";
+            btnClone.Size = new Size(146, 47);
+            btnClone.TabIndex = 1;
+            btnClone.Text = "Clone";
+            btnClone.UseVisualStyleBackColor = true;
             // 
             // frmCloneRecipe
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(582, 160);
-            this.Controls.Add(this.tblMain);
-            this.Name = "frmCloneRecipe";
-            this.Text = "Clone Recipe";
-            this.tblMain.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(582, 160);
+            Controls.Add(tblMain);
+            Name = "frmCloneRecipe";
+            Text = "Clone Recipe";
+            tblMain.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion

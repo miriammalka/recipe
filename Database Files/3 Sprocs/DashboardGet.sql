@@ -1,3 +1,6 @@
+use RecipeDB
+go
+
 create or alter proc dbo.DashboardGet(
 @Message varchar(500) = '' output
 )

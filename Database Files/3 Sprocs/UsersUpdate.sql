@@ -1,3 +1,6 @@
+use RecipeDB
+go
+
 create or alter procedure dbo.UsersUpdate(
 		@UsersId int  output,
 		@FirstName varchar(100),

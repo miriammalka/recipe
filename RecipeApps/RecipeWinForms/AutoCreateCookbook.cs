@@ -14,7 +14,7 @@ namespace RecipeWinForms
     public partial class frmAutoCreateCookbook : Form
     {
         //AF Seems like this variable is not being used anywhere
-        DataTable dtusers;
+        
         DataTable dtcookbook;
         public frmAutoCreateCookbook()
         {

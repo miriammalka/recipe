@@ -1,4 +1,7 @@
 --AF Amazing job!
+use RecipeDB
+go
+
 create or alter function dbo.ShowTotalCaloriesPerMeal(@MealId int)
 returns int
 as

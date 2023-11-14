@@ -1,3 +1,6 @@
+use RecipeDB
+go
+
 create or alter procedure dbo.InstructionGet(
 	@InstructionId int = 0,
 	@RecipeId int = 0,

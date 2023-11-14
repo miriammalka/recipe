@@ -28,144 +28,142 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tblMain = new System.Windows.Forms.TableLayoutPanel();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.lblWelcome = new System.Windows.Forms.Label();
-            this.gdata = new System.Windows.Forms.DataGridView();
-            this.tblButtons = new System.Windows.Forms.TableLayoutPanel();
-            this.btnRecipeList = new System.Windows.Forms.Button();
-            this.btnMealList = new System.Windows.Forms.Button();
-            this.btnCookbookList = new System.Windows.Forms.Button();
-            this.tblMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gdata)).BeginInit();
-            this.tblButtons.SuspendLayout();
-            this.SuspendLayout();
+            tblMain = new TableLayoutPanel();
+            lblTitle = new Label();
+            lblWelcome = new Label();
+            gdata = new DataGridView();
+            tblButtons = new TableLayoutPanel();
+            btnRecipeList = new Button();
+            btnMealList = new Button();
+            btnCookbookList = new Button();
+            tblMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)gdata).BeginInit();
+            tblButtons.SuspendLayout();
+            SuspendLayout();
             // 
             // tblMain
             // 
-            this.tblMain.ColumnCount = 1;
-            this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblMain.Controls.Add(this.lblTitle, 0, 0);
-            this.tblMain.Controls.Add(this.lblWelcome, 0, 1);
-            this.tblMain.Controls.Add(this.gdata, 0, 2);
-            this.tblMain.Controls.Add(this.tblButtons, 0, 3);
-            this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblMain.Location = new System.Drawing.Point(0, 0);
-            this.tblMain.Margin = new System.Windows.Forms.Padding(4);
-            this.tblMain.Name = "tblMain";
-            this.tblMain.RowCount = 4;
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tblMain.Size = new System.Drawing.Size(1100, 630);
-            this.tblMain.TabIndex = 0;
+            tblMain.ColumnCount = 1;
+            tblMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tblMain.Controls.Add(lblTitle, 0, 0);
+            tblMain.Controls.Add(lblWelcome, 0, 1);
+            tblMain.Controls.Add(gdata, 0, 2);
+            tblMain.Controls.Add(tblButtons, 0, 3);
+            tblMain.Dock = DockStyle.Fill;
+            tblMain.Location = new Point(0, 0);
+            tblMain.Margin = new Padding(4);
+            tblMain.Name = "tblMain";
+            tblMain.RowCount = 4;
+            tblMain.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tblMain.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tblMain.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tblMain.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+            tblMain.Size = new Size(1100, 630);
+            tblMain.TabIndex = 0;
             // 
             // lblTitle
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblTitle.Location = new System.Drawing.Point(4, 0);
-            this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(1092, 126);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Hearty Hearth Desktop App";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblTitle.AutoSize = true;
+            lblTitle.Dock = DockStyle.Fill;
+            lblTitle.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            lblTitle.Location = new Point(4, 0);
+            lblTitle.Margin = new Padding(4, 0, 4, 0);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(1092, 126);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "Hearty Hearth Desktop App";
+            lblTitle.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblWelcome
             // 
-            this.lblWelcome.AutoSize = true;
-            this.lblWelcome.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblWelcome.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblWelcome.Location = new System.Drawing.Point(4, 126);
-            this.lblWelcome.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblWelcome.Name = "lblWelcome";
-            this.lblWelcome.Size = new System.Drawing.Size(1092, 126);
-            this.lblWelcome.TabIndex = 1;
-            this.lblWelcome.Text = "Welcome to the Hearty Hearth Desktop App. In this app you can create recipes and " +
-    "cookbooks and edit them.";
-            this.lblWelcome.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblWelcome.AutoSize = true;
+            lblWelcome.Dock = DockStyle.Fill;
+            lblWelcome.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            lblWelcome.Location = new Point(4, 126);
+            lblWelcome.Margin = new Padding(4, 0, 4, 0);
+            lblWelcome.Name = "lblWelcome";
+            lblWelcome.Size = new Size(1092, 126);
+            lblWelcome.TabIndex = 1;
+            lblWelcome.Text = "Welcome to the Hearty Hearth Desktop App. In this app you can create recipes and cookbooks and edit them.";
+            lblWelcome.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // gdata
             // 
-            this.gdata.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gdata.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gdata.Location = new System.Drawing.Point(100, 256);
-            this.gdata.Margin = new System.Windows.Forms.Padding(100, 4, 100, 4);
-            this.gdata.Name = "gdata";
-            this.gdata.RowHeadersWidth = 51;
-            this.gdata.RowTemplate.Height = 29;
-            this.gdata.Size = new System.Drawing.Size(900, 307);
-            this.gdata.TabIndex = 2;
+            gdata.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            gdata.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            gdata.Location = new Point(100, 256);
+            gdata.Margin = new Padding(100, 4, 100, 4);
+            gdata.Name = "gdata";
+            gdata.RowHeadersWidth = 52;
+            gdata.RowTemplate.Height = 29;
+            gdata.Size = new Size(900, 307);
+            gdata.TabIndex = 2;
             // 
             // tblButtons
             // 
-            this.tblButtons.ColumnCount = 3;
-            this.tblButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tblButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tblButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tblButtons.Controls.Add(this.btnRecipeList, 0, 0);
-            this.tblButtons.Controls.Add(this.btnMealList, 1, 0);
-            this.tblButtons.Controls.Add(this.btnCookbookList, 2, 0);
-            this.tblButtons.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblButtons.Location = new System.Drawing.Point(4, 571);
-            this.tblButtons.Margin = new System.Windows.Forms.Padding(4);
-            this.tblButtons.Name = "tblButtons";
-            this.tblButtons.RowCount = 1;
-            this.tblButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 151F));
-            this.tblButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 151F));
-            this.tblButtons.Size = new System.Drawing.Size(1092, 55);
-            this.tblButtons.TabIndex = 3;
+            tblButtons.ColumnCount = 3;
+            tblButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33333F));
+            tblButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33333F));
+            tblButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33333F));
+            tblButtons.Controls.Add(btnRecipeList, 0, 0);
+            tblButtons.Controls.Add(btnMealList, 1, 0);
+            tblButtons.Controls.Add(btnCookbookList, 2, 0);
+            tblButtons.Dock = DockStyle.Fill;
+            tblButtons.Location = new Point(4, 571);
+            tblButtons.Margin = new Padding(4);
+            tblButtons.Name = "tblButtons";
+            tblButtons.RowCount = 1;
+            tblButtons.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tblButtons.RowStyles.Add(new RowStyle(SizeType.Absolute, 151F));
+            tblButtons.RowStyles.Add(new RowStyle(SizeType.Absolute, 151F));
+            tblButtons.Size = new Size(1092, 55);
+            tblButtons.TabIndex = 3;
             // 
             // btnRecipeList
             // 
-            this.btnRecipeList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnRecipeList.Location = new System.Drawing.Point(3, 3);
-            this.btnRecipeList.Name = "btnRecipeList";
-            this.btnRecipeList.Size = new System.Drawing.Size(358, 49);
-            this.btnRecipeList.TabIndex = 0;
-            this.btnRecipeList.Text = "Recipe List";
-            this.btnRecipeList.UseVisualStyleBackColor = true;
+            btnRecipeList.Dock = DockStyle.Fill;
+            btnRecipeList.Location = new Point(3, 3);
+            btnRecipeList.Name = "btnRecipeList";
+            btnRecipeList.Size = new Size(358, 49);
+            btnRecipeList.TabIndex = 0;
+            btnRecipeList.Text = "Recipe List";
+            btnRecipeList.UseVisualStyleBackColor = true;
             // 
             // btnMealList
             // 
-            this.btnMealList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnMealList.Location = new System.Drawing.Point(367, 3);
-            this.btnMealList.Name = "btnMealList";
-            this.btnMealList.Size = new System.Drawing.Size(358, 49);
-            this.btnMealList.TabIndex = 1;
-            this.btnMealList.Text = "Meal List";
-            this.btnMealList.UseVisualStyleBackColor = true;
+            btnMealList.Dock = DockStyle.Fill;
+            btnMealList.Location = new Point(367, 3);
+            btnMealList.Name = "btnMealList";
+            btnMealList.Size = new Size(358, 49);
+            btnMealList.TabIndex = 1;
+            btnMealList.Text = "Meal List";
+            btnMealList.UseVisualStyleBackColor = true;
             // 
             // btnCookbookList
             // 
-            this.btnCookbookList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnCookbookList.Location = new System.Drawing.Point(731, 3);
-            this.btnCookbookList.Name = "btnCookbookList";
-            this.btnCookbookList.Size = new System.Drawing.Size(358, 49);
-            this.btnCookbookList.TabIndex = 2;
-            this.btnCookbookList.Text = "Cookbook List";
-            this.btnCookbookList.UseVisualStyleBackColor = true;
+            btnCookbookList.Dock = DockStyle.Fill;
+            btnCookbookList.Location = new Point(731, 3);
+            btnCookbookList.Name = "btnCookbookList";
+            btnCookbookList.Size = new Size(358, 49);
+            btnCookbookList.TabIndex = 2;
+            btnCookbookList.Text = "Cookbook List";
+            btnCookbookList.UseVisualStyleBackColor = true;
             // 
             // frmDashboard
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 28F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1100, 630);
-            this.Controls.Add(this.tblMain);
-            this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "frmDashboard";
-            this.Text = "Dashboard";
-            this.tblMain.ResumeLayout(false);
-            this.tblMain.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gdata)).EndInit();
-            this.tblButtons.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(11F, 28F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1100, 630);
+            Controls.Add(tblMain);
+            Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            Margin = new Padding(4);
+            Name = "frmDashboard";
+            Text = "Dashboard";
+            tblMain.ResumeLayout(false);
+            tblMain.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)gdata).EndInit();
+            tblButtons.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion

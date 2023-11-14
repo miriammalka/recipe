@@ -1,3 +1,6 @@
+use RecipeDB
+go
+
 create or alter proc dbo.CookbookRecipeGet(
 @CookbookRecipeId int = 0,
 @CookbookId int = 0, 

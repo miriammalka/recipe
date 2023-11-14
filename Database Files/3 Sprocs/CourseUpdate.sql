@@ -1,5 +1,8 @@
+use RecipeDB
+go
+
 create or alter procedure dbo.CourseUpdate(
-	@CourseId int  output,
+	@CourseId int output,
 	@CourseName varchar (100),
 	@SequenceOrder int,
 	@Message varchar(500) = ''  output
