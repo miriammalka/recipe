@@ -17,7 +17,7 @@ as
 begin
 	declare @return int = 0
 
-	select @RecipeId = isnull(@RecipeId, 0), @CuisineId = isnull(@CuisineId, 0), @UsersId = isnull(@UsersId, 0), @DateCreated = nullif(@DateCreated, ''),
+	select @RecipeId = isnull(@RecipeId, 0), @DateCreated = nullif(@DateCreated, ''),
 	@DatePublished = nullif(@DatePublished, ''), @DateArchived = nullif(@DateArchived, '')
 	
 	if exists (select * from recipe r where r.RecipeName = @RecipeName and @RecipeId = 0)
@@ -26,17 +26,17 @@ begin
 		goto finished
 	end
 
-	if @CuisineId = 0
-	begin
-		select @return = 1, @Message = 'A recipe record must have a Cuisine.'
-		goto finished
-	end
+	--if @CuisineId = 0
+	--begin
+	--	select @return = 1, @Message = 'A recipe record must have a Cuisine.'
+	--	goto finished
+	--end
 
-	if @UsersId = 0
-	begin
-		select @return = 1, @Message = 'A recipe record must have a User.'
-		goto finished
-	end
+	--if @UsersId = 0
+	--begin
+	--	select @return = 1, @Message = 'A recipe record must have a User.'
+	--	goto finished
+	--end
 
 	if @RecipeId = 0
 	begin

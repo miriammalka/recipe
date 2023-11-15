@@ -14,7 +14,7 @@ as
 begin
 	declare @return int = 0
 
-	select @CookbookId = isnull(@CookbookId, 0), @UsersId = isnull(@UsersId,0), @CookbookName = isnull(@CookbookName, ''), @Price = isnull(@Price,0), 
+	select @CookbookId = isnull(@CookbookId, 0),  @CookbookName = isnull(@CookbookName, ''), @Price = isnull(@Price,0), 
 	@DateCreated = nullif(@DateCreated,''), @Active = isnull(@Active,0)
 
 		if @UsersId = 0
