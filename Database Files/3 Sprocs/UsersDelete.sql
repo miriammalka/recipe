@@ -47,9 +47,8 @@ begin
 		join meal m 
 		on m.MealId = mc.mealId
 		--AF Meal has a column UserId, it's not necessary to join to Users, comment remains
-		join Users u 
-		on u.UsersId = m.UsersId
-		where u.UsersId = @UsersId
+		--MM sorry, I missed that
+		where m.UsersId = @UsersId
 
 		delete m
 		from meal m 

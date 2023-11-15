@@ -427,6 +427,7 @@
             // 
             // tblButtons
             // 
+            tblButtons.AutoSize = true;
             tblButtons.ColumnCount = 3;
             tblButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
             tblButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));

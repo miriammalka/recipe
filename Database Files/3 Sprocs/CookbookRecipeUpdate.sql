@@ -4,6 +4,7 @@ go
 --Af It would be good to add  a default value for the below parameters
 --MM can you explain why?
 --Af Sorry, this comment was put here mistakenly
+--MM can I leave the default values though?
 create or alter proc dbo.CookbookRecipeUpdate(
 @CookbookRecipeId int = 0 output,
 @CookbookId int = 0,

@@ -12,7 +12,7 @@ begin
 
 	select @All = isnull(@All,0), @MealId = isnull(@MealId,0)
 
-	select m.MealName, u.UserName, NumCalories = sum(r.Calories), NumCourses = count(distinct mc.CourseId), NumRecipes = count(distinct r.RecipeId)
+	select m.MealName, u.UserName, NumCalories = dbo.ShowTotalCaloriesPerMeal(m.MealId), NumCourses = count(distinct mc.CourseId), NumRecipes = count(distinct mcr.MealCourseRecipeId)
 	from meal m
 	join users u
 	on m.UsersId = u.UsersId
@@ -23,11 +23,10 @@ begin
 	--AF No need to join to recipe, you can get the count of distinct MealCourseRecipeId
 	--MM I need to join it anyways to get the sum of calories in a meal
 	--AF I see that you have a function for that already, so I would assume you would use it.  You don't need to to if you don't want, and then you can leave this as is
-	join recipe r 
-	on r.RecipeId = mcr.RecipeId
+	--MM I forgot I created that function. Thank you for reminding me
 	where m.MealId = @MealId
 	or @All = 1
-	group by m.MealName, u.UserName
+	group by m.MealName, u.UserName, m.MealId
 	order by m.MealName
 
 	return @return

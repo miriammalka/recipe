@@ -17,12 +17,24 @@ as
 begin
 	declare @return int = 0
 
-	select @RecipeId = isnull(@RecipeId, 0), @CuisineId = isnull(@CuisineId, 0), @UsersId = isnull(@UsersId, 0), @DateCreated = isnull(@DateCreated, ''),
+	select @RecipeId = isnull(@RecipeId, 0), @CuisineId = isnull(@CuisineId, 0), @UsersId = isnull(@UsersId, 0), @DateCreated = nullif(@DateCreated, ''),
 	@DatePublished = nullif(@DatePublished, ''), @DateArchived = nullif(@DateArchived, '')
 	
 	if exists (select * from recipe r where r.RecipeName = @RecipeName and @RecipeId = 0)
 	begin
 		select @return = 1, @Message = 'Recipe name must be unique'
+		goto finished
+	end
+
+	if @CuisineId = 0
+	begin
+		select @return = 1, @Message = 'A recipe record must have a Cuisine.'
+		goto finished
+	end
+
+	if @UsersId = 0
+	begin
+		select @return = 1, @Message = 'A recipe record must have a User.'
 		goto finished
 	end
 
@@ -33,8 +45,9 @@ begin
 		 I meant that you would just default DateCreated to getdate() if it's null.  Since you are not doing that, and it seems you want to keep the DateCreated null
 		 for an update if a different value is not supplied, I wouldn't use isnull() above.  YOu can do nullif if @DateCreated is blank, like you have for the other dates
 		  and then here set DateCreated to getdate() here if it's null*/
-		select @DateCreated = GETDATE(), @RecipeStatus = 'Draft'
-		
+
+		select @DateCreated = isnull(@DateCreated,GetDate()), @RecipeStatus = 'Draft'
+	
 		insert Recipe(CuisineId, UsersId, RecipeName, Calories, DateCreated, DatePublished, DateArchived)
 		values (@CuisineId, @UsersId, @RecipeName, @Calories, @DateCreated, @DatePublished, @DateArchived) 
 	

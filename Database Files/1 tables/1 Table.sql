@@ -157,7 +157,8 @@ create table dbo.Cookbook(
         constraint ck_Cookbook_DateCreated_must_be_between_January_1_2015_and_the_present check(DateCreated between '01-01-2015' and Getdate()),
     Active bit not null,
     Picture as concat('Cookbook-', replace(CookbookName,' ', '-'), '.jpg') persisted,
-    constraint ck_Price_is_0_and_Active_is_0_or_Price_is_greater_than_0_and_Active_is_1 check((Price = 0 and Active = 0) or (Price > 0 and Active = 1))
+    --constraint ck_Price_is_0_and_Active_is_0_or_Price_is_greater_than_0_and_Active_is_1 check((Price = 0 and Active = 0) or (Price > 0 and Active = 1))
+	constraint ck_An_active_cookbook_must_have_a_price_greater_than_0 check((Price = 0 and Active = 0) or (Price > 0 and Active = 1))
 )
 go 
 create table dbo.CookbookRecipe(
