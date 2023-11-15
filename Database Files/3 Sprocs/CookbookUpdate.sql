@@ -22,27 +22,14 @@ begin
 			select @return = 1, @Message = 'A Cookbook record must have a User.'
 			goto finished
 		end
-
-	--MM There is a rule that a cookbook that is active has to hae a price greater than 0. I just tried editing an existing cookbook that was active and did not run into a problem. 
-	--Can you show me the problem you ran into?
-	/*AF It's not that I actually ran into issues, I just saw this sql statement selecting all from cookbook.  I misread it, since you are selecting from cookbook, I looked
-	at it and assumed you were matching up on columns in the table, my oversight.  Regardless, this if statement is not foolproof, because if there are no cookbooks in the table,
-	even if @ACtive = 0 and @Price = 0, it won't go into this select statment.  Is there are a reason that you are selecting from cookbook?  To me, it seems like this if statement
-	should just be if @Active = 0 and @Price > 0 */
 	--MM I added this line of code below because the table had a constraint for this but it was not a user friendly message. I just updated the table so that not
 	--the front end shows a user friendly message and I was able remove the "if exists" line of code
-
+	--AF Great! I just had a question on the constraint, see in table file
 	if @CookbookId = 0
 	begin
-
-
-		
-		/*AF I see that you only want DateCreated to be set to getdate() for an insert, not an update.  When I commented here to move the code up and use isnull(),
-		 I meant that you would just default DateCreated to getdate() if it's null.  Since you are not doing that, and it seems you want to keep the DateCreated null
-		 for an update if a different value is not supplied, I wouldn't use isnull() above.  YOu can do nullif if @DateCreated is blank, like you have for the other dates
-		  and then here set DateCreated to getdate() here if it's null*/
 		  --MM I switched @DateCreated above to be blank if it's null, but I did not do that for the other dates. Did you mean the same way I did it the RecipeUpdate sproc?
-
+		--AF What you did is good, what you are doing above is setting @DateCreated to null if it comes in as blank.  That's good so that in the line below, if it came in as null
+		-- or blank, it will now be set to getdate()
 		begin
 			select @DateCreated = isnull(@DateCreated, GETDATE())
 		end

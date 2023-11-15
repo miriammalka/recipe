@@ -5,6 +5,7 @@ go
 --MM can you explain why?
 --Af Sorry, this comment was put here mistakenly
 --MM can I leave the default values though?
+--AF It doesn't seem like they'll do any harm, they just don't really have a purpose here, my comment to add them was a mistake
 create or alter proc dbo.CookbookRecipeUpdate(
 @CookbookRecipeId int = 0 output,
 @CookbookId int = 0,

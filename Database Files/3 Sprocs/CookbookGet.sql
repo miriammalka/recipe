@@ -24,6 +24,7 @@ begin
 	/* Af That is correct, but you can have a join and then a left join.  You can join to Users and then left join to CookbookRecipe.  It seems to me like switching the order
 	will be fine, is there a reson you need to join to Users only after CookbookREcipe? */
 	--MM No, I just joined to cookbook first because this is a CookbookGet sproc, but I can switch the order
+	--AF You can still select from Cookbook first, I was just saying that you can join to Users before left joining to CookbookRecipe
 	where c.CookbookId = @CookbookId 
 	or @All = 1
 	group by c.CookbookId, c.CookbookName, Concat(u.FirstName, ' ', u.LastName), c.Price, c.DateCreated, c.UsersId, c.Active

@@ -46,8 +46,6 @@ begin
 		from MealCourse mc 
 		join meal m 
 		on m.MealId = mc.mealId
-		--AF Meal has a column UserId, it's not necessary to join to Users, comment remains
-		--MM sorry, I missed that
 		where m.UsersId = @UsersId
 
 		delete m

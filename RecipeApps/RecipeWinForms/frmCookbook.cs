@@ -10,9 +10,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-//AF When I click on a cookbook in the list, it shows a new cookbook page, not the details for that cookbook
-//MM that problem only occurs when there is a new cookbook form already open. It is a bug and I believe the problem is in the IsFormOpen procedure in WindowsFormsUtitlity. I tried debugging, but could not fix the problem. I reached out for help on get help but no one responded. I will reach out again.
-//Af Seems to me like you fixed this...
 namespace RecipeWinForms
 {
     public partial class frmCookbook : Form

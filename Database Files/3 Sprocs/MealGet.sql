@@ -20,10 +20,6 @@ begin
 	on mc.MealId = m.MealId
 	join mealcourserecipe mcr
 	on mcr.mealcourseId = mc.MealCourseId
-	--AF No need to join to recipe, you can get the count of distinct MealCourseRecipeId
-	--MM I need to join it anyways to get the sum of calories in a meal
-	--AF I see that you have a function for that already, so I would assume you would use it.  You don't need to to if you don't want, and then you can leave this as is
-	--MM I forgot I created that function. Thank you for reminding me
 	where m.MealId = @MealId
 	or @All = 1
 	group by m.MealName, u.UserName, m.MealId
