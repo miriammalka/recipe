@@ -26,18 +26,6 @@ begin
 		goto finished
 	end
 
-	--if @CuisineId = 0
-	--begin
-	--	select @return = 1, @Message = 'A recipe record must have a Cuisine.'
-	--	goto finished
-	--end
-
-	--if @UsersId = 0
-	--begin
-	--	select @return = 1, @Message = 'A recipe record must have a User.'
-	--	goto finished
-	--end
-
 	if @RecipeId = 0
 	begin
 		select @DateCreated = isnull(@DateCreated,GetDate()), @RecipeStatus = 'Draft'
@@ -66,5 +54,3 @@ begin
 	return @return
 end
 go
-
-

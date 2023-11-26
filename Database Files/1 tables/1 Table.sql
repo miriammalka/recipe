@@ -161,7 +161,7 @@ create table dbo.Cookbook(
     /*AF The way that the constraint is written now, it blocks an inactive cookbook from having a price greater than 0, which I don't think is part of the schema. 
      This constraint can be changed a little to fix that by removing 'Price = 0' in the case where 'ACtive=0'.  So the check statement will just check either (active = 0)
      or (price > 0 and active = 1).  So if it's inactive, it can have any price*/
-	constraint ck_An_active_cookbook_must_have_a_price_greater_than_0 check((Price = 0 and Active = 0) or (Price > 0 and Active = 1))
+	constraint ck_An_active_cookbook_must_have_a_price_greater_than_0 check((Active = 0) or (Price > 0 and Active = 1))
 )
 go 
 create table dbo.CookbookRecipe(
