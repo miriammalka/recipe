@@ -2,9 +2,10 @@
 {
     public class DBManager
     {
-        public static void SetConnectionString(string connectionstring)
+        public static void SetConnectionString(string connectionstring, bool tryopen, string userid = "", string password = "")
         {
-            SQLUtility.ConnectionString = connectionstring;
+            SQLUtility.SetConnectionString(connectionstring, tryopen, userid, password);
         }
     }
 }
+
