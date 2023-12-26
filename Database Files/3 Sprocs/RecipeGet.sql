@@ -13,7 +13,7 @@ begin
 	select @All = isnull(@All,0), @RecipeId = isnull(@RecipeId,0), @IncludeBlank = isnull(@IncludeBlank,0)
 
 	select r.RecipeId, r.CuisineId, r.UsersId, r.RecipeName, r.RecipeStatus, 'User' = concat(u.FirstName, ' ', u.LastName),r.Calories, 
-	'Num Ingredients' = count(ri.RecipeIngredientId),	
+	'Num Ingredients' = count(ri.RecipeIngredientId), r.Picture,	
 	r.DateCreated, r.DatePublished, r.DateArchived , isequence = case r.recipestatus
 		 
 		when 'published' then 1
@@ -28,8 +28,8 @@ begin
 	where r.RecipeId = @RecipeId
 	or @All = 1
 	group by r.RecipeId, r.CuisineId, r.UsersId, r.RecipeName, r.RecipeStatus, concat(u.FirstName, ' ', u.LastName), r.Calories, r.DateCreated, 
-	r.DatePublished, r.DateArchived
-	union select 0, 0, 0, ' ', ' ', ' ', 0, 0, ' ', ' ', ' ', 0
+	r.DatePublished, r.DateArchived, r.Picture
+	union select 0, 0, 0, ' ', ' ', ' ', 0, 0, ' ' ,' ', ' ', ' ', 0
 	where @IncludeBlank = 1
 	order by isequence
 end

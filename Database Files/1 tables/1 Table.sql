@@ -89,7 +89,7 @@ create table dbo.Recipe(
         when DatePublished is not null then 'published'
         else 'draft'
         end,
-    Picture as concat('Recipe-', replace(RecipeName,' ', '-'), '.jpg') persisted,
+    Picture as Lower(concat('Recipe_', replace(RecipeName,' ', '_'), '.jpg')) persisted,
     constraint ck_DateCeated_must_be_less_than_DatePublished_and_DateArchived check(DateCreated <= DatePublished and DateCreated <= DateArchived)
     )
 go 

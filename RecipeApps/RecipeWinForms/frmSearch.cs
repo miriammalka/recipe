@@ -49,6 +49,7 @@ namespace RecipeWinForms
             gRecipe.Columns["DatePublished"].Visible = false;
             gRecipe.Columns["DateArchived"].Visible = false;
             gRecipe.Columns["isequence"].Visible = false;
+            gRecipe.Columns["Picture"].Visible = false;
 
         }
     }
