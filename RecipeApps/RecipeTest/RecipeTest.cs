@@ -59,7 +59,9 @@ namespace RecipeTest
             r["RecipeName"] = recipename;
             r["Calories"] = calories;
             r["DateCreated"] = datecreated;
-            Recipe.Save(dt);
+
+            bizRecipe bizrecipe = new();
+            bizrecipe.Save(dt);
 
             int newid = GetFirstColumnFirstRowValue("select recipeid from recipe where recipename = '" + recipename + "'");
             Assert.IsTrue(newid > 0, "recipe for " + recipename + " is not found in DB");
@@ -146,7 +148,8 @@ namespace RecipeTest
             Assume.That(recipeid > 0, "no recipes with related records in DB, can't run test");
             TestContext.WriteLine("existing recipe record with related records with id = " + recipeid);
             TestContext.WriteLine("we want to ensure that test can delete recipe with id = " + recipeid);
-            Recipe.Delete(dt);
+            bizRecipe bizrecipe = new();
+            bizrecipe.Delete(dt);
             DataTable dtafterdelete = GetDataTable("select * from recipe where recipeid = " + recipeid);
             Assert.IsTrue(dtafterdelete.Rows.Count == 0, "delete procedure did not work, because selected recipeid = " + recipeid + " is still in DB");
             TestContext.WriteLine("recipe with id = " + recipeid + " was successfully deleted from DB");
@@ -193,7 +196,8 @@ or DATEDIFF(Day, r.DateArchived, getdate()) <= 30)
             Assume.That(recipeid > 0, "no recipes in DB, can't run test");
             TestContext.WriteLine("existing recipe record with id = " + recipeid);
             TestContext.WriteLine("ensure that test returns recipe record with id = " + recipeid);
-            DataTable dt = Recipe.Load(recipeid);
+            bizRecipe bizrecipe = new();
+            DataTable dt = bizrecipe.Load(recipeid);
             int loadedid = (int)dt.Rows[0]["recipeid"];
             Assert.IsTrue(loadedid == recipeid, loadedid + " <> " + recipeid);
             TestContext.WriteLine("loaded recipe with id = " + recipeid);
