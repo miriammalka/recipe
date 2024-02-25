@@ -52,6 +52,7 @@ namespace RecipeTest
             int usersid = GetFirstColumnFirstRowValue("select top 1 usersid from users");
             
             Assume.That(usersid > 0, "no users in DB, can't run test");
+
             TestContext.WriteLine("we want to insert a new recipe for " + recipename);
             
             bizRecipe bizrecipe = new();
@@ -194,7 +195,6 @@ or DATEDIFF(Day, r.DateArchived, getdate()) <= 30)
         [Test]
         public void LoadRecipe()
         {
-            //Load code keeps on repeating. I need to figure out why
             int recipeid = GetExistingRecipeId();
             Assume.That(recipeid > 0, "no recipes in DB, can't run test");
             TestContext.WriteLine("existing recipe record with id = " + recipeid);
