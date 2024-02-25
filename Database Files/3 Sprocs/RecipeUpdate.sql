@@ -10,7 +10,7 @@ create or alter procedure dbo.RecipeUpdate(
 @DateCreated datetime output,
 @DatePublished datetime,
 @DateArchived datetime,
-@RecipeStatus varchar(25) output,
+--@RecipeStatus varchar(25) output,
 @Message varchar(500) = '' output
 )
 as
@@ -28,7 +28,7 @@ begin
 
 	if @RecipeId = 0
 	begin
-		select @DateCreated = isnull(@DateCreated,GetDate()), @RecipeStatus = 'Draft'
+		select @DateCreated = isnull(@DateCreated,GetDate())--, @RecipeStatus = 'Draft'
 	
 		insert Recipe(CuisineId, UsersId, RecipeName, Calories, DateCreated, DatePublished, DateArchived)
 		values (@CuisineId, @UsersId, @RecipeName, @Calories, @DateCreated, @DatePublished, @DateArchived) 

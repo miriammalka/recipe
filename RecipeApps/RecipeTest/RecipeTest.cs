@@ -34,36 +34,37 @@ namespace RecipeTest
         }
 
         [Test]
-        [TestCase(400, "06/06/2022")]
-        [TestCase(120, "09/19/2020")]
+        [TestCase(400, "2022-06-06")]
+        [TestCase(120, "2020-01-01")]
         public void InsertNewRecipe(int calories, DateTime datecreated)
         {
+
             int recipeid = GetExistingRecipeId();
-            Assume.That(recipeid > 0, "no recipes in DB, can't run test");
-            DataTable existingdt = GetDataTable("select * from recipe where recipeid = " + recipeid);
+            
+            Assume.That(recipeid > 0, "no recipes in DB, can't run test");           
+            
             string recipename = GetFirstColumnFirstRowValueAsString("select r.recipename from recipe r where r. recipeid = " + recipeid);
-            recipename = recipename + DateTime.Now.TimeOfDay.ToString();
-
-            DataTable dt = GetDataTable("select * from recipe where recipeid = 0");
-            DataRow r = dt.Rows.Add();
-            Assume.That(dt.Rows.Count == 1);
+            recipename = recipename + DateTime.Now.TimeOfDay.ToString();         
             int cuisineid = GetFirstColumnFirstRowValue("select top 1 cuisineid from cuisine");
+            
             Assume.That(cuisineid > 0, "no cuisines in DB, can't run test");
+            
             int usersid = GetFirstColumnFirstRowValue("select top 1 usersid from users");
+            
             Assume.That(usersid > 0, "no users in DB, can't run test");
-
             TestContext.WriteLine("we want to insert a new recipe for " + recipename);
-
-            r["CuisineId"] = cuisineid;
-            r["UsersId"] = usersid;
-            r["RecipeName"] = recipename;
-            r["Calories"] = calories;
-            r["DateCreated"] = datecreated;
-
+            
             bizRecipe bizrecipe = new();
-            bizrecipe.Save(dt);
+            
+            bizrecipe.CuisineId = cuisineid;
+            bizrecipe.UsersId = usersid;
+            bizrecipe.RecipeName = recipename;
+            bizrecipe.Calories = calories;
+            bizrecipe.DateCreated = datecreated;
 
-            int newid = GetFirstColumnFirstRowValue("select recipeid from recipe where recipename = '" + recipename + "'");
+            bizrecipe.Save();
+
+            int newid = bizrecipe.RecipeId;
             Assert.IsTrue(newid > 0, "recipe for " + recipename + " is not found in DB");
             TestContext.WriteLine("recipe for " + recipename + " with id (" + newid + ") is found in DB");
         }
@@ -149,7 +150,8 @@ namespace RecipeTest
             TestContext.WriteLine("existing recipe record with related records with id = " + recipeid);
             TestContext.WriteLine("we want to ensure that test can delete recipe with id = " + recipeid);
             bizRecipe bizrecipe = new();
-            bizrecipe.Delete(dt);
+            bizrecipe.Load(recipeid);
+            bizrecipe.Delete();
             DataTable dtafterdelete = GetDataTable("select * from recipe where recipeid = " + recipeid);
             Assert.IsTrue(dtafterdelete.Rows.Count == 0, "delete procedure did not work, because selected recipeid = " + recipeid + " is still in DB");
             TestContext.WriteLine("recipe with id = " + recipeid + " was successfully deleted from DB");
@@ -192,15 +194,17 @@ or DATEDIFF(Day, r.DateArchived, getdate()) <= 30)
         [Test]
         public void LoadRecipe()
         {
+            //Load code keeps on repeating. I need to figure out why
             int recipeid = GetExistingRecipeId();
             Assume.That(recipeid > 0, "no recipes in DB, can't run test");
             TestContext.WriteLine("existing recipe record with id = " + recipeid);
             TestContext.WriteLine("ensure that test returns recipe record with id = " + recipeid);
             bizRecipe bizrecipe = new();
-            DataTable dt = bizrecipe.Load(recipeid);
-            int loadedid = (int)dt.Rows[0]["recipeid"];
-            Assert.IsTrue(loadedid == recipeid, loadedid + " <> " + recipeid);
-            TestContext.WriteLine("loaded recipe with id = " + recipeid);
+            bizrecipe.Load(recipeid);
+            int loadedid = bizrecipe.RecipeId;
+            string recipename = bizrecipe.RecipeName;
+            Assert.IsTrue(loadedid == recipeid && recipename != "", loadedid + " <> " + recipeid + " RecipeName = " + recipename);
+            TestContext.WriteLine("loaded recipe with id = " + recipeid + " RecipeName = " + recipename);
         }
 
         [Test]
@@ -232,9 +236,9 @@ or DATEDIFF(Day, r.DateArchived, getdate()) <= 30)
             return GetFirstColumnFirstRowValue("select top 1 recipeid from recipe");
         }
 
-        private string GetFirstColumnFirstRowValueAsString (string sql)
+        private string GetFirstColumnFirstRowValueAsString (string? sql)
         {
-            string s = "";
+            string? s = "";
             DataTable dt = GetDataTable(sql);
             if (dt.Rows.Count > 0 && dt.Columns.Count > 0)
             {
