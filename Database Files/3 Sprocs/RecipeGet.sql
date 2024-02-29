@@ -3,6 +3,7 @@ go
 
 create or alter procedure dbo.RecipeGet(
 @RecipeId int = 0, 
+@RecipeName varchar(500) = '',
 @All bit = 0, 
 @IncludeBlank bit = 0,
 @Message varchar(500) = '' output
@@ -27,6 +28,7 @@ begin
 	on ri.RecipeId = r.RecipeId
 	where r.RecipeId = @RecipeId
 	or @All = 1
+	or r.RecipeName like '%' + @RecipeName + '%'
 	group by r.RecipeId, r.CuisineId, r.UsersId, r.RecipeName, r.RecipeStatus, concat(u.FirstName, ' ', u.LastName), r.Calories, r.DateCreated, 
 	r.DatePublished, r.DateArchived, r.Picture
 	union select 0, 0, 0, ' ', ' ', ' ', 0, 0, ' ' ,' ', ' ', ' ', 0
@@ -35,4 +37,5 @@ begin
 end
 go
 exec RecipeGet @All = 1, @IncludeBlank = 1
+exec RecipeGet @RecipeName = 'c'
 
