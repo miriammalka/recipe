@@ -20,7 +20,9 @@ begin
 		when 'published' then 1
 		when  'draft' then 2
 		when  'archived' then 3
-		end
+		end,
+
+		r.Vegan
 	from recipe r
 	join users u
 	on u.UsersId = r.UsersId
@@ -30,8 +32,8 @@ begin
 	or @All = 1
 	or r.RecipeName like '%' + @RecipeName + '%'
 	group by r.RecipeId, r.CuisineId, r.UsersId, r.RecipeName, r.RecipeStatus, concat(u.FirstName, ' ', u.LastName), r.Calories, r.DateCreated, 
-	r.DatePublished, r.DateArchived, r.Picture
-	union select 0, 0, 0, ' ', ' ', ' ', 0, 0, ' ' ,' ', ' ', ' ', 0
+	r.DatePublished, r.DateArchived, r.Picture, r.Vegan
+	union select 0, 0, 0, ' ', ' ', ' ', 0, 0, ' ' ,' ', ' ', ' ', 0,0
 	where @IncludeBlank = 1
 	order by isequence
 end

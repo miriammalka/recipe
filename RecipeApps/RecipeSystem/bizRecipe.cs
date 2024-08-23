@@ -22,6 +22,7 @@ namespace RecipeSystem
         private DateTime _datecreated;
         private DateTime? _datepublished;
         private DateTime? _datearchived;
+        private bool _vegan;
 
         public List<bizRecipe> Search(string recipenameval)
         {
@@ -134,6 +135,22 @@ namespace RecipeSystem
                 }
             }
         }
+
+        public bool Vegan
+        {
+            get { return _vegan; }
+            set
+            {
+                if (_vegan != value)
+                {
+                    _vegan = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+        //Console.WriteLine("_vegan", _vegan);
+        //Console.WriteLine("Convert.ToBoolean(_vegan))", Convert.ToBoolean(_vegan));
+        //Console.WriteLine("value", value);
 
     }
 }

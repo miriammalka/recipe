@@ -114,6 +114,70 @@ on c.CuisineName = x.Cuisine
 join users u 
 on u.Username = x.Users
 
+;
+with x as(
+select 
+52 as RecipeId,
+0 as Vegan
+union all
+select
+53,
+0
+union all
+select 
+54,
+0
+union all
+select 
+55,
+0
+union all
+select 
+56,
+0
+union all
+select 
+57,
+1
+union all
+select 
+58,
+1
+union all
+select 
+59,
+0
+union all
+select 
+60,
+0
+union all
+select 
+61,
+1
+union all
+select 
+62,
+0
+union all
+select 
+63,
+0
+union all
+select 
+64,
+0
+union all
+select 
+65,
+0
+)
+update r
+set r.Vegan = x.Vegan
+from recipe r
+join x on r.RecipeId = x.RecipeId
+
+
 go
 ; with x as(
     select Recipe = 'Chocolate Chip Cookies', Ingredient = 'sugar', SequenceOrder = 1, MeasurementType = 'cup', Amount = 1
@@ -177,6 +241,7 @@ go
     union select 'Ice Coffee Crush', 'sugar', 6, 'tablespoon', 2
     union select 'Ice Coffee Crush', 'vanilla', 7, 'teaspoon', 1
 ) 
+
 insert RecipeIngredient (RecipeId, IngredientId, SequenceOrder, MeasurementTypeId, Amount)
 select r.RecipeId, i.IngredientId, x.SequenceOrder, mt.MeasurementTypeId, x.Amount
 from x
@@ -255,6 +320,29 @@ union select (select u.UsersId from users u where u.Username = 'AMarks123'), 'Fi
 union select (select u.UsersId from users u where u.Username = 'SJohnson123'), 'Classic Shabbos Meal',  '2022-01-09', 1
 go 
 ;
+with x as(
+select 
+13 as MealId,
+'Delicous breakfast food to keep you full' as MealDesc
+union all
+select
+14,
+'Family friendly food for all'
+union all
+select
+15,
+'Mexican style food'
+union all
+select
+16,
+'Traditional Shabbos menu'
+)
+update m
+set m.MealDesc = x.MealDesc
+from Meal m
+join x on m.MealId = x.MealId
+
+;
 with x as (
     select Meal = 'Breakfast Bash', Course = 'Appetizer'
     union select 'Breakfast Bash', 'Main: Main course'
@@ -314,6 +402,29 @@ union select (select u.UsersId from users u where u.Username = 'MGross123'), 'Je
 union select (select u.UsersId from users u where u.Username = 'SJohnson123'), 'Easy Vegetarian Recipes', 0, '2022-03-11', 0 
 union select (select u.UsersId from users u where u.Username = 'AMarks123'), 'Breakfast Made Easy', 25, '2022-01-13', 1
 go 
+;
+with x as(
+select 
+13 as CookbookId,
+1 as SkillLevel
+union all
+select
+14,
+2
+union all
+select
+15,
+3
+union all
+select
+16,
+1
+)
+update c
+set c.SkillLevel = x.SkillLevel
+from Cookbook c
+join x on c.CookbookId = x.CookbookId
+
 ;
 with x as (
     select Cookbook = 'Treats for Two', Recipe = 'Chocolate Chip Cookies', SequenceOrder = 1

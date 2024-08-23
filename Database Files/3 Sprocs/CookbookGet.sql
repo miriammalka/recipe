@@ -4,6 +4,7 @@ go
 create or alter proc dbo.CookbookGet(
 @CookbookId int = 0,
 @All bit = 0,
+@IncludeBlank bit = 0,
 @Message varchar(500) = '' output
 )
 as
@@ -13,7 +14,7 @@ begin
 
 	select @All = isnull(@All,0), @CookbookId = isnull(@CookbookId,0)
 
-	select c.Cookbookid, c.UsersId, c.CookbookName, Author = Concat(u.FirstName, ' ', u.LastName), NumRecipes = count(distinct cr.CookbookRecipeId), c.Price, c.DateCreated, c.Active
+	select c.Cookbookid, c.UsersId, c.CookbookName, Author = Concat(u.FirstName, ' ', u.LastName), NumRecipes = count(distinct cr.CookbookRecipeId), c.Price, c.DateCreated, c.Active, c.SkillLevel, c.SkillLevelDesc
 	from users u
 	join cookbook c
 	on c.usersid = u.usersid
@@ -27,11 +28,13 @@ begin
 	--AF You can still select from Cookbook first, I was just saying that you can join to Users before left joining to CookbookRecipe
 	where c.CookbookId = @CookbookId 
 	or @All = 1
-	group by c.CookbookId, c.CookbookName, Concat(u.FirstName, ' ', u.LastName), c.Price, c.DateCreated, c.UsersId, c.Active
+	group by c.CookbookId, c.CookbookName, Concat(u.FirstName, ' ', u.LastName), c.Price, c.DateCreated, c.UsersId, c.Active, c.SkillLevel, c.SkillLevelDesc
+	union select 0, 0, '', '', 0, 0, '',0, 0, ''
+	where @IncludeBlank = 1
 	order by c.CookbookName 
 
 	return @return
 end
 go
 
-exec CookbookGet @All = 1
+exec CookbookGet @All = 1, @IncludeBlank = 1

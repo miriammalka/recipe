@@ -69,6 +69,8 @@ create table dbo.Users(
         constraint u_User_Username unique
     )
 go 
+alter table recipe add Vegan bit not null default 0
+go
 create table dbo.Recipe(
     RecipeId int not null identity primary key,
     CuisineId int not null constraint f_Cuisine_recipe foreign key references Cuisine(CuisineId),
@@ -128,6 +130,8 @@ create table dbo.Meal(
     Picture as concat('Meal-', replace(MealName,' ', '-'), '.jpg') persisted
     )
 go 
+alter table meal add MealDesc varchar(500) not null default ''
+go
 create table dbo.MealCourse(
     MealCourseId int not null identity primary key,
     MealId int not null constraint f_Meal_MealCourse foreign key references Meal(MealId),  
@@ -164,6 +168,19 @@ create table dbo.Cookbook(
 	constraint ck_An_active_cookbook_must_have_a_price_greater_than_0 check((Active = 0) or (Price > 0 and Active = 1))
 )
 go 
+alter table cookbook add SkillLevel int not null default 1
+go
+alter table cookbook add SkillLevelDesc as case
+	when SkillLevel = 1 then 'beginner'
+	when SkillLevel = 2 then 'intermediate'
+	when SkillLevel = 3 then 'advanced'
+	end
+go
+
+alter table cookbook
+add constraint ck_SkillLevel_must_be_between_1_and_3 check (SkillLevel between 1 and 3)
+go
+
 create table dbo.CookbookRecipe(
     CookbookRecipeId int not null identity primary key, 
     CookbookId int not null constraint f_Cookbook_CookbookRecipe foreign key references Cookbook(CookbookId),

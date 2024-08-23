@@ -24,7 +24,7 @@ namespace RecipeWinForms
         }
         private void BindData()
         {
-            gData.DataSource = Meals.GetMealsList();
+            gData.DataSource = Meal.GetMealsList();
             WindowsFormsUtility.FormatGridForSearchResults(gData, "Meal");
         }
     }
