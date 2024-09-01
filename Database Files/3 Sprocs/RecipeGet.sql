@@ -13,7 +13,7 @@ begin
 
 	select @All = isnull(@All,0), @RecipeId = isnull(@RecipeId,0), @IncludeBlank = isnull(@IncludeBlank,0)
 
-	select r.RecipeId, r.CuisineId, r.UsersId, r.RecipeName, r.RecipeStatus, 'User' = concat(u.FirstName, ' ', u.LastName),r.Calories, 
+	select r.RecipeId, r.CuisineId,c.CuisineName, r.UsersId, r.RecipeName, r.RecipeStatus, u.UserName, 'User' = concat(u.FirstName, ' ', u.LastName), r.Calories, 
 	'Num Ingredients' = count(ri.RecipeIngredientId), r.Picture,	
 	r.DateCreated, r.DatePublished, r.DateArchived , isequence = case r.recipestatus
 		 
@@ -26,14 +26,16 @@ begin
 	from recipe r
 	join users u
 	on u.UsersId = r.UsersId
+	join cuisine c
+	on c.CuisineId = r.CuisineId
 	left join recipeingredient ri
 	on ri.RecipeId = r.RecipeId
 	where r.RecipeId = @RecipeId
 	or @All = 1
 	or r.RecipeName like '%' + @RecipeName + '%'
-	group by r.RecipeId, r.CuisineId, r.UsersId, r.RecipeName, r.RecipeStatus, concat(u.FirstName, ' ', u.LastName), r.Calories, r.DateCreated, 
+	group by r.RecipeId, r.CuisineId, c.CuisineName, r.UsersId, r.RecipeName, r.RecipeStatus, u.UserName, concat(u.FirstName, ' ', u.LastName), r.Calories, r.DateCreated, 
 	r.DatePublished, r.DateArchived, r.Picture, r.Vegan
-	union select 0, 0, 0, ' ', ' ', ' ', 0, 0, ' ' ,' ', ' ', ' ', 0,0
+	union select 0, 0, '', 0, ' ', ' ','', ' ', 0, 0, ' ' ,' ', ' ', ' ', 0,0
 	where @IncludeBlank = 1
 	order by isequence
 end

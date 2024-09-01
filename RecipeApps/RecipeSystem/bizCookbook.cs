@@ -14,12 +14,11 @@ namespace RecipeSystem
         }
 
         private int _cookbookId;
-        private int _usersId;
+        private string _username;
         private string _cookbookname = "";
         private decimal _price;
         private DateTime _datecreated;
         private bool _active;
-        private int _skilllevel;
         private string _skillleveldesc;
 
         public int CookbookId
@@ -35,14 +34,14 @@ namespace RecipeSystem
             }
         }
 
-        public int UsersId
+        public string Username
         {
-            get { return _usersId; }
+            get { return _username; }
             set
             {
-                if (_usersId != value)
+                if (_username != value)
                 {
-                    _usersId = value;
+                    _username = value;
                     InvokePropertyChanged();
                 }
             }
@@ -95,18 +94,6 @@ namespace RecipeSystem
                 if (_active != value)
                 {
                     _active = value;
-                    InvokePropertyChanged();
-                }
-            }
-        }
-        public int SkillLevel
-        {
-            get { return _skilllevel; }
-            set
-            {
-                if (_skilllevel != value)
-                {
-                    _skilllevel = value;
                     InvokePropertyChanged();
                 }
             }

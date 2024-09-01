@@ -45,7 +45,6 @@ go
 
 select * from cookbookrecipe
 
-exec CookbookRecipeUpdate @CookbookId= 2,
-@RecipeId = 12
+
 
 select * from Recipe

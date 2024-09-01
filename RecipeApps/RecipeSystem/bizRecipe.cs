@@ -15,7 +15,9 @@ namespace RecipeSystem
 
         }
         private int _recipeId;
+        private string _cuisinename;
         private int _cuisineId;
+        private string _username;
         private int _usersId;
         private string _recipename = "";
         private int _calories;
@@ -45,6 +47,18 @@ namespace RecipeSystem
             } 
         }
 
+        public string CuisineName
+        {
+            get { return _cuisinename; }
+            set
+            {
+                if (_cuisinename != value)
+                {
+                    _cuisinename = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
         public int CuisineId
         {
             get { return _cuisineId; }
@@ -53,6 +67,18 @@ namespace RecipeSystem
                 if (_cuisineId != value)
                 {
                     _cuisineId = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+        public string UserName
+        {
+            get { return _username; }
+            set
+            {
+                if (_username != value)
+                {
+                    _username = value;
                     InvokePropertyChanged();
                 }
             }

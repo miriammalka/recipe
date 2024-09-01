@@ -16,7 +16,7 @@ namespace RecipeSystem
         }
         //need to find out if have to change to match result of mealget sproc
         private int _mealId;
-        private int _usersId;
+        private string _username;
         private string _mealname = "";
         private DateTime _datecreated;
         private bool _active;
@@ -35,14 +35,14 @@ namespace RecipeSystem
             }
         }
 
-        public int UsersId
+        public string Username
         {
-            get { return _usersId; }
+            get { return _username; }
             set
             {
-                if (_usersId != value)
+                if (_username != value)
                 {
-                    _usersId = value;
+                    _username = value;
                     InvokePropertyChanged();
                 }
             }
