@@ -14,7 +14,7 @@ begin
 
 	select @All = isnull(@All,0), @CookbookId = isnull(@CookbookId,0)
 
-	select c.Cookbookid, c.UsersId, u.Username, c.CookbookName, Author = Concat(u.FirstName, ' ', u.LastName), NumRecipes = count(distinct cr.CookbookRecipeId), c.Price, c.DateCreated, c.Active, c.SkillLevel, c.SkillLevelDesc
+	select c.Cookbookid, c.UsersId, u.Username, c.CookbookName, Author = Concat(u.FirstName, ' ', u.LastName), NumRecipes = count(distinct cr.CookbookRecipeId), c.Price, c.DateCreated, c.Active, c.SkillLevelDesc
 	from users u
 	join cookbook c
 	on c.usersid = u.usersid
@@ -28,8 +28,8 @@ begin
 	--AF You can still select from Cookbook first, I was just saying that you can join to Users before left joining to CookbookRecipe
 	where c.CookbookId = @CookbookId 
 	or @All = 1
-	group by c.CookbookId, c.CookbookName, u.Username, Concat(u.FirstName, ' ', u.LastName), c.Price, c.DateCreated, c.UsersId, c.Active, c.SkillLevel, c.SkillLevelDesc
-	union select 0, 0,'', '', '', 0, 0, '',0, 0, ''
+	group by c.CookbookId, c.CookbookName, u.Username, Concat(u.FirstName, ' ', u.LastName), c.Price, c.DateCreated, c.UsersId, c.Active,  c.SkillLevelDesc
+	union select 0, 0,'', '', '', 0, 0, '',0, ''
 	where @IncludeBlank = 1
 	order by c.CookbookName 
 

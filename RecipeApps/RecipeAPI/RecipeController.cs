@@ -9,11 +9,22 @@ namespace RecipeAPI
     public class RecipeController : ControllerBase
     {
         [HttpGet]
-        public List<bizRecipe> Get()
+        public IActionResult Get()
         {
-            return new bizRecipe().GetList();
-        }
+            try
+            {
+                var recipes = new bizRecipe().GetList();
+                return Ok(recipes); // Return 200 OK with the list of recipes
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (optional)
+                // You can use a logging framework like Serilog, NLog, etc.
 
+                // Return a 400 Bad Request or 500 Internal Server Error with a custom message
+                return BadRequest(new { message = "An error occurred while retrieving recipes.", details = ex.Message });
+            }
+        }
         [HttpGet("{id:int:min(0)}")]
         public bizRecipe GetRecipeById(int id)
         {

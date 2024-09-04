@@ -1,18 +1,18 @@
 with x as(
 select 
-13 as CookbookId,
+20 as CookbookId,
 1 as SkillLevel
 union all
 select
-14,
+21,
 2
 union all
 select
-15,
+22,
 3
 union all
 select
-16,
+23,
 1
 )
 update c

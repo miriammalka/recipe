@@ -15,8 +15,10 @@ begin
 
 	select r.RecipeId, r.CuisineId,c.CuisineName, r.UsersId, r.RecipeName, r.RecipeStatus, u.UserName, 'User' = concat(u.FirstName, ' ', u.LastName), r.Calories, 
 	'Num Ingredients' = count(ri.RecipeIngredientId), r.Picture,	
-	r.DateCreated, r.DatePublished, r.DateArchived , isequence = case r.recipestatus
-		 
+	r.DateCreated, 
+	r. DatePublished,  
+	r. DateArchived, 
+	isequence = case r.recipestatus
 		when 'published' then 1
 		when  'draft' then 2
 		when  'archived' then 3

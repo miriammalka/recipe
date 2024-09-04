@@ -26,7 +26,7 @@ select
     TotalIngredients = count(i.IngredientId)
 from recipe r 
 join users u 
-on u.UserId = r.UserId
+on u.UsersId = r.UsersId
 join RecipeIngredient ri 
 on r.RecipeId = ri.RecipeId
 join ingredient i
