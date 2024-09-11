@@ -1,24 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace RecipeSystem
 {
-    public class bizRecipe : bizObject<bizRecipe>
+    public class bizCookbookRecipe: bizObject<bizCookbookRecipe>
     {
-        public bizRecipe() 
+        public bizCookbookRecipe()
         {
 
         }
-        private int _recipeId;
+
+        private int _cookbookId;
+        private string _cookbookname;
         private string _cuisinename;
-        private int _cuisineId;
         private string _username;
-        private int _usersId;
         private string _recipename = "";
         private int _calories;
         private DateTime _datecreated;
@@ -26,25 +26,39 @@ namespace RecipeSystem
         private DateTime? _datearchived;
         private bool _vegan;
 
-        public List<bizRecipe> Search(string recipenameval)
+
+
+        public List<bizCookbookRecipe> LoadCookbookRecipes(string cookbookname)
         {
             SqlCommand cmd = SQLUtility.GetSQLCommand(this.GetSprocName);
-            SQLUtility.SetParamValue(cmd, "@RecipeName", recipenameval);
+            SQLUtility.SetParamValue(cmd, "@CookbookName", cookbookname);
             DataTable dt = SQLUtility.GetDataTable(cmd);
             return this.GetListFromDataTable(dt);
         }
 
-        public int RecipeId 
-        { 
-            get { return _recipeId; } 
-            set 
-            { 
-                if (_recipeId != value)
+        public int CookbookId
+        {
+            get { return _cookbookId; }
+            set
+            {
+                if (_cookbookId != value)
                 {
-                    _recipeId = value;
+                    _cookbookId = value;
                     InvokePropertyChanged();
                 }
-            } 
+            }
+        }
+        public string CookbookName
+        {
+            get { return _cookbookname; }
+            set
+            {
+                if (_cookbookname != value)
+                {
+                    _cookbookname = value;
+                    InvokePropertyChanged();
+                }
+            }
         }
 
         public string CuisineName
@@ -59,18 +73,7 @@ namespace RecipeSystem
                 }
             }
         }
-        public int CuisineId
-        {
-            get { return _cuisineId; }
-            set
-            {
-                if (_cuisineId != value)
-                {
-                    _cuisineId = value;
-                    InvokePropertyChanged();
-                }
-            }
-        }
+
         public string UserName
         {
             get { return _username; }
@@ -79,19 +82,6 @@ namespace RecipeSystem
                 if (_username != value)
                 {
                     _username = value;
-                    InvokePropertyChanged();
-                }
-            }
-        }
-
-        public int UsersId
-        {
-            get { return _usersId; }
-            set
-            {
-                if (_usersId != value)
-                {
-                    _usersId = value;
                     InvokePropertyChanged();
                 }
             }
@@ -174,6 +164,5 @@ namespace RecipeSystem
                 }
             }
         }
-
     }
 }
