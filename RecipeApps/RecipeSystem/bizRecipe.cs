@@ -26,10 +26,11 @@ namespace RecipeSystem
         private DateTime? _datearchived;
         private bool _vegan;
 
-        public List<bizRecipe> Search(string recipenameval)
+        public List<bizRecipe> Search(string recipenameval, int cuisineid)
         {
             SqlCommand cmd = SQLUtility.GetSQLCommand(this.GetSprocName);
             SQLUtility.SetParamValue(cmd, "@RecipeName", recipenameval);
+            SQLUtility.SetParamValue(cmd, "@CuisineId", cuisineid);
             DataTable dt = SQLUtility.GetDataTable(cmd);
             return this.GetListFromDataTable(dt);
         }

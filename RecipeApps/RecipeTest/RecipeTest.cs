@@ -232,11 +232,12 @@ or DATEDIFF(Day, r.DateArchived, getdate()) <= 30)
         public void SearchRecipe()
         {
             string recipename = "a";
+            int cuisineid = 16;
             int recipecount = GetFirstColumnFirstRowValue($"select total = count(*) from recipe where recipename like '%{recipename}%'");
             TestContext.WriteLine("Num of search results in DB = " + recipecount);
             TestContext.WriteLine("Ensure that number of rows returned by test matches " + recipecount);
             bizRecipe recipe = new();
-            List<bizRecipe> lst = recipe.Search(recipename);
+            List<bizRecipe> lst = recipe.Search(recipename, cuisineid);
             Assert.IsTrue(lst.Count == recipecount, "num rows returned by search (" + lst.Count + ") <>" + recipecount);
             TestContext.WriteLine("number of rows in search results returned by test = " + recipecount);
         }

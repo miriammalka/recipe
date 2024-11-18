@@ -25,13 +25,21 @@ namespace RecipeAPI
                 return BadRequest(new { message = "An error occurred while retrieving recipes.", details = ex.Message });
             }
         }
-        [HttpGet("{id:int:min(0)}")]
-        public bizRecipe GetRecipeById(int id)
+        [HttpGet("{recipeid:int:min(0)}")]
+        public bizRecipe GetRecipeById(int recipeid)
         {
             bizRecipe r = new bizRecipe();
-            r.Load(id);
+            r.Load(recipeid);
             return r;
 
         }
+
+        [HttpGet("getbycuisineId/{cuisineid:int:min(0)}")]
+        public List<bizRecipe> GetRecipeByCuisineId(int cuisineid)
+        {
+            return new bizRecipe().Search("", cuisineid);
+
+        }
+
     }
 }
