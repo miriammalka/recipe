@@ -41,5 +41,42 @@ namespace RecipeAPI
 
         }
 
+        //[FromForm]
+        [HttpPost]
+        public IActionResult Post(bizRecipe recipe)
+        {
+            try
+            {
+                recipe.Save();
+                return Ok(recipe);
+            }
+            catch(Exception ex)
+            {
+                recipe.ErrorMessage = ex.Message;
+                return BadRequest(recipe);
+            }
+        }
+        [HttpGet("users")]
+        public List<bizUsers> GetUsers()
+        {
+            return new bizUsers().GetList();
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            bizRecipe r = new();
+            try
+            {               
+                r.Delete(id);
+                return Ok(r);
+            }
+            catch (Exception ex)
+            {
+                r.ErrorMessage = ex.Message;
+                return BadRequest(r);
+            }
+        }
+
     }
 }

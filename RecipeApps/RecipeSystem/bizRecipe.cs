@@ -137,6 +137,15 @@ namespace RecipeSystem
             }
         }
 
+        //public DateOnly DateCreated2
+        //{
+        //    get {
+        //        DateOnly d;
+        //        DateOnly.TryParse(_datecreated.ToShortDateString(), out d);
+        //        return d;
+        //    }
+        //}
+
         public DateTime? DatePublished
         {
             get { return _datepublished; }

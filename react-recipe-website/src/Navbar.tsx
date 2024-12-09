@@ -4,8 +4,8 @@ export default function Navbar() {
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container-fluid">
                     <a className="navbar-brand" href="#">
-                        <img src="/images/brand.jpg" alt="" width="100" className="d-inline-block pe-3" />
-                        Record Keeper
+                        <img src="/images/recipe-logo.jpg" alt="" width="100" className="d-inline-block pe-3" />
+                        Recipes
                     </a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
