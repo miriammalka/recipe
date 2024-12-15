@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom"
 export default function Navbar() {
     return (
         <>
@@ -16,14 +17,16 @@ export default function Navbar() {
                                 <a className="nav-link active" aria-current="page" href="#">Recipes</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Meals</a>
+                                <NavLink className={"nav-link"} to="/Meals">Meals</NavLink>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Cookbooks</a>
+                                <NavLink className={"nav-link"} to="/Cookbooks">Cookbooks</NavLink>
                             </li>
                         </ul>
                     </div>
                 </div>
-            </nav>        </>
+            </nav>
+
+        </>
     )
 }

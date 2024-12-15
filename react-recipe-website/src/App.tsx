@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { RecipeEdit } from './RecipeEdit'
 import { blankRecipe } from './DataUtility'
 import { IRecipe } from './DataInterfaces'
+import { Outlet } from 'react-router-dom'
 
 function App() {
   const [selectedCuisineId, setSelectedCuisineId] = useState(0);
@@ -30,6 +31,7 @@ function App() {
             <Navbar />
           </div>
         </div>
+        <Outlet/>
         <div className="row mt-4">
           <div className="col-3">
             <Sidebar onCuisineSelected={handleCuisineSelected} />
