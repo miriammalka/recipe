@@ -77,8 +77,8 @@ export function RecipeEdit({ recipe }: Props) {
                     <div className="col-12">
                         <form className="needs-validation" onSubmit={handleSubmit(submitForm)}>
                             <div className="mb-3">
-                                <label htmlFor="recipeId" className="form-label">Recipe ID:</label>
-                                <input type="number" id="recipeId" {...register("recipeId")} className="form-control" required />
+                                <label htmlFor="recipeId" className="form-label" style={{ display: "none" }}>Recipe ID:</label>
+                                <input type="number" id="recipeId" {...register("recipeId")} className="form-control" style={{ display: "none" }} required />
                             </div>
 
                             <div className="mb-3">
@@ -91,10 +91,6 @@ export function RecipeEdit({ recipe }: Props) {
                                 <select id="cuisineId" {...register("cuisineId")} className="form-select">
                                     {cuisines.map(c => <option key={c.cuisineId} value={c.cuisineId}>{c.cuisineName}</option>)}
                                 </select>
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="cuisineName" className="form-label">Cuisine Name:</label>
-                                <input type="text" id="cuisineName" {...register("cuisineName")} className="form-control" required />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="usersId" className="form-label">Users ID:</label>
