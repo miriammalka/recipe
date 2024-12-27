@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom"
+import UserPanel from "./UserPanel"
 export default function Navbar() {
     return (
         <>
@@ -21,6 +22,9 @@ export default function Navbar() {
                             </li>
                             <li className="nav-item">
                                 <NavLink className={"nav-link"} to="/Cookbooks">Cookbooks</NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <UserPanel/>
                             </li>
                         </ul>
                     </div>

@@ -44,7 +44,9 @@ async function deleteData<T>(url: string): Promise<T> {
     const response = await fetch(url, {
         method: "DELETE"
     });
+    console.log(response);
     const data = await response.json();
+    console.log(data);
     return (data);
 }
 
@@ -53,7 +55,7 @@ export async function postRecipe(form: FieldValues) {
 }
 
 export async function deleteRecipe(recipeid: number) {
-    return deleteData<IRecipe>(`/Recipe?id=${recipeid}`);
+    return deleteData<IRecipe>(`Recipe?id=${recipeid}`);
 }
 
 export const blankRecipe: IRecipe = {

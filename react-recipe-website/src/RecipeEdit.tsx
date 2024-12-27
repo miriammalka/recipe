@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { FieldValues, useForm } from "react-hook-form";
 import { ICuisine, IRecipe, IUsers } from "./DataInterfaces";
 import { blankRecipe, deleteRecipe, fetchCuisines, fetchUsers, postRecipe } from "./DataUtility";
+import { useUserStore } from "./user/userstore";
 
 interface Props {
     recipe: IRecipe
@@ -55,7 +56,7 @@ export function RecipeEdit({ recipe }: Props) {
     // const formattedDatePublished = recipe.datePublished ? convertToISODate(recipe.datePublished) : "";
     // const formattedDateArchived = recipe.dateArchived ? convertToISODate(recipe.dateArchived) : "";
 
-
+    const userrole = useUserStore((state) => state.role);
     const handleDelete = async () => {
         const response = await deleteRecipe(recipe.recipeId);
         setErrorMessage(response.errorMessage);
@@ -123,7 +124,7 @@ export function RecipeEdit({ recipe }: Props) {
                                 </select>
                             </div>
                             <button type="submit" className="btn btn-primary">Submit</button>
-                            <button onClick={handleDelete} type="button" id="btndelete" className="btn btn-danger">Delete</button>
+                            <button onClick={handleDelete} disabled={userrole == "admin" ? false : true} type="button" id="btndelete" className="btn btn-danger">Delete</button>
                         </form>
                     </div>
                 </div>
