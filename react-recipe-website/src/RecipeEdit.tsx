@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { FieldValues, useForm } from "react-hook-form";
 import { ICuisine, IRecipe, IUsers } from "./DataInterfaces";
 import { blankRecipe, deleteRecipe, fetchCuisines, fetchUsers, postRecipe } from "./DataUtility";
-import { useUserStore } from "./user/userstore";
+import { useUserStore } from "@miriammalka/reactutils";
 
 interface Props {
     recipe: IRecipe

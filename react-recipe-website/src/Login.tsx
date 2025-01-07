@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useUserStore } from "./user/userstore";
+import { useUserStore } from "@miriammalka/reactutils";
 
 type LoginFormInputs = { username: string; password: string; };
 
@@ -28,4 +28,4 @@ export default function Login() {
         </>
     )
 }
-//changed for commit
+

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useUserStore } from "./user/userstore"
+import { useUserStore } from "@miriammalka/reactutils";
 
 export default function UserPanel() {
     const username = useUserStore((state) => state.username);
