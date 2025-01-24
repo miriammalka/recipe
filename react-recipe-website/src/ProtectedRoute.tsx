@@ -1,5 +1,5 @@
 import React from "react";
-import { useUserStore } from "@miriammalka/reactutils";
+import { getUserStore } from "@miriammalka/reactutils";
 import Login from "./Login";
 
 interface Props {
@@ -8,9 +8,11 @@ interface Props {
 }
 
 export default function ProtectedRoute({ element, requiredrole }: Props) {
+    const apiurl = import.meta.env.VITE_API_URL;
+    const useUserStore = getUserStore(apiurl);
     const isLoggedIn = useUserStore((state) => state.isLoggedIn);
-    const role = useUserStore((state) => state.role);
-    const haspriviledge = requiredrole == "" || requiredrole == role;
+    const rolerank = useUserStore((state) => state.roleName);
+    const haspriviledge = requiredrole == "" || requiredrole == rolerank;
     if (!isLoggedIn) {
         return <Login />;
     }
