@@ -17,6 +17,7 @@ export function RecipeEdit({ recipe }: Props) {
     const rolerank = useUserStore((state) => state.roleRank);
 
 
+
     useEffect(() => {
         const fetchCuisineData = async () => {
             const cuisinedata = await fetchCuisines();
@@ -45,19 +46,40 @@ export function RecipeEdit({ recipe }: Props) {
         [recipe, reset]);
 
     const submitForm = async (data: FieldValues) => {
-        const response = await postRecipe(data);
-        setErrorMessage(response.errorMessage);
-        reset(response);
+        try {
+            const response = await postRecipe(data);
+            setErrorMessage(response.errorMessage);
+            reset(response);
+        }
+        catch (error: unknown) {
+            if (error instanceof Error) {
+                setErrorMessage(error.message);
+            }
+            else {
+                setErrorMessage("error occured");
+            }
+        }
     }
-   
+
 
     const handleDelete = async () => {
-        const response = await deleteRecipe(recipe.recipeId);
-        setErrorMessage(response.errorMessage);
-        if (response.errorMessage == "") {
-            reset(blankRecipe);
-            console.log(recipe, "deleted");
+        try {
+            const response = await deleteRecipe(recipe.recipeId);
+            setErrorMessage(response.errorMessage);
+            if (response.errorMessage == "") {
+                reset(blankRecipe);
+                console.log(recipe, "deleted");
+            }
         }
+        catch (error: unknown) {
+            if (error instanceof Error) {
+                setErrorMessage(error.message);
+            }
+            else {
+                setErrorMessage("Error Occured")
+            }
+        }
+
     }
     //need to work on binding the date
     return (
@@ -118,7 +140,8 @@ export function RecipeEdit({ recipe }: Props) {
                                 </select>
                             </div>
                             <button type="submit" className="btn btn-primary">Submit</button>
-                            <button onClick={handleDelete} disabled={rolerank >= 3 ? false : true} type="button" id="btndelete" className="btn btn-danger">Delete</button>
+                            {rolerank >= 3 ? <button onClick={handleDelete} disabled={rolerank >= 3 ? false : true} type="button" id="btndelete" className="btn btn-danger">Delete</button> : null}
+
                         </form>
                     </div>
                 </div>
@@ -128,13 +151,13 @@ export function RecipeEdit({ recipe }: Props) {
 
 }
 
- // const convertToISODate = (dateParam: any) => {
-    //     const date = new Date(dateParam);
-    //     const formattedDate = date.toISOString().split('T')[0];
-    //     return formattedDate;
+// const convertToISODate = (dateParam: any) => {
+//     const date = new Date(dateParam);
+//     const formattedDate = date.toISOString().split('T')[0];
+//     return formattedDate;
 
-    // }
+// }
 
-    // const formattedDateCreated = recipe.dateCreated ? convertToISODate(recipe.dateCreated) : "";
-    // const formattedDatePublished = recipe.datePublished ? convertToISODate(recipe.datePublished) : "";
-    // const formattedDateArchived = recipe.dateArchived ? convertToISODate(recipe.dateArchived) : "";
+// const formattedDateCreated = recipe.dateCreated ? convertToISODate(recipe.dateCreated) : "";
+// const formattedDatePublished = recipe.datePublished ? convertToISODate(recipe.datePublished) : "";
+// const formattedDateArchived = recipe.dateArchived ? convertToISODate(recipe.dateArchived) : "";

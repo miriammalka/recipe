@@ -9,10 +9,10 @@ import Login from "./Login";
 const router = createBrowserRouter([
     {
         path: "/", element: <App />, children: [
-            { path: "/Recipes", element: <ProtectedRoute element={<Recipes />} requiredrole="" /> },
-            { path: "/Meals", element: <ProtectedRoute element={<Meals />} requiredrole="" /> },
-            { path: "/Cookbooks", element: <ProtectedRoute element={<Cookbooks />} requiredrole="" /> },
-            { path: "/Login", element: <Login /> }
+            { path: "/Recipes", element: <ProtectedRoute element={<Recipes />} requiredrole={0} /> },
+            { path: "/Meals", element: <ProtectedRoute element={<Meals />} requiredrole={0} /> },
+            { path: "/Cookbooks", element: <ProtectedRoute element={<Cookbooks />} requiredrole={0} /> },
+            { path: "/Login", element: <Login frompath={location.pathname} /> }
         ]
     },
 ]);
