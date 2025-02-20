@@ -6,9 +6,9 @@ export interface IRecipe {
     usersId: number,
     recipeName: string,
     calories: number,
-    dateCreated: Date,
-    datePublished: Date | null,
-    dateArchived: Date | null,
+    dateCreated: Date | string,
+    datePublished: Date | null | string,
+    dateArchived: Date | null | string,
     vegan: boolean,
     errorMessage: string
 }
@@ -18,9 +18,15 @@ export interface ICuisine {
     cuisineName: string
 }
 
-export interface IUsers{
+export interface IUsers {
     usersId: number,
     firstName: string,
     lastName: string,
     userName: string
+}
+
+export interface IDashboard {
+    order: number,
+    type: string,
+    number: number
 }

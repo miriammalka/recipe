@@ -1,14 +1,34 @@
 import { FieldValues } from "react-hook-form";
-import { IRecipe, ICuisine, IUsers } from "./DataInterfaces"
+import { IRecipe, ICuisine, IUsers, IDashboard } from "./DataInterfaces"
 import { createAPI, getUserStore } from "@miriammalka/reactutils";
 
 let baseurl = import.meta.env.VITE_API_URL;
 
-function api(){
+function api() {
     const sessionkey = getUserStore(baseurl).getState().sessionKey;
     return createAPI(baseurl, sessionkey);
 }
 
+function formatRecipeDates(recipe: IRecipe): IRecipe{
+    return{
+        ...recipe,
+        dateCreated: formatDate(recipe.dateCreated),
+        datePublished: formatDate(recipe.datePublished),
+        dateArchived: formatDate(recipe.dateArchived)
+    }
+}
+
+function formatDate(date: Date | string | null): string {
+    if (!date) return "";
+    const d = new Date(date);
+    const month = ("0" + (d.getMonth() + 1)).slice(-2);
+    const day = ("0" + d.getDate()).slice(-2);
+    return `${d.getFullYear()}-${month}-${day}`;
+}
+
+export async function fetchDashboard() {
+    return await api().fetchData<IDashboard[]>("App");
+}
 
 export async function fetchCuisines() {
     return await api().fetchData<ICuisine[]>("Cuisine");

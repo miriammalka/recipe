@@ -9,6 +9,7 @@ export default function UserPanel() {
     const isLoggedIn = useUserStore((state) => state.isLoggedIn);
     const logout = useUserStore((state) => state.logout);
 
+
     return (
         <>
             {isLoggedIn ? (
