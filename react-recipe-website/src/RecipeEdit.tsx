@@ -120,16 +120,16 @@ export function RecipeEdit({ recipe }: Props) {
                                 <input type="number" id="calories" {...register("calories")} className="form-control" required />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="dateCreated" className="form-label">Date Created:</label>
-                                <input type="date" id="dateCreated" {...register("dateCreated", { valueAsDate: true })} className="form-control" required />
+                            <label htmlFor="dateCreated" className="col-form-label">Date Created:</label>
+                            <input type="date" {...register("dateCreated")} className="form-control" required />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="datePublished" className="form-label">Date Published:</label>
-                                <input type="date" id="datePublished" {...register("datePublished", { valueAsDate: true })} className="form-control" />
+                                <input type="date" {...register("datePublished")} className="form-control" />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="dateArchived" className="form-label">Date Archived:</label>
-                                <input type="date" id="dateArchived" {...register("dateArchived", { valueAsDate: true })} className="form-control" />
+                                <input type="date" {...register("dateArchived")} className="form-control" />
                             </div>
 
                             <div className="mb-3">

@@ -9,13 +9,13 @@ function api() {
     return createAPI(baseurl, sessionkey);
 }
 
-function formatRecipeDates(recipe: IRecipe): IRecipe{
-    return{
+function formatRecipeDates(recipe: IRecipe): IRecipe {
+    return {
         ...recipe,
         dateCreated: formatDate(recipe.dateCreated),
         datePublished: formatDate(recipe.datePublished),
         dateArchived: formatDate(recipe.dateArchived)
-    }
+    };
 }
 
 function formatDate(date: Date | string | null): string {
@@ -35,7 +35,8 @@ export async function fetchCuisines() {
 }
 
 export async function fetchRecipiesByCuisineId(cuisineId: number) {
-    return await api().fetchData<IRecipe[]>(`Recipe/getbycuisineId/${cuisineId}`)
+    const recipes = await api().fetchData<IRecipe[]>(`Recipe/getbycuisineId/${cuisineId}`)
+    return recipes.map(formatRecipeDates);
 }
 
 export async function fetchUsers() {
@@ -43,11 +44,13 @@ export async function fetchUsers() {
 }
 
 export async function postRecipe(form: FieldValues) {
-    return api().postData<IRecipe>("recipe", form);
+    const recipe = await api().postData<IRecipe>("recipe", form);
+    return formatRecipeDates(recipe);
 }
 
 export async function deleteRecipe(recipeid: number) {
-    return api().deleteData<IRecipe>(`Recipe?id=${recipeid}`);
+    const recipe = await api().deleteData<IRecipe>(`Recipe?id=${recipeid}`);
+    return formatRecipeDates(recipe);
 }
 
 export const blankRecipe: IRecipe = {
