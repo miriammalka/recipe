@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchDashboard } from "./DataUtility";
 import { IDashboard } from "./DataInterfaces";
+import { NavLink } from "react-router-dom";
 
 export default function Home() {
     const [dashboardData, setDashboardData] = useState<IDashboard[]>([]);
@@ -10,13 +11,15 @@ export default function Home() {
             const response = await fetchDashboard();
             setDashboardData(response);
         };
-        fetchData;
+        fetchData();
     }, []);
 
     return (
         <>
             <div className="container">
-                <h1 className="my-4">Recipe Website</h1>
+                <h1 className="my-4">Welcome to the Recipe Website</h1>
+                <h2>Your go to website for browsing and creating recies, meal plans and cookbooks. Get started!</h2>
+                <br />
                 <div className="row">
                     <div className="col-3 mb-4">
                         <img className="img img-fluid" src="/images/recipe-logo.jpg" alt="Recipe Website" />
@@ -28,6 +31,9 @@ export default function Home() {
                                 <div className="card-body">
                                     <h5 className="card-title">{item.type}</h5>
                                     <p className="card-text">{item.number}</p>
+                                    <a className="btn btn-primary" href={item.type}>
+                                        Click here to browse {item.type}                                     
+                                    </a>
                                 </div>
                             </div>
                         </div>

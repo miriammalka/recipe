@@ -10,19 +10,25 @@ export interface IRecipe {
     datePublished: Date | null | string,
     dateArchived: Date | null | string,
     vegan: boolean,
-    errorMessage: string
+    errorMessage: string,
+    recipeIngredientList: IRecipeIngredient[],
+    instructionList: IInstruction[]
+
 }
 
 export interface ICuisine {
     cuisineId: number,
-    cuisineName: string
+    cuisineName: string,
+    errorMessage: string
 }
 
 export interface IUsers {
     usersId: number,
     firstName: string,
     lastName: string,
-    userName: string
+    userName: string,
+    errorMessage: string
+
 }
 
 export interface IDashboard {
@@ -30,3 +36,84 @@ export interface IDashboard {
     type: string,
     number: number
 }
+
+export interface IRecipeIngredient {
+    recipeIngredientId: number,
+    recipeId: number,
+    ingredientId: number,
+    measurementTypeId: number,
+    amount: number,
+    sequenceOrder: number,
+    errorMessage: string
+}
+
+export interface IIngredient {
+    ingredientId: number,
+    ingredientName: string,
+    errorMessage: string
+}
+
+export interface IInstruction {
+    instructionId: number,
+    recipeId: number,
+    instruction: string,
+    sequenceOrder: number,
+    errorMessage: string
+}
+
+export interface IMeal {
+    mealId: number,
+    mealName: string,
+    userName: string,
+    dateCreated: Date,
+    numCalories: number,
+    numCourses: number,
+    numRecipes: number,
+    mealDescription: string,
+    active: boolean
+}
+
+export interface ICookbook {
+    cookbookId: number,
+    cookbookName: string,
+    usersId: number,
+    //author: string,
+    //numRecipes: number,
+    price: number,
+    dateCreated: Date | string,
+    active: boolean,
+    skillLevelDesc: string,
+    cookbookRecipeList: ICookbookRecipe[],
+    errorMessage: string
+}
+
+export interface ICookbookRecipe {
+    cookbookRecipeId: number,
+    cookbookId: number,
+    recipeId: number,
+    sequence: number,
+    // cookbookName: string,
+    // cuisineName: string,
+    // userName: string,
+    // recipeName: string,
+    // calories: number,
+    // dateCreated: Date | string,
+    // datePublished: Date | null | string,
+    // dateArchived: Date | null | string,
+    // vegan: boolean,
+    errorMessage: string
+}
+
+export interface ICourse {
+    courseId: number,
+    courseName: string,
+    sequenceOrder: number,
+    errorMessage: string
+}
+
+export interface IMeasurementType {
+    measurementTypeId: number,
+    measurementType: string,
+    errorMessage: string
+}
+

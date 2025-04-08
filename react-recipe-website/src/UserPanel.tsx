@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { getUserStore } from "@miriammalka/reactutils";
+import { getUserStore, useSessionTimeout } from "@miriammalka/reactutils";
 
 export default function UserPanel() {
     const apiurl = import.meta.env.VITE_API_URL;
@@ -9,6 +9,11 @@ export default function UserPanel() {
     const isLoggedIn = useUserStore((state) => state.isLoggedIn);
     const logout = useUserStore((state) => state.logout);
 
+    useSessionTimeout({
+        apiUrl: apiurl,
+        timeout: 1000 * 60 * 5,
+        pathtologin: "/Login"
+    })
 
     return (
         <>
