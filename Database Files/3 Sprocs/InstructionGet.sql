@@ -5,6 +5,7 @@ create or alter procedure dbo.InstructionGet(
 	@InstructionId int = 0,
 	@RecipeId int = 0,
 	@All bit = 0,
+	@IncludeBlank bit = 0,
 	@Message varchar(500) = ''  output
 )
 as
@@ -18,6 +19,8 @@ begin
 	where i.InstructionId = @InstructionId
 	or i.RecipeId = @RecipeId
 	or @All = 1
+	union select 0,0,' ', 0
+	where @IncludeBlank = 1
 	order by i.RecipeId, i.SequenceOrder
 
 	return @return

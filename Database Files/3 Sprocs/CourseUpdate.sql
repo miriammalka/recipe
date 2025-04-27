@@ -13,7 +13,7 @@ begin
 
 	select @CourseId = isnull(@CourseId,0)
 	
-	if @CourseId = 0
+	if @CourseId <= 0
 	begin
 		insert Course(CourseName, SequenceOrder)
 		values(@CourseName, @SequenceOrder)

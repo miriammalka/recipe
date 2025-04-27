@@ -20,6 +20,9 @@ namespace RecipeSystem
         private string _mealname = "";
         private DateTime _datecreated;
         private bool _active;
+        private int _numcalories;
+        private int _numcourses;
+        private int _numrecipes;
         private string _mealdesc;
 
         public int MealId
@@ -82,6 +85,45 @@ namespace RecipeSystem
                 if (_active != value)
                 {
                     _active = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        public int NumCalories
+        {
+            get { return _numcalories; }
+            set
+            {
+                if (_numcalories != value)
+                {
+                    _numcalories = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        public int NumCourses
+        {
+            get { return _numcourses; }
+            set
+            {
+                if (_numcourses != value)
+                {
+                    _numcourses = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        public int NumRecipes
+        {
+            get { return _numrecipes; }
+            set
+            {
+                if (_numrecipes != value)
+                {
+                    _numrecipes = value;
                     InvokePropertyChanged();
                 }
             }

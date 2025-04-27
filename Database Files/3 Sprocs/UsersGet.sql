@@ -17,12 +17,28 @@ begin
 
 	if isnull(@sessionkey, '') != ''
 	begin
-		if(select top 1 datediff(second, u.sessionkeyDate, Getdate()) from users u where u.sessionkey = @sessionkey) > @maxseconds
+		select @UsersId = usersId from users u where u.sessionkey = @sessionkey
+
+		if isnull(@usersId, 0) = 0
+		begin
+			goto exit_proc
+		end
+
+
+		if(select top 1 datediff(second, u.sessionkeyDate, Getdate()) from users u where u.usersId = @UsersId) > @maxseconds
 		begin 
 			update u set u.sessionkey = '', u.sessionkeyDate = null
-			from users u where u.sessionkey = @sessionkey
+			from users u where u.UsersId = @UsersId
+		end
+
+		else
+		begin
+		update u set u.sessionkeyDate = GETDATE()
+		from users u where u.usersId = @UsersId
 		end
 	end
+
+	exit_proc:
 
 	select u.UsersId, r.roleId, u.FirstName, u.LastName, u.Username, Users = concat(u.FirstName, ' ', u.LastName), u.sessionkey, r.rolename, r.rolerank
 	from Users u
@@ -46,3 +62,4 @@ grant execute on UsersGet to reciperole
 exec UsersGet @All = 1, @IncludeBlank = 1
 
 select * from users
+

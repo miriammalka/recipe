@@ -6,12 +6,12 @@ namespace RecipeAPI
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CuisineController : ControllerBase
+    public class IngredientController : ControllerBase
     {
         [HttpGet]
-        public List<bizCuisine> Get()
+        public List<bizIngredient> Get()
         {
-            return new bizCuisine().GetList();
+            return new bizIngredient().GetList();
         }
 
 
@@ -19,32 +19,32 @@ namespace RecipeAPI
         [AuthPermission(1)]
         public IActionResult Delete(int id)
         {
-            bizCuisine cuisine = new();
+            bizIngredient ingredient = new();
             try
             {
-                cuisine.Delete(id);
-                return Ok(cuisine);
+                ingredient.Delete(id);
+                return Ok(ingredient);
             }
             catch (Exception ex)
             {
-                cuisine.ErrorMessage = ex.Message;
-                return BadRequest(cuisine);
+                ingredient.ErrorMessage = ex.Message;
+                return BadRequest(ingredient);
             }
         }
 
         [HttpPost]
         [AuthPermission(1)]
-        public IActionResult Post(bizCuisine cuisine)
+        public IActionResult Post(bizIngredient ingredient)
         {
             try
             {
-                cuisine.Save();
-                return Ok(cuisine);
+                ingredient.Save();
+                return Ok(ingredient);
             }
             catch (Exception ex)
             {
-                cuisine.ErrorMessage = ex.Message;
-                return BadRequest(cuisine);
+                ingredient.ErrorMessage = ex.Message;
+                return BadRequest(ingredient);
             }
         }
     }

@@ -5,6 +5,7 @@ create or alter procedure dbo.RecipeIngredientGet(
 	@RecipeIngredientId int = 0,
 	@RecipeId int = 0,
 	@All bit = 0,
+	@IncludeBlank bit = 0,
 	@Message varchar(500) = ''  output
 )
 as
@@ -18,6 +19,8 @@ begin
 	where ri.RecipeIngredientId = @RecipeIngredientId
 	or @All = 1
 	or ri.RecipeId = @RecipeId
+	union select 0, 0,0,0,0,0
+	where @IncludeBlank = 1
 	order by ri.SequenceOrder
 
 	return @return
@@ -26,6 +29,7 @@ go
 
 exec RecipeIngredientGet @All = 1
 
+
 --select *from recipe r
 --join recipeingredient ri
 --on r.recipeid = ri.recipeid
@@ -33,3 +37,4 @@ exec RecipeIngredientGet @All = 1
 --on i.ingredientid = ri.ingredientid
 --join instruction s
 --on s.recipeid = r.recipeid
+select * from ingredient

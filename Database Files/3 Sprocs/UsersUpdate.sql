@@ -2,22 +2,24 @@ use RecipeDB
 go
 
 create or alter procedure dbo.UsersUpdate(
-		@UsersId int  output,
+		@UsersId int = 0 output,
 		@FirstName varchar(100),
 		@LastName varchar(100),
 		@UserName varchar (100),
+		@Password varchar(100) = '',
+		@RoleId int = 0,
 		@Message varchar(500) = ''  output
 )
 as
 begin
 	declare @return int = 0
 
-	select @UsersId = isnull(@UsersId,0)
+	select @UsersId = isnull(@UsersId,0), @Password = isnull(@Password, 'password'), @RoleId = isnull(@RoleId, 8)
 	
-	if @UsersId = 0
+	if @UsersId <= 0
 	begin
-		insert Users(FirstName, LastName, UserName)
-		values(@FirstName, @LastName, @UserName)
+		insert Users(FirstName, LastName, UserName, Password, RoleId)
+		values(@FirstName, @LastName, @UserName, @Password, @RoleId)
 
 		select @UsersId= scope_identity()
 	end
@@ -27,10 +29,15 @@ begin
 		set	
 			FirstName = @FirstName,
 			LastName = @LastName,
-			UserName = @UserName
+			UserName = @UserName,
+			Password = @Password,
+			RoleId = @RoleId
 		where UsersId = @UsersId
 	end
 	
 	return @return
 end
 go
+
+--test
+exec UsersUpdate @FirstName = 'bbb', @LastName = 'nnn', @UserName = 'test123', @Password = 'password', @RoleId = 1

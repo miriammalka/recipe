@@ -10,6 +10,7 @@ create or alter procedure dbo.RecipeUpdate(
 @DateCreated datetime output,
 @DatePublished datetime,
 @DateArchived datetime,
+@Vegan bit = 0,
 --@RecipeStatus varchar(25) output,
 @Message varchar(500) = '' output
 )
@@ -18,7 +19,7 @@ begin
 	declare @return int = 0
 
 	select @RecipeId = isnull(@RecipeId, 0), @DateCreated = nullif(@DateCreated, ''),
-	@DatePublished = nullif(@DatePublished, ''), @DateArchived = nullif(@DateArchived, '')
+	@DatePublished = nullif(@DatePublished,''), @DateArchived = nullif(@DateArchived, '')
 	
 	if exists (select * from recipe r where r.RecipeName = @RecipeName and @RecipeId = 0)
 	begin
@@ -30,8 +31,8 @@ begin
 	begin
 		select @DateCreated = isnull(@DateCreated,GetDate())--, @RecipeStatus = 'Draft'
 	
-		insert Recipe(CuisineId, UsersId, RecipeName, Calories, DateCreated, DatePublished, DateArchived)
-		values (@CuisineId, @UsersId, @RecipeName, @Calories, @DateCreated, @DatePublished, @DateArchived) 
+		insert Recipe(CuisineId, UsersId, RecipeName, Calories, DateCreated, DatePublished, DateArchived, Vegan)
+		values (@CuisineId, @UsersId, @RecipeName, @Calories, @DateCreated, @DatePublished, @DateArchived, @Vegan) 
 	
 		select @RecipeId = SCOPE_IDENTITY()
 	end
@@ -46,7 +47,8 @@ begin
 		Calories = @Calories, 
 		DateCreated = @DateCreated,
 		DatePublished = @DatePublished,
-		DateArchived = @DateArchived
+		DateArchived = @DateArchived,
+		Vegan = @Vegan
 	    where RecipeId = @RecipeId
 	end
 
@@ -56,7 +58,7 @@ end
 go
 
 --test
-exec RecipeUpdate @UsersId = 13, @CuisineId = 16, @RecipeName = 'rainbow salad', @Calories = 100, @DateCreated = '', @DatePublished = '', @DateArchived = ''
+--exec RecipeUpdate @UsersId = 13, @CuisineId = 16, @RecipeName = 'rainbow salad', @Calories = 100, @DateCreated = '', @DatePublished = '', @DateArchived = '', @Vegan = 0
 
 select * from users
 select * from cuisine

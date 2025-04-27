@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,13 +15,22 @@ namespace RecipeSystem
         }
 
         private int _cookbookId;
-        private string _username;
+        //private string _username;
+        private int _usersId;
         private string _cookbookname = "";
         private decimal _price;
         private DateTime _datecreated;
         private bool _active;
+        private int _skilllevel;
         private string _skillleveldesc;
+        private List<bizCookbookRecipe> _lstcookbookrecipe;
 
+        public static void AutoCreateCookbook(int usersid)
+        {
+            SqlCommand cmd = SQLUtility.GetSQLCommand("AutoCreateCookbook");
+            SQLUtility.SetParamValue(cmd, "@UsersId", usersid);
+            SQLUtility.ExecuteSQL(cmd);
+        }
         public int CookbookId
         {
             get { return _cookbookId; }
@@ -34,18 +44,30 @@ namespace RecipeSystem
             }
         }
 
-        public string Username
+        public int UsersId
         {
-            get { return _username; }
+            get { return _usersId; }
             set
             {
-                if (_username != value)
+                if (_usersId != value)
                 {
-                    _username = value;
+                    _usersId = value;
                     InvokePropertyChanged();
                 }
             }
         }
+        //public string Username
+        //{
+        //    get { return _username; }
+        //    set
+        //    {
+        //        if (_username != value)
+        //        {
+        //            _username = value;
+        //            InvokePropertyChanged();
+        //        }
+        //    }
+        //}
 
         public string CookbookName
         {
@@ -99,6 +121,19 @@ namespace RecipeSystem
             }
         }
 
+        public int SkillLevel
+        {
+            get { return _skilllevel; }
+            set
+            {
+                if (_skilllevel != value)
+                {
+                    _skilllevel = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
         public string SkillLevelDesc
         {
             get { return _skillleveldesc; }
@@ -109,6 +144,18 @@ namespace RecipeSystem
                     _skillleveldesc = value;
                     InvokePropertyChanged();
                 }
+            }
+        }
+
+        public List<bizCookbookRecipe> CookbookRecipeList
+        {
+            get
+            {
+                if (_lstcookbookrecipe == null)
+                {
+                    _lstcookbookrecipe = new bizCookbookRecipe().LoadCookbookRecipes(CookbookName);
+                }
+                return _lstcookbookrecipe;
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CPUFramework;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RecipeSystem;
 
@@ -77,6 +78,42 @@ namespace RecipeAPI
             {
                 r.ErrorMessage = ex.Message;
                 return BadRequest(r);
+            }
+        }
+
+
+
+        //I really need to work on the clone recipe action
+        //[HttpPost("Clone")]
+        //[AuthPermission(1)]
+        //public IActionResult CloneRecipe(bizRecipe recipe)
+        //{
+        //    int baserecipeid = recipe.RecipeId;
+        //    try
+        //    {
+        //        recipe.CloneRecipe(baserecipeid);
+        //        return Ok(recipe);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        recipe.ErrorMessage = ex.Message + recipe.RecipeName;
+
+        //        return BadRequest(recipe);
+        //    }
+        //}
+        [HttpPost("Clone")]
+        [AuthPermission(1)]
+        public IActionResult CloneRecipe([FromBody] bizRecipe recipe)
+        {
+            try
+            {
+                var clonedRecipe = recipe.CloneRecipe(recipe.RecipeId);
+                return Ok(clonedRecipe);
+            }
+            catch (Exception ex)
+            {
+                recipe.ErrorMessage = ex.Message + recipe.RecipeName;
+                return BadRequest(recipe);
             }
         }
 

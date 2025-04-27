@@ -37,8 +37,37 @@ namespace RecipeAPI
                 return BadRequest(userobject);
             }
         }
-    }
+        [HttpDelete]
+        [AuthPermission(1)]
+        public IActionResult Delete(int id)
+        {
+            bizUsers users = new();
+            try
+            {
+                users.Delete(id);
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                users.ErrorMessage = ex.Message;
+                return BadRequest(users);
+            }
+        }
 
-    
-    
+        [HttpPost]
+        [AuthPermission(1)]
+        public IActionResult Post(bizUsers users)
+        {
+            try
+            {
+                users.Save();
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                users.ErrorMessage = ex.Message;
+                return BadRequest(users);
+            }
+        }
+    }
 }

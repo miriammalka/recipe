@@ -15,9 +15,9 @@ namespace RecipeSystem
 
         }
         private int _recipeId;
-        private string _cuisinename;
+        //private string _cuisinename;
         private int _cuisineId;
-        private string _username;
+        //private string _username;
         private int _usersId;
         private string _recipename = "";
         private int _calories;
@@ -25,6 +25,8 @@ namespace RecipeSystem
         private DateTime? _datepublished;
         private DateTime? _datearchived;
         private bool _vegan;
+        private List<bizRecipeIngredient> _lstrecipeingredient;
+        private List<bizInstruction> _lstinstruction;
 
         public List<bizRecipe> Search(string recipenameval, int cuisineid)
         {
@@ -34,6 +36,35 @@ namespace RecipeSystem
             DataTable dt = SQLUtility.GetDataTable(cmd);
             return this.GetListFromDataTable(dt);
         }
+
+
+
+        //public void CloneRecipe(int baserecipeid)
+        //{
+        //    SqlCommand cmd = SQLUtility.GetSQLCommand("CloneRecipe");
+        //    SQLUtility.SetParamValue(cmd, "@BaseRecipeId", baserecipeid);
+        //    SQLUtility.ExecuteSQL(cmd);
+        //}
+
+        public bizRecipe CloneRecipe(int baseRecipeId)
+        {
+            SqlCommand cmd = SQLUtility.GetSQLCommand("CloneRecipe");
+
+            SQLUtility.SetParamValue(cmd, "@BaseRecipeId", baseRecipeId);
+            SQLUtility.SetParamValue(cmd, "@RecipeId", 0); // Output param
+            SQLUtility.SetParamValue(cmd, "@Message", string.Empty);
+
+            SQLUtility.ExecuteSQL(cmd);
+
+            DataTable dtrecipe = SQLUtility.GetDataTable("select * from recipe r order by r.recipeid desc");
+            int newRecipeId = SQLUtility.GetValueFromFirstRowAsInt(dtrecipe, "RecipeId");
+
+            var recipe = new bizRecipe();
+            recipe.Load(newRecipeId);
+
+            return recipe;
+        }
+
 
         public int RecipeId 
         { 
@@ -48,18 +79,18 @@ namespace RecipeSystem
             } 
         }
 
-        public string CuisineName
-        {
-            get { return _cuisinename; }
-            set
-            {
-                if (_cuisinename != value)
-                {
-                    _cuisinename = value;
-                    InvokePropertyChanged();
-                }
-            }
-        }
+        //public string CuisineName
+        //{
+        //    get { return _cuisinename; }
+        //    set
+        //    {
+        //        if (_cuisinename != value)
+        //        {
+        //            _cuisinename = value;
+        //            InvokePropertyChanged();
+        //        }
+        //    }
+        //}
         public int CuisineId
         {
             get { return _cuisineId; }
@@ -72,18 +103,18 @@ namespace RecipeSystem
                 }
             }
         }
-        public string UserName
-        {
-            get { return _username; }
-            set
-            {
-                if (_username != value)
-                {
-                    _username = value;
-                    InvokePropertyChanged();
-                }
-            }
-        }
+        //public string UserName
+        //{
+        //    get { return _username; }
+        //    set
+        //    {
+        //        if (_username != value)
+        //        {
+        //            _username = value;
+        //            InvokePropertyChanged();
+        //        }
+        //    }
+        //}
 
         public int UsersId
         {
@@ -137,15 +168,6 @@ namespace RecipeSystem
             }
         }
 
-        //public DateOnly DateCreated2
-        //{
-        //    get {
-        //        DateOnly d;
-        //        DateOnly.TryParse(_datecreated.ToShortDateString(), out d);
-        //        return d;
-        //    }
-        //}
-
         public DateTime? DatePublished
         {
             get { return _datepublished; }
@@ -182,6 +204,30 @@ namespace RecipeSystem
                     _vegan = value;
                     InvokePropertyChanged();
                 }
+            }
+        }
+
+        public List<bizRecipeIngredient> RecipeIngredientList
+        {
+            get
+            {
+                if(_lstrecipeingredient == null)
+                {
+                    _lstrecipeingredient = new bizRecipeIngredient().LoadByRecipeId(RecipeId);
+                }
+                return _lstrecipeingredient;
+            }
+        }
+
+        public List<bizInstruction> InstructionList
+        {
+            get
+            {
+                if (_lstinstruction == null)
+                {
+                    _lstinstruction = new bizInstruction().LoadByRecipeId(RecipeId);
+                }
+                return _lstinstruction;
             }
         }
 

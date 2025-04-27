@@ -12,7 +12,7 @@ begin
 
 	select @CuisineId = isnull(@CuisineId,0)
 	
-	if @CuisineId = 0
+	if @CuisineId <= 0
 	begin
 		insert Cuisine(CuisineName)
 		values(@CuisineName)

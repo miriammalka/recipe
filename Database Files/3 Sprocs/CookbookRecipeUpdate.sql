@@ -21,7 +21,7 @@ begin
 	select @CookbookRecipeId = isnull(@CookbookRecipeId, 0), @CookbookId = isnull(@CookbookId, 0), @RecipeId = isnull(@RecipeId,0), 
 	@SequenceOrder = isnull(@SequenceOrder,0)
 
-	if @CookbookRecipeId = 0
+	if @CookbookRecipeId <= 0
 	begin
 		insert CookbookRecipe (CookbookId, RecipeId, SequenceOrder)
 		values(@CookbookId, @RecipeId, @SequenceOrder)
@@ -42,6 +42,9 @@ begin
 
 end
 go
+
+--test
+exec CookbookRecipeUpdate @CookbookId = 16, @RecipeId = 54, @SequenceOrder = 5
 
 select * from cookbookrecipe
 

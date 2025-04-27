@@ -9,7 +9,7 @@ delete Meal
 delete Instruction 
 delete RecipeIngredient 
 delete Recipe  
-delete Users 
+--delete Users 
 delete MeasurementType 
 delete Ingredient
 delete Course  
@@ -86,12 +86,14 @@ union select 'sprig'
 union select 'pinch'
 union select 'stick'
 go 
+/*
 insert Users(FirstName, LastName, Username)
 select 'Sam', 'Johnson', 'SJohnson123'
 union select 'Alice', 'Marks', 'AMarks123'
 union select 'Miriam', 'Gross', 'MGross123'
 union select 'Isaac', 'Rosen', 'IRosen123'
 go 
+*/
 ; with x as (
     Select Cuisine = 'American', Users = 'SJohnson123', RecipeName = 'Chocolate Chip Cookies', Calories = 200, DateCreated = '2015-09-14', DatePublished = '2015-12-21', DateArchived = null
     union select 'French', 'AMarks123', 'Apple Yogurt Smoothie', 150, '2016-06-04', '2016-07-01', null

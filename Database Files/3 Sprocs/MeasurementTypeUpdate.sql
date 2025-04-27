@@ -12,7 +12,7 @@ begin
 
 	select @MeasurementTypeId = isnull(@MeasurementTypeId,0)
 	
-	if @MeasurementTypeId = 0
+	if @MeasurementTypeId <= 0
 	begin
 		insert MeasurementType(MeasurementType)
 		values(@MeasurementType)

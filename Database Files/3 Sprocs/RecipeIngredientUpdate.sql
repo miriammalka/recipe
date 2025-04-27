@@ -17,7 +17,7 @@ begin
 
 	select @RecipeIngredientId = isnull(@RecipeIngredientId, 0), @RecipeId = isnull(@RecipeId, 0), @IngredientId = isnull(@IngredientId, 0)
 
-	if @RecipeIngredientId = 0
+	if @RecipeIngredientId <= 0
 	begin
 		insert RecipeIngredient (RecipeId, IngredientId, MeasurementTypeId, Amount, SequenceOrder)
 		values(@RecipeId, @IngredientId, @MeasurementTypeId, @Amount, @SequenceOrder)

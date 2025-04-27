@@ -59,3 +59,4 @@ select * from recipe
 --select * from recipeingredient
 --select * from instruction
 
+--exec clonerecipe @baserecipeid = 60

@@ -49,15 +49,15 @@ go
 
 
 exec RecipeGet @All = 1, @IncludeBlank = 1
-exec RecipeGet @RecipeName = 'c'
+--exec RecipeGet @RecipeName = 'c'
 
 
-select * from recipe r
-join cookbookrecipe cr
-on cr.RecipeId = r.RecipeId
-where cr.CookbookId = 23
+--select * from recipe r
+--join cookbookrecipe cr
+--on cr.RecipeId = r.RecipeId
+--where cr.CookbookId = 23
 
-exec RecipeGet @CuisineId = 16
-exec RecipeGet @All = 1
+--exec RecipeGet @CuisineId = 16
+--exec RecipeGet @All = 1
 
 

@@ -12,7 +12,7 @@ begin
 
 	select @IngredientId = isnull(@IngredientId,0)
 	
-	if @IngredientId = 0
+	if @IngredientId <= 0
 	begin
 		insert Ingredient(IngredientName)
 		values(@IngredientName)

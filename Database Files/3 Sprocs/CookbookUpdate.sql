@@ -8,6 +8,7 @@ create or alter procedure dbo.CookbookUpdate(
 @Price int = 0,
 @DateCreated datetime = 0 output,
 @Active bit = 0,
+@SkillLevel int,
 @Message varchar(500) = '' output
 )
 as
@@ -34,8 +35,8 @@ begin
 			select @DateCreated = isnull(@DateCreated, GETDATE())
 		end
 
-		insert Cookbook(UsersId, CookbookName, Price, DateCreated, Active)
-		values (@UsersId, @CookbookName, @Price, @DateCreated, @Active) 
+		insert Cookbook(UsersId, CookbookName, Price, DateCreated, Active, SkillLevel)
+		values (@UsersId, @CookbookName, @Price, @DateCreated, @Active, @SkillLevel) 
 	
 		select @CookbookId = SCOPE_IDENTITY()
 	end
@@ -48,7 +49,8 @@ begin
 		CookbookName = @CookbookName,
 		Price = @Price,
 		DateCreated = @DateCreated,
-		Active = @Active
+		Active = @Active,
+		SkillLevel = @SkillLevel
   		where CookbookId = @CookbookId
 	end
 

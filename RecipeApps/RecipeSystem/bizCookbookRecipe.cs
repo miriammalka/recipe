@@ -15,7 +15,10 @@ namespace RecipeSystem
 
         }
 
+        private int _cookbookRecipeId;
         private int _cookbookId;
+        private int _recipeId;
+        private int _sequenceOrder;
         private string _cookbookname;
         private string _cuisinename;
         private string _username;
@@ -36,6 +39,19 @@ namespace RecipeSystem
             return this.GetListFromDataTable(dt);
         }
 
+        public int CookbookRecipeId
+        {
+            get { return _cookbookRecipeId; }
+            set
+            {
+                if (_cookbookRecipeId != value)
+                {
+                    _cookbookRecipeId = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
         public int CookbookId
         {
             get { return _cookbookId; }
@@ -48,118 +64,144 @@ namespace RecipeSystem
                 }
             }
         }
-        public string CookbookName
+        //public string CookbookName
+        //{
+        //    get { return _cookbookname; }
+        //    set
+        //    {
+        //        if (_cookbookname != value)
+        //        {
+        //            _cookbookname = value;
+        //            InvokePropertyChanged();
+        //        }
+        //    }
+        //}
+
+        //public string CuisineName
+        //{
+        //    get { return _cuisinename; }
+        //    set
+        //    {
+        //        if (_cuisinename != value)
+        //        {
+        //            _cuisinename = value;
+        //            InvokePropertyChanged();
+        //        }
+        //    }
+        //}
+
+        //public string UserName
+        //{
+        //    get { return _username; }
+        //    set
+        //    {
+        //        if (_username != value)
+        //        {
+        //            _username = value;
+        //            InvokePropertyChanged();
+        //        }
+        //    }
+        //}
+
+        //public string RecipeName
+        //{
+        //    get { return _recipename; }
+        //    set
+        //    {
+        //        if (_recipename != value)
+        //        {
+        //            _recipename = value;
+        //            InvokePropertyChanged();
+        //        }
+        //    }
+        //}
+
+        //public int Calories
+        //{
+        //    get { return _calories; }
+        //    set
+        //    {
+        //        if (_calories != value)
+        //        {
+        //            _calories = value;
+        //            InvokePropertyChanged();
+        //        }
+        //    }
+        //}
+
+        //public DateTime DateCreated
+        //{
+        //    get { return _datecreated; }
+        //    set
+        //    {
+        //        if (_datecreated != value)
+        //        {
+        //            _datecreated = value;
+        //            InvokePropertyChanged();
+        //        }
+        //    }
+        //}
+
+        //public DateTime? DatePublished
+        //{
+        //    get { return _datepublished; }
+        //    set
+        //    {
+        //        if (_datepublished != value)
+        //        {
+        //            _datepublished = value;
+        //            InvokePropertyChanged();
+        //        }
+        //    }
+        //}
+
+        //public DateTime? DateArchived
+        //{
+        //    get { return _datearchived; }
+        //    set
+        //    {
+        //        if (_datearchived != value)
+        //        {
+        //            _datearchived = value;
+        //            InvokePropertyChanged();
+        //        }
+        //    }
+        //}
+
+        //public bool Vegan
+        //{
+        //    get { return _vegan; }
+        //    set
+        //    {
+        //        if (_vegan != value)
+        //        {
+        //            _vegan = value;
+        //            InvokePropertyChanged();
+        //        }
+        //    }
+        //}
+
+        public int RecipeId
         {
-            get { return _cookbookname; }
+            get { return _recipeId; }
             set
             {
-                if (_cookbookname != value)
+                if (_recipeId != value)
                 {
-                    _cookbookname = value;
+                    _recipeId = value;
                     InvokePropertyChanged();
                 }
             }
         }
 
-        public string CuisineName
+        public int SequenceOrder
         {
-            get { return _cuisinename; }
+            get { return _sequenceOrder; }
             set
             {
-                if (_cuisinename != value)
+                if (_sequenceOrder != value)
                 {
-                    _cuisinename = value;
-                    InvokePropertyChanged();
-                }
-            }
-        }
-
-        public string UserName
-        {
-            get { return _username; }
-            set
-            {
-                if (_username != value)
-                {
-                    _username = value;
-                    InvokePropertyChanged();
-                }
-            }
-        }
-
-        public string RecipeName
-        {
-            get { return _recipename; }
-            set
-            {
-                if (_recipename != value)
-                {
-                    _recipename = value;
-                    InvokePropertyChanged();
-                }
-            }
-        }
-
-        public int Calories
-        {
-            get { return _calories; }
-            set
-            {
-                if (_calories != value)
-                {
-                    _calories = value;
-                    InvokePropertyChanged();
-                }
-            }
-        }
-
-        public DateTime DateCreated
-        {
-            get { return _datecreated; }
-            set
-            {
-                if (_datecreated != value)
-                {
-                    _datecreated = value;
-                    InvokePropertyChanged();
-                }
-            }
-        }
-
-        public DateTime? DatePublished
-        {
-            get { return _datepublished; }
-            set
-            {
-                if (_datepublished != value)
-                {
-                    _datepublished = value;
-                    InvokePropertyChanged();
-                }
-            }
-        }
-
-        public DateTime? DateArchived
-        {
-            get { return _datearchived; }
-            set
-            {
-                if (_datearchived != value)
-                {
-                    _datearchived = value;
-                    InvokePropertyChanged();
-                }
-            }
-        }
-
-        public bool Vegan
-        {
-            get { return _vegan; }
-            set
-            {
-                if (_vegan != value)
-                {
-                    _vegan = value;
+                    _sequenceOrder = value;
                     InvokePropertyChanged();
                 }
             }

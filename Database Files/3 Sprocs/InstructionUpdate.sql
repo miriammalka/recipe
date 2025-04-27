@@ -15,7 +15,7 @@ begin
 
 	select @InstructionId = isnull(@InstructionId, 0), @RecipeId = isnull(@RecipeId,0)
 
-	if @InstructionId = 0
+	if @InstructionId <= 0
 	begin
 		insert Instruction (RecipeId, Instruction, SequenceOrder)
 		values(@RecipeId, @Instruction, @SequenceOrder)

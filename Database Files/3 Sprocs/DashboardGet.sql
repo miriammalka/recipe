@@ -2,7 +2,9 @@ use RecipeDB
 go
 
 create or alter proc dbo.DashboardGet(
-@Message varchar(500) = '' output
+@Message varchar(500) = '' output,
+@All bit = 0,
+@IncludeBlank bit = 0
 )
 as 
 begin
