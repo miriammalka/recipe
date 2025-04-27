@@ -115,7 +115,6 @@ export function RecipeEdit({ recipe, onCancel, onRecipeDelete, onRecipeUpdate, o
         };
         try {
             setErrorMessage("");
-            //need to work on returning cloned recipe
             const response = await cloneRecipe(transformedData);
             setErrorMessage(response.errorMessage);
 
