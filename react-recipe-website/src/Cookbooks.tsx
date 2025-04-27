@@ -66,8 +66,6 @@ export default function Cookbooks() {
     try {
       setErrorMessage("")
       const response = await autoCreateCookbook(selectedUser);
-
-
       console.log("creating cookbook for user", response);
       setCookbookList(prevList => [...prevList, response]);
       
@@ -77,8 +75,6 @@ export default function Cookbooks() {
       setErrorMessage("Failed to create cookbook.");
     }
   }
-
-
 
   const TableDropdown = ({ rows, setSelectedUser }: { rows: { id: number; name: string }[]; setSelectedUser: (user: IUsers) => void }) => {
 

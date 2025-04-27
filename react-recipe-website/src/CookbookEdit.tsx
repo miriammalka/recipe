@@ -6,6 +6,8 @@ import { getUserStore } from "@miriammalka/reactutils";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { CookbookRecipeGrid } from "./CookbookRecipeGrid";
+import { Controller } from "react-hook-form";
+
 
 
 interface Props {
@@ -16,7 +18,7 @@ interface Props {
 }
 
 export default function CookbookEdit({ cookbook, onCancel, onCookbookDelete, onCookbookUpdate }: Props) {
-    const { register, handleSubmit, reset } = useForm({ defaultValues: cookbook });
+    const { register, handleSubmit, reset, control } = useForm({ defaultValues: cookbook });
     const [users, setUsers] = useState<IUsers[]>([]);
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -24,6 +26,16 @@ export default function CookbookEdit({ cookbook, onCancel, onCookbookDelete, onC
     const apiurl = import.meta.env.VITE_API_URL;
     const useUserStore = getUserStore(apiurl);
     const rolerank = useUserStore((state) => state.roleRank);
+    const getSkillLevelDesc = (level: number | undefined) => {
+        switch (level) {
+            case 1: return "beginner";
+            case 2: return "intermediate";
+            case 3: return "advanced";
+            default: return "";
+        }
+    };
+
+    const [skillLevelDesc, setSkillLevelDesc] = useState("");
 
 
 
@@ -103,7 +115,7 @@ export default function CookbookEdit({ cookbook, onCancel, onCookbookDelete, onC
         onCookbookUpdate(updatedCookbook);
     };
 
-  
+
 
 
     return (
@@ -142,14 +154,33 @@ export default function CookbookEdit({ cookbook, onCancel, onCookbookDelete, onC
                                 <label htmlFor="active" className="form-label">Active:</label>
                                 <input type="checkbox" id="active" {...register("active")} className="form-check-input" />
                             </div>
-                            <div className="mb-3">
-                                <label htmlFor="skillLevel" className="form-label">Skill Level:</label>
-                                <select className="form-select" id="skillLevel" {...register("skillLevel", {valueAsNumber: true})}>
-                                    <option value={1}>beginner</option>
-                                    <option value={2}>intermediate</option>
-                                    <option value={3}>advanced</option>
-                                </select>
-                            </div>
+                            <Controller
+                                name="skillLevel"
+                                control={control}
+                                defaultValue={1}
+                                render={({ field }) => (
+                                    <div className="mb-3">
+                                        <label htmlFor="skillLevel" className="form-label">Skill Level:</label>
+                                        <select
+                                            {...field}
+                                            className="form-select"
+                                            id="skillLevel"
+                                            onChange={(e) => {
+                                                const value = parseInt(e.target.value, 10);
+                                                field.onChange(value);  // Update form state
+                                                setSkillLevelDesc(getSkillLevelDesc(value));  // Update your local description
+                                            }}
+                                        >
+                                            <option value={1}>beginner</option>
+                                            <option value={2}>intermediate</option>
+                                            <option value={3}>advanced</option>
+                                        </select>
+                                        <div className="form-text mt-1">
+                                            <strong>Description:</strong> {skillLevelDesc}
+                                        </div>
+                                    </div>
+                                )}
+                            />
                             <button type="submit" className="btn btn-primary m-2">Submit</button>
                             {rolerank >= 3 ? <button onClick={handleDelete} disabled={rolerank >= 3 ? false : true} type="button" id="btndelete" className="btn btn-danger m-2">Delete</button> : null}
                             <button onClick={onCancel} type="button" id="btncancel" className="btn btn-warning">Cancel</button>

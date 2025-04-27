@@ -123,6 +123,7 @@ export function RecipeEdit({ recipe, onCancel, onRecipeDelete, onRecipeUpdate, o
                 console.log("cloned recipe name", response.recipeName)
                 onRecipeClone(response);
                 toast.success("Recipe cloned successfully!");
+                
             }
             else {
                 console.error("Clone Error:", response.errorMessage);
