@@ -115,16 +115,13 @@ export function RecipeEdit({ recipe, onCancel, onRecipeDelete, onRecipeUpdate, o
         };
         try {
             setErrorMessage("");
+            //need to work on returning cloned recipe
             const response = await cloneRecipe(transformedData);
             setErrorMessage(response.errorMessage);
 
             if (!response.errorMessage) {
                 console.log("cloned recipe name", response.recipeName)
-
-                //const clonedRecipe = { ...response, recipeName: response.recipeName + " - Clone"};
                 onRecipeClone(response);
-                //setValue("recipeName", clonedRecipe.recipeName); // Explicitly set recipe name
-
                 toast.success("Recipe cloned successfully!");
             }
             else {
@@ -186,13 +183,13 @@ export function RecipeEdit({ recipe, onCancel, onRecipeDelete, onRecipeUpdate, o
                             </div>
 
                             <div className="mb-3">
-                                <label htmlFor="cuisineId" className="form-label">Cuisine ID:</label>
+                                <label htmlFor="cuisineId" className="form-label">Cuisine:</label>
                                 <select id="cuisineId" {...register("cuisineId")} className="form-select">
                                     {cuisines.map(c => <option key={c.cuisineId} value={c.cuisineId}>{c.cuisineName}</option>)}
                                 </select>
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="usersId" className="form-label">Users ID:</label>
+                                <label htmlFor="usersId" className="form-label">User:</label>
                                 <select id="usersId" {...register("usersId")} className="form-select">
                                     {users.map(u => <option key={u.usersId} value={u.usersId}>{u.userName}</option>)}
                                 </select>

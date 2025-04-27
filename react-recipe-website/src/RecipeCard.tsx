@@ -4,7 +4,6 @@ import { IRecipe } from "./DataInterfaces"
 interface Props {
     recipe: IRecipe
     onRecipeEdit: (recipeid : number) => void;
-    // onRecipeClone: (recipeid : number) => void;
 }
 export default function RecipeCard({ recipe, onRecipeEdit}: Props) {
     const imgpath = "/images/recipe-images/recipe_";
@@ -28,7 +27,6 @@ export default function RecipeCard({ recipe, onRecipeEdit}: Props) {
                         isLoggedIn ? (
                             <div>
                             <button className=" btn btn-primary" onClick={()=> onRecipeEdit(recipe.recipeId)}> Edit</button>
-                            {/* <button onClick={()=> onRecipeClone(recipe.recipeId)} className="btn btn-success m-2">Clone recipe</button> */}
                             </div>
                         ) 
                         :null

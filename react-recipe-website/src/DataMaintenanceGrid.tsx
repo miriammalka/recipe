@@ -11,11 +11,10 @@ import {
   postUsers
 } from './DataUtility';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Button, Pagination } from "@mui/material";
+import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from "@mui/icons-material/Save"
 import { ICourse, ICuisine, IIngredient, IMeasurementType, IUsers } from './DataInterfaces';
-import { toast } from 'react-toastify';
 
 interface Props {
   tableOption: string,
@@ -26,6 +25,10 @@ export default function DataMaintenanceGrid({ tableOption, onChanged }: Props) {
 
   const [data, setData] = useState<any[]>([]);
   const [errormsg, setErrormsg] = useState("");
+  const [paginationModel, setPaginationModel]=useState({
+    pageSize:10,
+    page:0
+  })
 
   const fetchFunctions: Record<string, () => Promise<any>> = {
     users: fetchUsers,
@@ -120,12 +123,6 @@ export default function DataMaintenanceGrid({ tableOption, onChanged }: Props) {
     setData([...data, newRecord]); // Add the new record to the state
   };
 
-
-  // const handleAddNew = () => {
-  //   // window.confirm("add new record");
-  //   console.log("add new", tableOption);
-  // }
-
   const postFunctions: Record<string, (record: any) => Promise<any>> = {
     users: postUsers,
     cuisine: postCuisine,
@@ -134,7 +131,7 @@ export default function DataMaintenanceGrid({ tableOption, onChanged }: Props) {
     measurementType: postMeasurementType
   };
 
-  const getRowId = (row:any): number=>{
+  const getRowId = (row: any): number => {
     return row.id || row.usersId || row.cuisineId || row.courseId || row.measurementTypeId;
   };
 
@@ -251,8 +248,10 @@ export default function DataMaintenanceGrid({ tableOption, onChanged }: Props) {
       <DataGrid
         rows={data}
         columns={columns}
-        pageSizeOptions={[5, 10, 20]}
         pagination
+        paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
+        pageSizeOptions={[5, 10, 20]}
         disableRowSelectionOnClick
         getRowId={(row) => row.id || row.recipeId || row.cuisineId || row.usersId || row.courseId || row.measurementTypeId || Math.random()} // Ensure unique row ID
       />

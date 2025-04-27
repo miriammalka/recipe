@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchDashboard } from "./DataUtility";
 import { IDashboard } from "./DataInterfaces";
-import { NavLink } from "react-router-dom";
 
 export default function Home() {
     const [dashboardData, setDashboardData] = useState<IDashboard[]>([]);

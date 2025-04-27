@@ -7,14 +7,13 @@ import { RecipeEdit } from "./RecipeEdit"
 
 interface Props {
     cuisineId: number,
-    //onRecipeSelectedForEdit: (recipe: IRecipe) => void;
 
 }
-export default function MainScreen({ cuisineId, /*onRecipeSelectedForEdit */ }: Props) {
+export default function MainScreen({ cuisineId }: Props) {
     const [recipeList, setRecipeList] = useState<IRecipe[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [recipeid, setRecipeId] = useState(0);
-    const [refreshTrigger, setRefreshTrigger] = useState(0);
+
 
 
     useEffect(
@@ -31,7 +30,7 @@ export default function MainScreen({ cuisineId, /*onRecipeSelectedForEdit */ }: 
                 fetchData();
             }
         },
-        [cuisineId, refreshTrigger]
+        [cuisineId]
     )
 
     function handleRecipeEdit(recipeid: number) {
@@ -48,21 +47,19 @@ export default function MainScreen({ cuisineId, /*onRecipeSelectedForEdit */ }: 
         if (recipeExists) {
             setRecipeList(prevList =>
                 prevList.map(r => r.recipeId === updatedrecipe.recipeId ? updatedrecipe : r)
-            );            
+            );
         }
         else {
-            setRecipeList([...recipeList, updatedrecipe]);   
-            //setRecipeId(updatedrecipe.recipeId);          
+            setRecipeList([...recipeList, updatedrecipe]);
+
         }
-        //setRefreshTrigger(prev => prev + 1);
+
     }
 
     function handleRecipeClone(clonedRecipe: IRecipe) {
 
-            setRecipeList([...recipeList, clonedRecipe]);   
-            //setRecipeId(updatedrecipe.recipeId);          
-      
-        //setRefreshTrigger(prev => prev + 1);
+        setRecipeList([...recipeList, clonedRecipe]);
+
     }
 
     return (
@@ -84,7 +81,6 @@ export default function MainScreen({ cuisineId, /*onRecipeSelectedForEdit */ }: 
                         recipeid == 0 ? (<>
                             <div className="d-flex gap-2 justify-content-end">
                                 <button className="btn btn-secondary" onClick={() => setRecipeId(-1)}>New Recipe</button>
-                                {/* <button className="btn btn-secondary ms-2" onClick={()=>handleRecipeClone}>Clone a Recipe</button> */}
                             </div>
                         </>)
                             :

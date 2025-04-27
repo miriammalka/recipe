@@ -15,8 +15,9 @@ export default function UserPanel() {
         pathtologin: "/Login"
     })
 
+
     return (
-        <>
+        <> 
             {isLoggedIn ? (
                 <div className="d-flex align-items-center nav-link">
                     <span className="me-2">{username}, {rolename}</span>
@@ -28,7 +29,7 @@ export default function UserPanel() {
                 <Link className="nav-link" to="/login">
                     Login
                 </Link>
-            )}
+            )}       
         </>
     );
 }

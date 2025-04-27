@@ -26,17 +26,6 @@ export default function Navbar() {
                             <li className="nav-item">
                                 <NavLink className={"nav-link"} to="/DataMaintenance">Data Maintenance</NavLink>
                             </li>
-
-                            {/* <li className="nav-item dropdown">
-                                <NavLink className="nav-link dropdown-toggle" to="#" id="cookbooksDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Cookbooks
-                                </NavLink>
-                                <ul className="dropdown-menu" aria-labelledby="cookbooksDropdown">
-                                    <li><NavLink className="dropdown-item" to="/CookbooksList">Cookbooks List</NavLink></li>
-                                    <li><NavLink className="dropdown-item" to="/Cookbooks/MyCookbooks">My Cookbooks</NavLink></li>
-                                    <li><NavLink className="dropdown-item" to="/Cookbooks/Create">Create New Cookbook</NavLink></li>
-                                </ul>
-                            </li> */}
                             <li className="nav-item">
                                 <UserPanel />
                             </li>

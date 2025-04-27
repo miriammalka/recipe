@@ -1,25 +1,20 @@
 //This file is equivalent to recipe mainscreen
 
-//import { DataGrid, GridColDef } from "@mui/x-data-grid";
+
 import { useEffect, useState } from "react";
 import { ICookbook, IUsers } from "./DataInterfaces";
 import { autoCreateCookbook, fetchCookbooks, fetchUsers } from "./DataUtility";
-//import { Button } from "@mui/material";
 import CookbookEdit from "./CookbookEdit";
 import CookbookList from "./CookbookList";
-import AutoCreateCookbook from "./AutoCreateCookbook";
-import { Modal } from 'bootstrap';
+
 
 export default function Cookbooks() {
 
-  //const [rowData, setRowData] = useState<ICookbook[]>([]);
   const [cookbookId, setCookbookId] = useState(0);
   const [cookbookList, setCookbookList] = useState<ICookbook[]>([]);
-  const [isAutoCreateCookbook, setIsAutoCreateCookbook] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [users, setUsers] = useState<IUsers[]>([]);
   const [selectedUser, setSelectedUser] = useState<IUsers>()
-  //const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -27,9 +22,7 @@ export default function Cookbooks() {
       const data = await fetchCookbooks();
       console.log("fetched cookbooks", data)
       setCookbookList(data);
-      //setRowData(data);
       setCookbookId(0);
-      //if (cookbookId === 0) setCookbookId(0);
     };
     fetchdata();
   }, []);
@@ -64,8 +57,6 @@ export default function Cookbooks() {
     }
   }
 
-
-  //need to work on udating cookbook list when auto create cookbook
   const handleAutoCreateCookbook = async () => {
     console.log("auto create cookbook button clicked")
     if (!selectedUser) {
@@ -76,12 +67,10 @@ export default function Cookbooks() {
       setErrorMessage("")
       const response = await autoCreateCookbook(selectedUser);
 
+
       console.log("creating cookbook for user", response);
-
-      const updatedCookbooks = await fetchCookbooks();
-      setCookbookList([...updatedCookbooks]);
-      console.log("Cookbook list updated:", updatedCookbooks);
-
+      setCookbookList(prevList => [...prevList, response]);
+      
     }
     catch (error) {
       console.error("Error creating cookbook:", error);
@@ -92,7 +81,6 @@ export default function Cookbooks() {
 
 
   const TableDropdown = ({ rows, setSelectedUser }: { rows: { id: number; name: string }[]; setSelectedUser: (user: IUsers) => void }) => {
-    //const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
     return (
       <div className="dropdown">
@@ -131,14 +119,6 @@ export default function Cookbooks() {
   return (
     <div className="row align-items-center mb-3">
       <div className="col-md-10">
-        {/* <div className="row">
-          <div className="col-2">
-            <button className="btn btn-primary">New Cookbook</button>
-          </div>
-          <div className="col-6">
-            <button className="btn btn-primary">Auto-Create Cookbok</button>
-          </div>
-        </div> */}
         <hr />
         <div className="row">
           <h2>
@@ -146,6 +126,11 @@ export default function Cookbooks() {
               {cookbookId === 0 ? `${cookbookList.length} Cookbooks` : cookbookId === -1 ? "New Cookbook" : "Edit Cookbook"}
             </span>
           </h2>
+        </div>
+        <div className="row">
+          <div className="col-12">
+            <h2>{errorMessage}</h2>
+          </div>
         </div>
         <div className="col-md-2 text end">
           {cookbookId === 0 ?
@@ -155,8 +140,7 @@ export default function Cookbooks() {
                   onClick={() => setCookbookId(-1)}>New Cookbook</button>
               </div>
               <div className="col-6">
-                {/* <button className="btn btn-primary" onClick={() => setIsAutoCreateCookbook(true)}>Auto-Create Cookbok</button> */}
-                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#autoCreateCookbookModal">
                   Auto-Create Cookbook
                 </button>
               </div>
@@ -169,7 +153,7 @@ export default function Cookbooks() {
       <div className="row">
         {
           cookbookId === 0 ?
-            isAutoCreateCookbook === true ? <AutoCreateCookbook /> : <CookbookList onCookbookEdit={handleCookbookEdit} onAutoCreatCookbook={() => setCookbookList} />
+            <CookbookList onCookbookEdit={handleCookbookEdit} onAutoCreatCookbook={() => setCookbookList} />
             :
             <CookbookEdit cookbook={cookbookList.find(c => c.cookbookId === cookbookId)!}
               onCancel={() => handleCookbookEdit(0)}
@@ -179,11 +163,11 @@ export default function Cookbooks() {
         }
       </div>
       <div>
-        <div className="modal fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade" id="autoCreateCookbookModal" tabIndex={-1} aria-labelledby="autoCreateCookbookModalLabel" aria-hidden="true">
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h1 className="modal-title fs-5" id="exampleModalLabel">Auto-Create Cookbook</h1>
+                <h1 className="modal-title fs-5" id="autoCreateCookbookModalLabel">Auto-Create Cookbook</h1>
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div className="modal-body">

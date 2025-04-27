@@ -3,7 +3,7 @@ import { DataGrid, type GridColDef, GridActionsCellItem } from '@mui/x-data-grid
 import SaveIcon from '@mui/icons-material/Save';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ICookbook, ICookbookRecipe, IRecipe } from "./DataInterfaces";
-import { blankCookbookRecipe, fetchRecipesByCookbookName, fetchRecipes, postCookbookRecipe } from "./DataUtility";
+import { blankCookbookRecipe, deleteCookbookRecipe, fetchRecipes, postCookbookRecipe } from "./DataUtility";
 
 interface Props {
     cookbook: ICookbook;
@@ -35,13 +35,6 @@ export function CookbookRecipeGrid({ cookbook, onChanged }: Props) {
             }))
         },
         { field: "sequenceOrder", headerName: "Sequence Order", width: 150, editable: true },
-        // { field: "cuisineName", headerName: "Cuisine Name", width: 150, editable: true },
-        // { field: "userName", headerName: "User Name", width: 150, editable: true },
-        // { field: "calories", headerName: "Calories", width: 150, editable: true },
-        // { field: "dateCreated", headerName: "Date Created", width: 150, editable: true },
-        // { field: "datePublished", headerName: "Date Published", width: 150, editable: true },
-        // { field: "dateArchived", headerName: "Date Archived", width: 150, editable: true },
-        // { field: "vegan", headerName: "Vegan", width: 150, editable: true },
         {
             field: "actions",
             headerName: "Actions",
@@ -88,19 +81,20 @@ export function CookbookRecipeGrid({ cookbook, onChanged }: Props) {
     };
 
 
+
     const handleDelete = async (row: ICookbookRecipe) => {
-        // try {
-        //     setErrormsg("");
-        //     const r = await deleteCookbookRecipe(row);
-        //     if ((r as any).errorMessage) {
-        //         throw new Error((r as any).errorMessage);
-        //     }
-        //     const updatedData = rowData.filter(ingredient => ingredient.cookbookRecipeId !== row.cookbookRecipeId);
-        //     setRowData(updatedData);
-        //     onChanged(row, true);
-        // } catch (error: any) {
-        //     setErrormsg(error.message);
-        // }
+        try {
+            setErrormsg("");
+            const r = await deleteCookbookRecipe(row);
+            if ((r as any).errorMessage) {
+                throw new Error((r as any).errorMessage);
+            }
+            const updatedData = rowData.filter(ingredient => ingredient.cookbookRecipeId !== row.cookbookRecipeId);
+            setRowData(updatedData);
+            onChanged(row, true);
+        } catch (error: any) {
+            setErrormsg(error.message);
+        }
     };
 
     const processRowUpdate = (updatedrow: ICookbookRecipe) => {

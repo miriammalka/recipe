@@ -111,7 +111,6 @@ export function RecipeIngredientGrid({ recipe, onChanged }: Props) {
             if (updatedIngredient.errorMessage) {
                 throw new Error(updatedIngredient.errorMessage);
             }
-            //this is where recipeingredient save is not working
             const updatedData = rowData.map(ingredient =>
                 //match on recordid because if new record then rowData still has the negative primary key
                 ingredient.recipeIngredientId === recordID ? updatedIngredient : ingredient

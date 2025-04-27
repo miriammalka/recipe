@@ -77,11 +77,10 @@ export interface ICookbook {
     cookbookId: number,
     cookbookName: string,
     usersId: number,
-    //author: string,
-    //numRecipes: number,
     price: number,
     dateCreated: Date | string,
     active: boolean,
+    skillLevel: number,
     skillLevelDesc: string,
     cookbookRecipeList: ICookbookRecipe[],
     errorMessage: string
@@ -92,15 +91,6 @@ export interface ICookbookRecipe {
     cookbookId: number,
     recipeId: number,
     sequence: number,
-    // cookbookName: string,
-    // cuisineName: string,
-    // userName: string,
-    // recipeName: string,
-    // calories: number,
-    // dateCreated: Date | string,
-    // datePublished: Date | null | string,
-    // dateArchived: Date | null | string,
-    // vegan: boolean,
     errorMessage: string
 }
 

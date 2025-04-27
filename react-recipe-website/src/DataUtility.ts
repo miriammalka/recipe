@@ -26,14 +26,7 @@ function formatCookbookDates(cookbook: ICookbook): ICookbook {
     };
 }
 
-// function formatCookbookRecipeDates(cookbookrecipe: ICookbookRecipe): ICookbookRecipe {
-//     return {
-//         ...cookbookrecipe,
-//         dateCreated: formatDate(cookbookrecipe.dateCreated),
-//         datePublished: formatDate(cookbookrecipe.datePublished),
-//         dateArchived: formatDate(cookbookrecipe.dateArchived)
-//     };
-// }
+
 
 function formatDate(date: Date | string | null): string {
     if (!date) return "";
@@ -70,18 +63,6 @@ export async function fetchRecipes() {
     // return recipes.map(formatRecipeDates);
 }
 
-export async function fetchUsers() {
-    return await api().fetchData<IUsers[]>("Recipe/users");
-}
-
-export async function postUsers(form: FieldValues) {
-    return await api().postData<IUsers[]>("Users", form);
-}
-
-export async function deleteUsers(user: IUsers) {
-    return api().deleteData(`Users?id=${user.usersId}`)
-}
-
 export async function postRecipe(form: FieldValues) {
     const recipe = await api().postData<IRecipe>("recipe", form);
     return formatRecipeDates(recipe);
@@ -95,6 +76,18 @@ export async function cloneRecipe(recipe: IRecipe) {
 export async function deleteRecipe(recipeid: number) {
     const recipe = await api().deleteData<IRecipe>(`Recipe?id=${recipeid}`);
     return formatRecipeDates(recipe);
+}
+
+export async function fetchUsers() {
+    return await api().fetchData<IUsers[]>("Recipe/users");
+}
+
+export async function postUsers(form: FieldValues) {
+    return await api().postData<IUsers[]>("Users", form);
+}
+
+export async function deleteUsers(user: IUsers) {
+    return api().deleteData(`Users?id=${user.usersId}`)
 }
 
 export async function fetchIngredients() {
@@ -158,6 +151,10 @@ export async function fetchRecipesByCookbookName(cookbookName: string) {
 
 export async function postCookbookRecipe(form: FieldValues) {
     return api().postData<ICookbookRecipe>("cookbookrecipe", form);
+}
+
+export async function deleteCookbookRecipe(cookbookrecipe: ICookbookRecipe) {
+    return api().deleteData(`CookbookRecipe?id=${cookbookrecipe.cookbookRecipeId}`)
 }
 
 export async function fetchCourse() {
@@ -230,8 +227,8 @@ export const blankCookbook: ICookbook = {
     price: 0,
     active: false,
     usersId: 0,
+    skillLevel: 0,
     skillLevelDesc: "",
-
     dateCreated: (() => {
         const currentDate = new Date();
         currentDate.setHours(0, 0, 0, 0); // Set to midnight
@@ -246,27 +243,6 @@ export const blankCookbookRecipe: ICookbookRecipe = {
     cookbookId: 0,
     recipeId: 0,
     sequence: 0,
-    // cookbookName: "",
-    // cuisineName: "",
-    // userName: "",
-    // recipeName: "",
-    // calories: 0,
-    // dateCreated: (() => {
-    //     const currentDate = new Date();
-    //     currentDate.setHours(0, 0, 0, 0); // Set to midnight
-    //     return currentDate;
-    // })(),
-    // datePublished: (() => {
-    //     const currentDate = new Date();
-    //     currentDate.setHours(0, 0, 0, 0); // Set to midnight
-    //     return currentDate;
-    // })(),
-    // dateArchived: (() => {
-    //     const currentDate = new Date();
-    //     currentDate.setHours(0, 0, 0, 0); // Set to midnight
-    //     return currentDate;
-    // })(),
-    // vegan: true,
     errorMessage: ""
 }
 

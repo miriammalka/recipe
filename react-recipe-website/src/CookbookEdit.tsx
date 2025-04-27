@@ -143,11 +143,11 @@ export default function CookbookEdit({ cookbook, onCancel, onCookbookDelete, onC
                                 <input type="checkbox" id="active" {...register("active")} className="form-check-input" />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="skillLevelDesc" className="form-label">Skill Level Description:</label>
-                                <select className="form-select" id="skillLevelDesc" {...register("skillLevelDesc")}>
-                                    <option value="beginner">beginner</option>
-                                    <option value="intermediate">intermediate</option>
-                                    <option value="advanced">advanced</option>
+                                <label htmlFor="skillLevel" className="form-label">Skill Level:</label>
+                                <select className="form-select" id="skillLevel" {...register("skillLevel", {valueAsNumber: true})}>
+                                    <option value={1}>beginner</option>
+                                    <option value={2}>intermediate</option>
+                                    <option value={3}>advanced</option>
                                 </select>
                             </div>
                             <button type="submit" className="btn btn-primary m-2">Submit</button>
