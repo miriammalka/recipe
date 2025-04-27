@@ -83,24 +83,7 @@ namespace RecipeAPI
 
 
 
-        //I really need to work on the clone recipe action
-        //[HttpPost("Clone")]
-        //[AuthPermission(1)]
-        //public IActionResult CloneRecipe(bizRecipe recipe)
-        //{
-        //    int baserecipeid = recipe.RecipeId;
-        //    try
-        //    {
-        //        recipe.CloneRecipe(baserecipeid);
-        //        return Ok(recipe);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        recipe.ErrorMessage = ex.Message + recipe.RecipeName;
 
-        //        return BadRequest(recipe);
-        //    }
-        //}
         [HttpPost("Clone")]
         [AuthPermission(1)]
         public IActionResult CloneRecipe([FromBody] bizRecipe recipe)
