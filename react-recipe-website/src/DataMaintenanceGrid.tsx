@@ -154,29 +154,6 @@ export default function DataMaintenanceGrid({ tableOption, onChanged }: Props) {
     }
   }
 
-  // const handleSave = async (row: any) => {
-  //   try {
-  //     setErrormsg("");
-
-  //     const response = await postFunctions[tableOption](row);
-
-  //     if (response.errormsg) {
-  //       throw new Error(response.errormsg);
-  //     }
-
-  //     // Update the saved record in the grid state
-  //     const updatedData = data.map((item) =>
-  //       item.id === row.id ? response : item
-  //     );
-  //     toast.success("Record saved successfully!");
-  //     setData(updatedData);
-  //     onChanged(response, false);
-  //   } catch (error: any) {
-  //     setErrormsg(error.message || "An error occurred while saving.");
-  //   }
-  // };
-
-
 
   const columns: GridColDef[] = useMemo(() => {
     if (data.length === 0) return [];
@@ -212,8 +189,6 @@ export default function DataMaintenanceGrid({ tableOption, onChanged }: Props) {
           <DeleteIcon />
         </Button>
       ),
-
-
     };
 
     const saveColumn: GridColDef = {
@@ -255,7 +230,6 @@ export default function DataMaintenanceGrid({ tableOption, onChanged }: Props) {
         disableRowSelectionOnClick
         getRowId={(row) => row.id || row.recipeId || row.cuisineId || row.usersId || row.courseId || row.measurementTypeId || Math.random()} // Ensure unique row ID
       />
-
     </>
 
   )

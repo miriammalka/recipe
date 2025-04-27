@@ -38,5 +38,3 @@ export default function RecipeCard({ recipe, onRecipeEdit}: Props) {
         </>
     )
 }
-
-//style={{ width: 200, height: 200, objectFit: "cover" }}
