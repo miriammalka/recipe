@@ -17,7 +17,7 @@ export default function Home() {
         <>
             <div className="container">
                 <h1 className="my-4">Welcome to the Recipe Website</h1>
-                <h2>Your go to website for browsing and creating recies, meal plans and cookbooks. Get started!</h2>
+                <h2>Your go to website for browsing and creating recipes, meal plans and cookbooks. Get started!</h2>
                 <br />
                 <div className="row">
                     <div className="col-3 mb-4">
