@@ -158,7 +158,7 @@ export async function deleteCookbookRecipe(cookbookrecipe: ICookbookRecipe) {
 }
 
 export async function fetchCourse() {
-    return await api().fetchData<ICourse[]>("Course");
+    return await api().fetchData<ICourse[]>("course");
 }
 
 export async function deleteCourse(course: ICourse) {
