@@ -18,7 +18,7 @@ interface Props {
 }
 
 export default function CookbookEdit({ cookbook, onCancel, onCookbookDelete, onCookbookUpdate }: Props) {
-    const { register, handleSubmit, reset, control } = useForm({ defaultValues: cookbook });
+    const { register, handleSubmit, reset, control, setValue } = useForm<ICookbook>({ defaultValues: cookbook });
     const [users, setUsers] = useState<IUsers[]>([]);
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -52,8 +52,13 @@ export default function CookbookEdit({ cookbook, onCancel, onCookbookDelete, onC
     //I'm not sure what this function does
     useEffect(() => {
         reset(cookbook);
+
+        const level = cookbook.skillLevel;
+        const desc = getSkillLevelDesc(level);
+        setSkillLevelDesc(desc);
+        setValue("skillLevelDesc", desc)
     },
-        [cookbook, reset]);
+        [cookbook, reset, setValue]);
 
     const submitForm = async (data: FieldValues) => {
         const transformedData = {
@@ -138,6 +143,7 @@ export default function CookbookEdit({ cookbook, onCancel, onCookbookDelete, onC
                             <div className="mb-3">
                                 <label htmlFor="usersId" className="form-label">User Name:</label>
                                 <select id="usersId" {...register("usersId")} className="form-select">
+                                    <option value="">Select User</option>
                                     {users.map(u => <option key={u.usersId} value={u.usersId}>{u.userName}</option>)}
                                 </select>
                             </div>
@@ -157,7 +163,7 @@ export default function CookbookEdit({ cookbook, onCancel, onCookbookDelete, onC
                             <Controller
                                 name="skillLevel"
                                 control={control}
-                                defaultValue={1}
+                                defaultValue={cookbook.skillLevel}
                                 render={({ field }) => (
                                     <div className="mb-3">
                                         <label htmlFor="skillLevel" className="form-label">Skill Level:</label>
@@ -167,20 +173,22 @@ export default function CookbookEdit({ cookbook, onCancel, onCookbookDelete, onC
                                             id="skillLevel"
                                             onChange={(e) => {
                                                 const value = parseInt(e.target.value, 10);
-                                                field.onChange(value);  // Update form state
-                                                setSkillLevelDesc(getSkillLevelDesc(value));  // Update your local description
+                                                field.onChange(value);
+                                                const desc = getSkillLevelDesc(value);
+                                                setSkillLevelDesc(desc);
+                                                setValue("skillLevelDesc", desc); // bind to form
                                             }}
+                                            
                                         >
+                                            <option value="">Select Skill Level</option>
                                             <option value={1}>beginner</option>
                                             <option value={2}>intermediate</option>
                                             <option value={3}>advanced</option>
                                         </select>
-                                        <div className="form-text mt-1">
-                                            <strong>Description:</strong> {skillLevelDesc}
-                                        </div>
                                     </div>
                                 )}
                             />
+           
                             <button type="submit" className="btn btn-primary m-2">Submit</button>
                             {rolerank >= 3 ? <button onClick={handleDelete} disabled={rolerank >= 3 ? false : true} type="button" id="btndelete" className="btn btn-danger m-2">Delete</button> : null}
                             <button onClick={onCancel} type="button" id="btncancel" className="btn btn-warning">Cancel</button>

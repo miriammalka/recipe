@@ -4,7 +4,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ICookbook, ICookbookRecipe, IRecipe } from "./DataInterfaces";
 import { blankCookbookRecipe, deleteCookbookRecipe, fetchRecipes, postCookbookRecipe } from "./DataUtility";
-
+import { commonDataGridStyles, commonSortingOrder, withDefaultColumnStyles } from "./assets/muiDataGridStyles";
 interface Props {
     cookbook: ICookbook;
     onChanged: (value: ICookbookRecipe, fordelete: boolean) => void;
@@ -25,7 +25,7 @@ export function CookbookRecipeGrid({ cookbook, onChanged }: Props) {
         fetchData();
     }, []);
 
-    const columns: GridColDef[] = [
+    const columns: GridColDef[] =withDefaultColumnStyles( [
         {
             field: "recipeId", headerName: "Recipe Name", width: 150, editable: true,
             type: "singleSelect",
@@ -54,7 +54,7 @@ export function CookbookRecipeGrid({ cookbook, onChanged }: Props) {
             ],
         },
 
-    ]
+    ])
 
     //need to spread all values of recipe into Cookbook Recipe
     const handleSave = async (row: ICookbookRecipe) => {
@@ -117,7 +117,7 @@ export function CookbookRecipeGrid({ cookbook, onChanged }: Props) {
 
     return (
         <div style={{ height: '100%', width: '100%' }}>
-            <h2>{errormsg}</h2>
+            <h3>{errormsg}</h3>
             <button
                 className="btn btn-primary"
                 onClick={handleAddNew}
@@ -128,7 +128,9 @@ export function CookbookRecipeGrid({ cookbook, onChanged }: Props) {
                 rows={rowData}
                 columns={columns}
                 processRowUpdate={processRowUpdate}
-                getRowId={(row) => row.cookbookRecipeId} />
+                getRowId={(row) => row.cookbookRecipeId} 
+                sortingOrder={commonSortingOrder}
+                sx={commonDataGridStyles}/>
 
         </div>
     );

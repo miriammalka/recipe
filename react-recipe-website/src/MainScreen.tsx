@@ -7,25 +7,32 @@ import { RecipeEdit } from "./RecipeEdit"
 
 interface Props {
     cuisineId: number,
+    isCuisineSelectionShowing: boolean
+    setIsCuisineSelectionShowing: (value: boolean) => void
 
 }
-export default function MainScreen({ cuisineId }: Props) {
+export default function MainScreen(
+    {   cuisineId, 
+        isCuisineSelectionShowing, 
+        setIsCuisineSelectionShowing }
+    : Props) {
     const [recipeList, setRecipeList] = useState<IRecipe[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [recipeid, setRecipeId] = useState(0);
-
-
+    const [isRecipeClone, setIsRecipeClone] = useState(false);
+    const [areButtonsDisabled, setAreButtonsDisabled] = useState(false);
 
     useEffect(
         () => {
             if (cuisineId > 0) {
+                setIsCuisineSelectionShowing(true);
                 setIsLoading(true);
+                setRecipeList([]);
                 const fetchData = async () => {
-                    const data = await fetchRecipiesByCuisineId(cuisineId);
-                    setRecipeList(data);
-                    console.log(data);
+                    const singleCuisineRecipesData = await fetchRecipiesByCuisineId(cuisineId);
+                    setRecipeList(singleCuisineRecipesData);
+                    console.log('fetched singleCuisineRecipesData', singleCuisineRecipesData);
                     setIsLoading(false);
-                    setRecipeId(0);
                 }
                 fetchData();
             }
@@ -35,6 +42,9 @@ export default function MainScreen({ cuisineId }: Props) {
 
     function handleRecipeEdit(recipeid: number) {
         setRecipeId(recipeid);
+        setIsCuisineSelectionShowing(false)
+        setIsRecipeClone(false);
+        setAreButtonsDisabled(recipeid === -1);
     }
 
 
@@ -51,6 +61,7 @@ export default function MainScreen({ cuisineId }: Props) {
         }
         else {
             setRecipeList([...recipeList, updatedrecipe]);
+            setRecipeId(updatedrecipe.recipeId);
 
         }
 
@@ -59,7 +70,9 @@ export default function MainScreen({ cuisineId }: Props) {
     function handleRecipeClone(clonedRecipe: IRecipe) {
 
         setRecipeList([...recipeList, clonedRecipe]);
-
+        setRecipeId(clonedRecipe.recipeId);
+        setIsCuisineSelectionShowing(false);
+        setIsRecipeClone(true);
     }
 
     return (
@@ -69,7 +82,7 @@ export default function MainScreen({ cuisineId }: Props) {
                     <div className={isLoading ? "placeholder-glow" : ""}>
                         <h2 className="mt-2 bg-light">
                             <span className={isLoading ? "placeholder" : ""}>
-                                {recipeid === 0 ? `${recipeList.length} Recipes` :
+                                {isCuisineSelectionShowing == true ? `${recipeList.length} Recipes` :
                                     recipeid === -1 ? "New Recipe" : "Edit Recipe"}
                             </span>
                         </h2>
@@ -78,19 +91,19 @@ export default function MainScreen({ cuisineId }: Props) {
                 </div>
                 <div className="col-md-2 text end">
                     {
-                        recipeid == 0 ? (<>
+                        isCuisineSelectionShowing ? (<>
                             <div className="d-flex gap-2 justify-content-end">
-                                <button className="btn btn-secondary" onClick={() => setRecipeId(-1)}>New Recipe</button>
+                                <button className="btn btn-secondary" onClick={() => { handleRecipeEdit(-1) }}>New Recipe</button>
                             </div>
                         </>)
                             :
-                            <button className="btn btn-warning" onClick={() => setRecipeId(0)}>Back</button>
+                            <button className="btn btn-warning" onClick={() => setIsCuisineSelectionShowing(true)}>Back</button>
                     }
                 </div>
             </div>
             <div className="row">
                 {
-                    recipeid === 0 ?
+                    isCuisineSelectionShowing ? //recipeid === 0 ? //isCuisineDisplayShowing === false or !isCuisineDisplayShowing
 
                         recipeList.map(r => <div key={r.recipeId} className="col-md-6 col-lg-3 mb-2">
                             <RecipeCard recipe={r} onRecipeEdit={handleRecipeEdit} />
@@ -102,7 +115,10 @@ export default function MainScreen({ cuisineId }: Props) {
                             onCancel={() => handleRecipeEdit(0)}
                             onRecipeDelete={handleRecipeDelete}
                             onRecipeUpdate={handleUpdateRecipe}
-                            onRecipeClone={handleRecipeClone} />
+                            onRecipeClone={handleRecipeClone}
+                            isClone={isRecipeClone}
+                            ButtonsDisabled={areButtonsDisabled}
+                            setButtonsDisabled={setAreButtonsDisabled} />
                 }
             </div>
 

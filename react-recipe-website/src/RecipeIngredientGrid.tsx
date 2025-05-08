@@ -4,13 +4,15 @@ import SaveIcon from '@mui/icons-material/Save';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IIngredient, IRecipeIngredient, IRecipe, IMeasurementType } from "./DataInterfaces";
 import { fetchIngredients, postRecipeIngredient, deleteRecipeIngredient, blankRecipeIngredient, fetchMeasureMentType } from "./DataUtility";
+import { commonDataGridStyles, commonSortingOrder, withDefaultColumnStyles } from "./assets/muiDataGridStyles";
 
 interface Props {
     recipe: IRecipe;
     onChanged: (value: IRecipeIngredient, fordelete: boolean) => void;
+    ButtonsDisabled: boolean;
 }
 
-export function RecipeIngredientGrid({ recipe, onChanged }: Props) {
+export function RecipeIngredientGrid({ recipe, onChanged, ButtonsDisabled }: Props) {
 
     const [errormsg, setErrormsg] = useState("");
     const [rowData, setRowData] = useState<IRecipeIngredient[]>(recipe?.recipeIngredientList || []);
@@ -33,7 +35,7 @@ export function RecipeIngredientGrid({ recipe, onChanged }: Props) {
         fetchData();
     }, []);
 
-    const columns: GridColDef[] = [
+    const columns: GridColDef[] = withDefaultColumnStyles([
         { field: "sequenceOrder", headerName: "Sequence Order", width: 150, editable: true, type: "number",
             preProcessEditCellProps: (params) => {
                 const isValid = !isNaN(params.props.value) && Number(params.props.value) > 0;
@@ -90,7 +92,7 @@ export function RecipeIngredientGrid({ recipe, onChanged }: Props) {
             ],
         },
 
-    ]
+    ])
 
 
     const handleSave = async (row: IRecipeIngredient) => {
@@ -161,10 +163,11 @@ export function RecipeIngredientGrid({ recipe, onChanged }: Props) {
 
     return (
         <div style={{ height: '100%', width: '100%' }}>
-            <h2>{errormsg}</h2>
+            <h3>{errormsg}</h3>
             <button
                 className="btn btn-primary"
                 onClick={handleAddNew}
+                disabled={ButtonsDisabled}
             >
                 Add New
             </button>
@@ -172,7 +175,9 @@ export function RecipeIngredientGrid({ recipe, onChanged }: Props) {
                 rows={rowData}
                 columns={columns}
                 processRowUpdate={processRowUpdate}
-                getRowId={(row) => row.recipeIngredientId} />
+                getRowId={(row) => row.recipeIngredientId} 
+                sortingOrder={commonSortingOrder}
+                sx={commonDataGridStyles}/>
 
         </div>
     );

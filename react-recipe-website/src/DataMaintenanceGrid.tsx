@@ -15,6 +15,7 @@ import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from "@mui/icons-material/Save"
 import { ICourse, ICuisine, IIngredient, IMeasurementType, IUsers } from './DataInterfaces';
+import { commonDataGridStyles, commonSortingOrder, withDefaultColumnStyles } from "./assets/muiDataGridStyles";
 
 interface Props {
   tableOption: string,
@@ -209,7 +210,7 @@ export default function DataMaintenanceGrid({ tableOption, onChanged }: Props) {
       ),
     }
 
-    return [...dynamicColumns, deleteColumn, saveColumn]
+    return withDefaultColumnStyles([...dynamicColumns, deleteColumn, saveColumn])
 
   }, [data, tableOption])
 
@@ -217,12 +218,14 @@ export default function DataMaintenanceGrid({ tableOption, onChanged }: Props) {
   return (
     <>
       <div>
-        <h2>{errormsg}</h2>
+        <h3>{errormsg}</h3>
         <button className='btn btn-primary' onClick={handleAddNew}>Add New</button>
       </div>
       <DataGrid
         rows={data}
         columns={columns}
+        sortingOrder={commonSortingOrder}
+        sx={commonDataGridStyles}
         pagination
         paginationModel={paginationModel}
         onPaginationModelChange={setPaginationModel}

@@ -2,6 +2,7 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { IMeal } from "./DataInterfaces";
 import { fetchMeals } from "./DataUtility";
+import { commonDataGridStyles, commonSortingOrder, withDefaultColumnStyles } from "./assets/muiDataGridStyles";
 
 export default function Meals() {
 
@@ -16,7 +17,7 @@ export default function Meals() {
     fetchdata();
   }, []);
 
-  const columns: GridColDef[] = [
+  const columns: GridColDef[] = withDefaultColumnStyles([
     { field: "mealName", headerName: "Meal Name", width: 150, editable: false },
     { field: "username", headerName: "User Name", width: 150, editable: false },
     { field: "dateCreated", headerName: "Date Created", width: 150, editable: false },
@@ -25,7 +26,7 @@ export default function Meals() {
     { field: "numCourses", headerName: "Number of Courses", width: 150, editable: false },
     { field: "numRecipes", headerName: " Number of Recipes", width: 150, editable: false },
     { field: "active", headerName: "Active", width: 150, editable: false },
-  ];
+  ]);
 
 
   return (
@@ -36,6 +37,8 @@ export default function Meals() {
         rows={rowData}
         columns={columns}
         getRowId={(row) => row.mealId}
+        sortingOrder={commonSortingOrder}
+        sx={commonDataGridStyles}
       />
     </div>
   )

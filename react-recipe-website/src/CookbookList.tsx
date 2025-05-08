@@ -4,6 +4,7 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { ICookbook } from "./DataInterfaces";
 import { fetchCookbooks } from "./DataUtility";
+import { commonDataGridStyles, commonSortingOrder, withDefaultColumnStyles } from "./assets/muiDataGridStyles";
 
 
 interface Props {
@@ -24,7 +25,7 @@ export default function CookbookList({ onCookbookEdit, onAutoCreatCookbook }: Pr
     fetchdata();
   }, [onAutoCreatCookbook]);
 
-  const columns: GridColDef[] = [
+  const columns: GridColDef[] = withDefaultColumnStyles([
     { field: "cookbookName", headerName: "Cookbook Name", width: 150, editable: false },
     { field: "usersId", headerName: "User Name", width: 150, editable: false },
     { field: "price", headerName: "Price", width: 150, editable: false },
@@ -41,7 +42,7 @@ export default function CookbookList({ onCookbookEdit, onAutoCreatCookbook }: Pr
 
       ))
     }
-  ];
+  ]);
 
   return (
     <div style={{ height: '100%', width: '100%' }}>
@@ -49,7 +50,10 @@ export default function CookbookList({ onCookbookEdit, onAutoCreatCookbook }: Pr
         <DataGrid
           rows={rowData}
           columns={columns}
-          getRowId={(row) => row.cookbookId} />
+          getRowId={(row) => row.cookbookId}
+          sortingOrder={commonSortingOrder} 
+          sx={commonDataGridStyles}
+          />
       </div>
 
     </div>

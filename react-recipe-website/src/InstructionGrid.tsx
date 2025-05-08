@@ -4,6 +4,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IInstruction, IRecipe } from "./DataInterfaces";
 import { postInstruction, deleteInstruction, blankInstruction } from "./DataUtility";
+import { commonDataGridStyles, commonSortingOrder, withDefaultColumnStyles } from "./assets/muiDataGridStyles";
 
 interface Props {
     recipe: IRecipe;
@@ -15,7 +16,7 @@ export function InstructionGrid({ recipe, onChanged }: Props) {
     const [errormsg, setErrormsg] = useState("");
     const [rowData, setRowData] = useState<IInstruction[]>(recipe?.instructionList || []);
 
-    const columns: GridColDef[] = [
+    const columns: GridColDef[] = withDefaultColumnStyles([
         { field: "sequenceOrder", headerName: "Sequence Order", width: 150, editable: true },
         { field: "instruction", headerName: "Instruction", width: 150, editable: true },
         {
@@ -37,7 +38,7 @@ export function InstructionGrid({ recipe, onChanged }: Props) {
             ],
         },
 
-    ]
+    ])
 
 
     const handleSave = async (row: IInstruction) => {
@@ -98,7 +99,7 @@ export function InstructionGrid({ recipe, onChanged }: Props) {
 
     return (
         <div style={{ height: '100%', width: '100%' }}>
-            <h2>{errormsg}</h2>
+            <h3>{errormsg}</h3>
             <button
                 className="btn btn-primary"
                 onClick={handleAddNew}
@@ -109,7 +110,9 @@ export function InstructionGrid({ recipe, onChanged }: Props) {
                 rows={rowData}
                 columns={columns}
                 processRowUpdate={processRowUpdate}
-                getRowId={(row) => row.instructionId} />
+                getRowId={(row) => row.instructionId} 
+                sortingOrder={commonSortingOrder}
+                sx={commonDataGridStyles}/>
 
         </div>
     );
