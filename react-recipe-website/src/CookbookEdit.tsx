@@ -6,7 +6,7 @@ import { getUserStore } from "@miriammalka/reactutils";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { CookbookRecipeGrid } from "./CookbookRecipeGrid";
-import { Controller } from "react-hook-form";
+
 
 
 
@@ -15,10 +15,12 @@ interface Props {
     onCancel: () => void;
     onCookbookUpdate: (cookbook: ICookbook) => void;
     onCookbookDelete: (deletedcookbookid: number) => void;
+    ButtonsDisabled: boolean;
+    setButtonsDisabled: (value: boolean) => void;
 }
 
-export default function CookbookEdit({ cookbook, onCancel, onCookbookDelete, onCookbookUpdate }: Props) {
-    const { register, handleSubmit, reset, control, setValue } = useForm<ICookbook>({ defaultValues: cookbook });
+export default function CookbookEdit({ cookbook, onCancel, onCookbookDelete, onCookbookUpdate, ButtonsDisabled, setButtonsDisabled }: Props) {
+    const { register, handleSubmit, reset } = useForm<ICookbook>({ defaultValues: cookbook });
     const [users, setUsers] = useState<IUsers[]>([]);
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -26,16 +28,7 @@ export default function CookbookEdit({ cookbook, onCancel, onCookbookDelete, onC
     const apiurl = import.meta.env.VITE_API_URL;
     const useUserStore = getUserStore(apiurl);
     const rolerank = useUserStore((state) => state.roleRank);
-    const getSkillLevelDesc = (level: number | undefined) => {
-        switch (level) {
-            case 1: return "beginner";
-            case 2: return "intermediate";
-            case 3: return "advanced";
-            default: return "";
-        }
-    };
 
-    const [skillLevelDesc, setSkillLevelDesc] = useState("");
 
 
 
@@ -52,13 +45,8 @@ export default function CookbookEdit({ cookbook, onCancel, onCookbookDelete, onC
     //I'm not sure what this function does
     useEffect(() => {
         reset(cookbook);
-
-        const level = cookbook.skillLevel;
-        const desc = getSkillLevelDesc(level);
-        setSkillLevelDesc(desc);
-        setValue("skillLevelDesc", desc)
     },
-        [cookbook, reset, setValue]);
+        [cookbook, reset]);
 
     const submitForm = async (data: FieldValues) => {
         const transformedData = {
@@ -71,16 +59,15 @@ export default function CookbookEdit({ cookbook, onCancel, onCookbookDelete, onC
             setErrorMessage(response.errorMessage);
             if (!response.errorMessage) {
                 onCookbookUpdate(response);
+                setButtonsDisabled(false);
                 toast.success("Cookbook saved successfully!");
+                
             }
             reset(response);
         }
         catch (error: unknown) {
             if (error instanceof Error) {
                 setErrorMessage(error.message);
-            }
-            else {
-                setErrorMessage("error occured");
             }
         }
     };
@@ -143,13 +130,13 @@ export default function CookbookEdit({ cookbook, onCancel, onCookbookDelete, onC
                             <div className="mb-3">
                                 <label htmlFor="usersId" className="form-label">User Name:</label>
                                 <select id="usersId" {...register("usersId")} className="form-select">
-                                    <option value="">Select User</option>
+                                    <option value=""></option>
                                     {users.map(u => <option key={u.usersId} value={u.usersId}>{u.userName}</option>)}
                                 </select>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="dateCreated" className="col-form-label">Date Created:</label>
-                                <input type="date" {...register("dateCreated")} className="form-control" required />
+                                <input type="date" {...register("dateCreated")} className="form-control" />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="price" className="form-label" >Price:</label>
@@ -160,37 +147,18 @@ export default function CookbookEdit({ cookbook, onCancel, onCookbookDelete, onC
                                 <label htmlFor="active" className="form-label">Active:</label>
                                 <input type="checkbox" id="active" {...register("active")} className="form-check-input" />
                             </div>
-                            <Controller
-                                name="skillLevel"
-                                control={control}
-                                defaultValue={cookbook.skillLevel}
-                                render={({ field }) => (
-                                    <div className="mb-3">
-                                        <label htmlFor="skillLevel" className="form-label">Skill Level:</label>
-                                        <select
-                                            {...field}
-                                            className="form-select"
-                                            id="skillLevel"
-                                            onChange={(e) => {
-                                                const value = parseInt(e.target.value, 10);
-                                                field.onChange(value);
-                                                const desc = getSkillLevelDesc(value);
-                                                setSkillLevelDesc(desc);
-                                                setValue("skillLevelDesc", desc); // bind to form
-                                            }}
-                                            
-                                        >
-                                            <option value="">Select Skill Level</option>
-                                            <option value={1}>beginner</option>
-                                            <option value={2}>intermediate</option>
-                                            <option value={3}>advanced</option>
-                                        </select>
-                                    </div>
-                                )}
-                            />
+                            <div className="mb-3">
+                                <label htmlFor="skillLevel" className="form-label">Skill Level:</label>
+                                <select id="skillLevel" {...register("skillLevel")}  className="form-select">
+                                    <option value=""></option>
+                                    <option value={1}>Beginner</option>
+                                    <option value={2}>Intermediate</option>
+                                    <option value={3}>Advanced</option>
+                                </select>
+                            </div>
            
                             <button type="submit" className="btn btn-primary m-2">Submit</button>
-                            {rolerank >= 3 ? <button onClick={handleDelete} disabled={rolerank >= 3 ? false : true} type="button" id="btndelete" className="btn btn-danger m-2">Delete</button> : null}
+                            {rolerank >= 3 ? <button onClick={handleDelete} disabled={ButtonsDisabled} type="button" id="btndelete" className="btn btn-danger m-2">Delete</button> : null}
                             <button onClick={onCancel} type="button" id="btncancel" className="btn btn-warning">Cancel</button>
                         </form>
                     </div>
@@ -208,7 +176,8 @@ export default function CookbookEdit({ cookbook, onCancel, onCookbookDelete, onC
                         <div className="row">
                             <CookbookRecipeGrid
                                 cookbook={cookbook}
-                                onChanged={handleCookbookRecipeChange} />
+                                onChanged={handleCookbookRecipeChange} 
+                                ButtonsDisabled={ButtonsDisabled}/>
                         </div>
                     </div>
 

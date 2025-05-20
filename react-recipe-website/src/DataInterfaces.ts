@@ -6,7 +6,7 @@ export interface IRecipe {
     usersId: number,
     recipeName: string,
     calories: number,
-    dateCreated: Date | string,
+    dateCreated: Date | null | string,
     datePublished: Date | null | string,
     dateArchived: Date | null | string,
     vegan: boolean,
@@ -81,7 +81,8 @@ export interface ICookbook {
     dateCreated: Date | string,
     active: boolean,
     skillLevel: number,
-    skillLevelDesc: string,
+    // skillLevelDesc: string,
+    skillLevelString: string,
     cookbookRecipeList: ICookbookRecipe[],
     errorMessage: string
 }

@@ -28,12 +28,15 @@ function formatCookbookDates(cookbook: ICookbook): ICookbook {
 
 
 
-function formatDate(date: Date | string | null): string {
+export function formatDate(date: Date | string | null): string {
+    //console.log('date received', date);
     if (!date) return "";
     const d = new Date(date);
     const month = ("0" + (d.getMonth() + 1)).slice(-2);
     const day = ("0" + d.getDate()).slice(-2);
-    return `${d.getFullYear()}-${month}-${day}`;
+    const returnValue = `${d.getFullYear()}-${month}-${day}`
+    //console.log('formatted data', returnValue)
+    return returnValue;
 }
 
 export async function fetchDashboard() {
@@ -79,7 +82,7 @@ export async function deleteRecipe(recipeid: number) {
 }
 
 export async function fetchUsers() {
-    return await api().fetchData<IUsers[]>("Recipe/users");
+    return await api().fetchData<IUsers[]>("users");
 }
 
 export async function postUsers(form: FieldValues) {
@@ -228,12 +231,10 @@ export const blankCookbook: ICookbook = {
     active: false,
     usersId: 0,
     skillLevel: 0,
-    skillLevelDesc: "",
-    dateCreated: (() => {
-        const currentDate = new Date();
-        currentDate.setHours(0, 0, 0, 0); // Set to midnight
-        return currentDate;
-    })(),
+    //skillLevelDesc: "",
+    skillLevelString: "",
+    dateCreated: formatDate(new Date()),
+
     errorMessage: "",
     cookbookRecipeList: [] as ICookbookRecipe[]
 }

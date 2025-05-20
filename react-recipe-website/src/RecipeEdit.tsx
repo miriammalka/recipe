@@ -62,21 +62,25 @@ export function RecipeEdit({ recipe, onCancel, onRecipeDelete, onRecipeUpdate, o
 
     const submitForm = async (data: FieldValues) => {
         if (isClone) { return; }
+
+        const today = new Date();
+        today.setHours(12, 0, 0, 0);
+        console.log('data', data);
         const transformedData = {
             ...data,
-            dateCreated: data.dateCreated === "" ? null : data.dateCreated,
+            dateCreated: !data.dateCreated ? today.toISOString().split('T')[0] : data.dateCreated,
             datePublished: data.datePublished === "" ? null : data.datePublished,
             dateArchived: data.dateArchived === "" ? null : data.dateArchived,
             vegan: !!data.vegan
         };
         try {
             setErrorMessage("");
-            const response = await postRecipe({recipe: transformedData});
+            const response = await postRecipe({ recipe: transformedData });
             setErrorMessage(response.errorMessage);
             if (!response.errorMessage) {
                 onRecipeUpdate(response);
                 setButtonsDisabled(false);
-                
+
                 if (!isClone) {
                     toast.success("Recipe saved successfully!");
                 }
@@ -200,14 +204,14 @@ export function RecipeEdit({ recipe, onCancel, onRecipeDelete, onRecipeUpdate, o
                             <div className="mb-3">
                                 <label htmlFor="cuisineId" className="form-label">Cuisine:</label>
                                 <select id="cuisineId" {...register("cuisineId")} className="form-select">
-                                    <option value="">Select Cuisine</option>
+                                    <option value=""></option>
                                     {cuisines.map(c => <option key={c.cuisineId} value={c.cuisineId}>{c.cuisineName}</option>)}
                                 </select>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="usersId" className="form-label">User:</label>
                                 <select id="usersId" {...register("usersId")} className="form-select">
-                                    <option value="">Select User</option>
+                                    <option value=""></option>
                                     {users.map(u => <option key={u.usersId} value={u.usersId}>{u.userName}</option>)}
                                 </select>
                             </div>
@@ -217,11 +221,11 @@ export function RecipeEdit({ recipe, onCancel, onRecipeDelete, onRecipeUpdate, o
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="dateCreated" className="col-form-label">Date Created:</label>
-                                <input type="date" {...register("dateCreated")} className="form-control"/>
+                                <input type="date" {...register("dateCreated", {valueAsDate: true})} className="form-control" />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="datePublished" className="form-label">Date Published:</label>
-                                <input type="date" {...register("datePublished")} className="form-control" />
+                                <input type="date" {...register("datePublished", {valueAsDate: true})} className="form-control" />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="dateArchived" className="form-label">Date Archived:</label>

@@ -9,17 +9,29 @@ import { commonDataGridStyles, commonSortingOrder, withDefaultColumnStyles } fro
 
 interface Props {
   onCookbookEdit: (cookbokid: number) => void;
-  onAutoCreatCookbook: (cookbook: ICookbook)=> void;
+  onAutoCreatCookbook: (cookbook: ICookbook) => void;
 }
 
 export default function CookbookList({ onCookbookEdit, onAutoCreatCookbook }: Props) {
 
   const [rowData, setRowData] = useState<ICookbook[]>([]);
 
+
   useEffect(() => {
     const fetchdata = async () => {
       const data = await fetchCookbooks();
-      console.log("fetched cookbooks", data)
+      //console.log("fetched cookbooks", data)
+      data.forEach(cookbook => {
+        switch (cookbook.skillLevel) {
+          case 1:
+            return cookbook.skillLevelString = 'Beginner';
+          case 2:
+            return cookbook.skillLevelString = 'Intermediate';
+          case 3:
+            return cookbook.skillLevelString = 'Advanced';
+          default: return;
+        }
+      })
       setRowData(data);
     };
     fetchdata();
@@ -31,16 +43,17 @@ export default function CookbookList({ onCookbookEdit, onAutoCreatCookbook }: Pr
     { field: "price", headerName: "Price", width: 150, editable: false },
     { field: "dateCreated", headerName: "Date Created", width: 150, editable: false },
     { field: "active", headerName: "Active", width: 150, editable: false },
-    { field: "skillLevelDesc", headerName: "Skill Level", width: 150, editable: false },
+    { field: "skillLevelString", headerName: "Skill Level", width: 150, editable: false },
     {
       field: "actions",
       headerName: "Actions",
       width: 100,
       sortable: false,
-      renderCell: (params => (
-        <button className="btn btn-primary" onClick={() => onCookbookEdit(params.row.cookbookId)}>Edit</button>
-
-      ))
+      renderCell: (params => {
+        return (
+          <button className="btn btn-primary" onClick={() => onCookbookEdit(params.row.cookbookId)}>Edit</button>
+        );
+      })
     }
   ]);
 
@@ -51,9 +64,9 @@ export default function CookbookList({ onCookbookEdit, onAutoCreatCookbook }: Pr
           rows={rowData}
           columns={columns}
           getRowId={(row) => row.cookbookId}
-          sortingOrder={commonSortingOrder} 
+          sortingOrder={commonSortingOrder}
           sx={commonDataGridStyles}
-          />
+        />
       </div>
 
     </div>

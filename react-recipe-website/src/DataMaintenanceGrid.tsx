@@ -11,7 +11,7 @@ import {
   postUsers
 } from './DataUtility';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Button } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from "@mui/icons-material/Save"
 import { ICourse, ICuisine, IIngredient, IMeasurementType, IUsers } from './DataInterfaces';
@@ -26,10 +26,13 @@ export default function DataMaintenanceGrid({ tableOption, onChanged }: Props) {
 
   const [data, setData] = useState<any[]>([]);
   const [errormsg, setErrormsg] = useState("");
-  const [paginationModel, setPaginationModel]=useState({
-    pageSize:10,
-    page:0
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0
   })
+
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [rowToDelete, setRowToDelete] = useState<any>(null);
 
   const fetchFunctions: Record<string, () => Promise<any>> = {
     users: fetchUsers,
@@ -46,8 +49,9 @@ export default function DataMaintenanceGrid({ tableOption, onChanged }: Props) {
       try {
         if (fetchFunctions[tableOption]) {
           const responseData = await fetchFunctions[tableOption]();
+          //console.log("Fetched data keys:", Object.keys(responseData[0] || {}));
           setData(responseData);
-          console.log("fetched data: ", responseData);
+          //console.log("fetched data: ", responseData);
         }
       }
       catch (error) {
@@ -79,23 +83,29 @@ export default function DataMaintenanceGrid({ tableOption, onChanged }: Props) {
     measurementType: deleteMeasurementType
   };
 
-  const handleDelete = async (row: { cuisineName: ICuisine; userName: IUsers; ingredientName: IIngredient; courseName: ICourse; measurementType: IMeasurementType }) => {
-    const confirmed = window.confirm(`Are you sure your want to delete ${row.cuisineName || row.userName || row.ingredientName || row.courseName || row.measurementType || "this record"}?`);
-    if (confirmed) {
-      try {
-        setErrormsg("");
-        const response = await deleteFunctions[tableOption](row);
-        if ((response as any).errorMessage) {
-          throw new Error((response as any).errorMessage);
-        }
-        const updatedData = data.filter(tableOption => tableOption[0] !== data[0]);
-        setData(updatedData);
-        onChanged(data, true);
+  const askDeleteConfirmation = (row: any) => {
+    setRowToDelete(row);
+    setConfirmOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!rowToDelete) return;
+
+    try {
+      setErrormsg("");
+      const response = await deleteFunctions[tableOption](rowToDelete);
+      if ((response as any).errorMessage) {
+        throw new Error((response as any).errorMessage);
       }
-      catch (error: any) {
-        setErrormsg(error.message);
-      }
-      setData((prevData) => prevData.filter((item) => item !== row));
+
+      const updatedData = data.filter((item) => item !== rowToDelete);
+      setData(updatedData);
+      onChanged(updatedData, true);
+    } catch (error: any) {
+      setErrormsg(error.message);
+    } finally {
+      setConfirmOpen(false);
+      setRowToDelete(null);
     }
   };
 
@@ -109,7 +119,7 @@ export default function DataMaintenanceGrid({ tableOption, onChanged }: Props) {
 
   const handleAddNew = () => {
     const blankRecord = blankTableRecord[tableOption];
-    console.log(blankRecord)
+    //console.log(blankRecord)
     if (!blankRecord) {
       console.error(`No blank record found for table: ${tableOption}`);
       return;
@@ -133,7 +143,7 @@ export default function DataMaintenanceGrid({ tableOption, onChanged }: Props) {
   };
 
   const getRowId = (row: any): number => {
-    return row.id || row.usersId || row.cuisineId || row.courseId || row.measurementTypeId;
+    return row.id || row.usersId || row.cuisineId || row.courseId || row.measurementTypeId || row.ingredientId;
   };
 
   const handleSave = async (row: ICourse | ICuisine | IIngredient | IMeasurementType | IUsers) => {
@@ -185,7 +195,7 @@ export default function DataMaintenanceGrid({ tableOption, onChanged }: Props) {
           variant="contained"
           color="error"
           size="small"
-          onClick={() => handleDelete(params.row)}
+          onClick={() => askDeleteConfirmation(params.row)}
         >
           <DeleteIcon />
         </Button>
@@ -231,8 +241,26 @@ export default function DataMaintenanceGrid({ tableOption, onChanged }: Props) {
         onPaginationModelChange={setPaginationModel}
         pageSizeOptions={[5, 10, 20]}
         disableRowSelectionOnClick
-        getRowId={(row) => row.id || row.recipeId || row.cuisineId || row.usersId || row.courseId || row.measurementTypeId || Math.random()} // Ensure unique row ID
+        getRowId={getRowId} // Ensure unique row ID
       />
+      <Dialog open={confirmOpen} onClose={() => setConfirmOpen(false)}>
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete{' '}
+            {rowToDelete?.cuisineName || rowToDelete?.userName || rowToDelete?.ingredientName ||
+              rowToDelete?.courseName || rowToDelete?.measurementType || "this record"}?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setConfirmOpen(false)} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={confirmDelete} color="error">
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
 
   )

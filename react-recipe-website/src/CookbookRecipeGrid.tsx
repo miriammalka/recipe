@@ -8,9 +8,10 @@ import { commonDataGridStyles, commonSortingOrder, withDefaultColumnStyles } fro
 interface Props {
     cookbook: ICookbook;
     onChanged: (value: ICookbookRecipe, fordelete: boolean) => void;
+    ButtonsDisabled: boolean;
 }
 
-export function CookbookRecipeGrid({ cookbook, onChanged }: Props) {
+export function CookbookRecipeGrid({ cookbook, onChanged, ButtonsDisabled }: Props) {
 
     const [errormsg, setErrormsg] = useState("");
     const [rowData, setRowData] = useState<ICookbookRecipe[]>(cookbook?.cookbookRecipeList || []);
@@ -121,6 +122,7 @@ export function CookbookRecipeGrid({ cookbook, onChanged }: Props) {
             <button
                 className="btn btn-primary"
                 onClick={handleAddNew}
+                disabled={ButtonsDisabled}
             >
                 Add New
             </button>
