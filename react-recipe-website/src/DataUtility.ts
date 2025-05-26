@@ -9,14 +9,14 @@ function api() {
     return createAPI(baseurl, sessionkey);
 }
 
-function formatRecipeDates(recipe: IRecipe): IRecipe {
-    return {
-        ...recipe,
-        dateCreated: formatDate(recipe.dateCreated),
-        datePublished: formatDate(recipe.datePublished),
-        dateArchived: formatDate(recipe.dateArchived)
-    };
-}
+// function formatRecipeDates(recipe: IRecipe): IRecipe {
+//     return {
+//         ...recipe,
+//         dateCreated: formatDate(recipe.dateCreated),
+//         datePublished: formatDate(recipe.datePublished),
+//         dateArchived: formatDate(recipe.dateArchived)
+//     };
+// }
 
 function formatCookbookDates(cookbook: ICookbook): ICookbook {
     return {
@@ -29,15 +29,19 @@ function formatCookbookDates(cookbook: ICookbook): ICookbook {
 
 
 export function formatDate(date: Date | string | null): string {
-    //console.log('date received', date);
+   
+  
+    // console.log('date received', date);
     if (!date) return "";
     const d = new Date(date);
     const month = ("0" + (d.getMonth() + 1)).slice(-2);
     const day = ("0" + d.getDate()).slice(-2);
     const returnValue = `${d.getFullYear()}-${month}-${day}`
-    //console.log('formatted data', returnValue)
+    // console.log('formatted data', returnValue)
     return returnValue;
 }
+
+
 
 export async function fetchDashboard() {
     return await api().fetchData<IDashboard[]>("App");
@@ -57,8 +61,9 @@ export async function deleteCuisine(cuisine: ICuisine) {
 }
 
 export async function fetchRecipiesByCuisineId(cuisineId: number) {
-    const recipes = await api().fetchData<IRecipe[]>(`Recipe/getbycuisineId/${cuisineId}`)
-    return recipes.map(formatRecipeDates);
+    //const recipes = 
+    return await api().fetchData<IRecipe[]>(`Recipe/getbycuisineId/${cuisineId}`)
+    //return recipes.map(formatRecipeDates);
 }
 
 export async function fetchRecipes() {
@@ -67,18 +72,21 @@ export async function fetchRecipes() {
 }
 
 export async function postRecipe(form: FieldValues) {
-    const recipe = await api().postData<IRecipe>("recipe", form);
-    return formatRecipeDates(recipe);
+    //const recipe = 
+    return await api().postData<IRecipe>("recipe", form);
+    //return formatRecipeDates(recipe);
 }
 
 export async function cloneRecipe(recipe: IRecipe) {
-    const clonedRecipe = await api().postData<IRecipe>("Recipe/Clone", recipe);
-    return formatRecipeDates(clonedRecipe);
+    //const clonedRecipe = 
+     return await api().postData<IRecipe>("Recipe/Clone", recipe);
+    //return formatRecipeDates(clonedRecipe);
 }
 
 export async function deleteRecipe(recipeid: number) {
-    const recipe = await api().deleteData<IRecipe>(`Recipe?id=${recipeid}`);
-    return formatRecipeDates(recipe);
+    //const recipe = 
+    return await api().deleteData<IRecipe>(`Recipe?id=${recipeid}`);
+    //return formatRecipeDates(recipe);
 }
 
 export async function fetchUsers() {
@@ -279,3 +287,5 @@ export const blankUsers: IUsers = {
     userName: "",
     errorMessage: ""
 }
+
+

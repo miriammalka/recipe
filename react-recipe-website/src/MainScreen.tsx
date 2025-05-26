@@ -22,6 +22,16 @@ export default function MainScreen(
     const [isRecipeClone, setIsRecipeClone] = useState(false);
     const [areButtonsDisabled, setAreButtonsDisabled] = useState(false);
 
+    /* 
+    function retrieveRecipe
+
+    execute retrieveRecipe X 12 for each ID
+
+    Group all recipes into 1 array recipes
+
+    map through recipes to display each one
+    */
+
     useEffect(
         () => {
             if (cuisineId > 0) {

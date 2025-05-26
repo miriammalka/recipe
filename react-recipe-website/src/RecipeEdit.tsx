@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { FieldValues, useForm } from "react-hook-form";
 import { ICuisine, IInstruction, IRecipe, IRecipeIngredient, IUsers } from "./DataInterfaces";
-import { blankRecipe, cloneRecipe, deleteRecipe, fetchCuisines, fetchUsers, postRecipe } from "./DataUtility";
+import { blankRecipe, cloneRecipe, deleteRecipe, fetchCuisines, fetchUsers, formatDate, postRecipe } from "./DataUtility";
 import { getUserStore } from "@miriammalka/reactutils";
 import { RecipeIngredientGrid } from "./RecipeIngredientGrid";
 import { ToastContainer, toast } from "react-toastify";
@@ -54,7 +54,13 @@ export function RecipeEdit({ recipe, onCancel, onRecipeDelete, onRecipeUpdate, o
 
     //I'm not sure what this function does
     useEffect(() => {
-        reset(recipe);
+        const formattedRecipe = {
+            ...recipe,
+            dateCreated: formatDate(recipe.dateCreated),
+            datePublished: formatDate(recipe.datePublished),
+            dateArchived: formatDate(recipe.dateArchived)
+        };
+        reset(formattedRecipe);
     },
         [recipe, reset]);
 
@@ -68,14 +74,15 @@ export function RecipeEdit({ recipe, onCancel, onRecipeDelete, onRecipeUpdate, o
         console.log('data', data);
         const transformedData = {
             ...data,
-            dateCreated: !data.dateCreated ? today.toISOString().split('T')[0] : data.dateCreated,
-            datePublished: data.datePublished === "" ? null : data.datePublished,
-            dateArchived: data.dateArchived === "" ? null : data.dateArchived,
-            vegan: !!data.vegan
+            dateCreated: data.dateCreated ? new Date(data.dateCreated).toISOString() : today.toISOString(),
+            datePublished: data.datePublished ? new Date(data.datePublished).toISOString() : null,
+            dateArchived: data.dateArchived ? new Date(data.dateArchived).toISOString() : null,
         };
+
+        console.log('transformed', transformedData)
         try {
             setErrorMessage("");
-            const response = await postRecipe({ recipe: transformedData });
+            const response = await postRecipe({ recipe: data });
             setErrorMessage(response.errorMessage);
             if (!response.errorMessage) {
                 onRecipeUpdate(response);
@@ -181,6 +188,10 @@ export function RecipeEdit({ recipe, onCancel, onRecipeDelete, onRecipeUpdate, o
         onRecipeUpdate(updatedRecipe)
     }
 
+    function handleDateChange() {
+        
+    }
+
 
     return (
         <>
@@ -221,15 +232,15 @@ export function RecipeEdit({ recipe, onCancel, onRecipeDelete, onRecipeUpdate, o
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="dateCreated" className="col-form-label">Date Created:</label>
-                                <input type="date" {...register("dateCreated", {valueAsDate: true})} className="form-control" />
+                                <input type="date" onChange={handleDateChange} value={recipe.dateCreated?.slice(0, 10)} /* {...register("dateCreated", { valueAsDate: true })} */ className="form-control" />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="datePublished" className="form-label">Date Published:</label>
-                                <input type="date" {...register("datePublished", {valueAsDate: true})} className="form-control" />
+                                <input type="date" value={recipe.datePublished?.slice(0, 10)} /* {...register("datePublished", { valueAsDate: true })} */ className="form-control" />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="dateArchived" className="form-label">Date Archived:</label>
-                                <input type="date" {...register("dateArchived")} className="form-control" />
+                                <input type="date" value={recipe.dateArchived?.slice(0, 10)} /* {...register("dateArchived")}  */className="form-control" />
                             </div>
 
                             <div className="mb-3">
