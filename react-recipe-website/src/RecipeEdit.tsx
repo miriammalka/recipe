@@ -77,6 +77,7 @@ export function RecipeEdit({ recipe, onCancel, onRecipeDelete, onRecipeUpdate, o
             dateCreated: data.dateCreated ? new Date(data.dateCreated).toISOString() : today.toISOString(),
             datePublished: data.datePublished ? new Date(data.datePublished).toISOString() : null,
             dateArchived: data.dateArchived ? new Date(data.dateArchived).toISOString() : null,
+            vegan: !!data.vegan
         };
 
         console.log('transformed', transformedData)
@@ -188,10 +189,6 @@ export function RecipeEdit({ recipe, onCancel, onRecipeDelete, onRecipeUpdate, o
         onRecipeUpdate(updatedRecipe)
     }
 
-    function handleDateChange() {
-        
-    }
-
 
     return (
         <>
@@ -232,15 +229,15 @@ export function RecipeEdit({ recipe, onCancel, onRecipeDelete, onRecipeUpdate, o
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="dateCreated" className="col-form-label">Date Created:</label>
-                                <input type="date" onChange={handleDateChange} value={recipe.dateCreated?.slice(0, 10)} /* {...register("dateCreated", { valueAsDate: true })} */ className="form-control" />
+                                <input type="date" /*onChange={handleDateChange} value={recipe.dateCreated?.slice(0, 10)}*/  {...register("dateCreated", { valueAsDate: true })} className="form-control" />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="datePublished" className="form-label">Date Published:</label>
-                                <input type="date" value={recipe.datePublished?.slice(0, 10)} /* {...register("datePublished", { valueAsDate: true })} */ className="form-control" />
+                                <input type="date" /*value={recipe.datePublished?.slice(0, 10)}*/  {...register("datePublished", { valueAsDate: true })} className="form-control" />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="dateArchived" className="form-label">Date Archived:</label>
-                                <input type="date" value={recipe.dateArchived?.slice(0, 10)} /* {...register("dateArchived")}  */className="form-control" />
+                                <input type="date" /*value={recipe.dateArchived?.slice(0, 10)}*/ {...register("dateArchived")} className="form-control" />
                             </div>
 
                             <div className="mb-3">

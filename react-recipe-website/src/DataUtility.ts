@@ -9,14 +9,14 @@ function api() {
     return createAPI(baseurl, sessionkey);
 }
 
-// function formatRecipeDates(recipe: IRecipe): IRecipe {
-//     return {
-//         ...recipe,
-//         dateCreated: formatDate(recipe.dateCreated),
-//         datePublished: formatDate(recipe.datePublished),
-//         dateArchived: formatDate(recipe.dateArchived)
-//     };
-// }
+function formatRecipeDates(recipe: IRecipe): IRecipe {
+    return {
+        ...recipe,
+        dateCreated: formatDate(recipe.dateCreated),
+        datePublished: formatDate(recipe.datePublished),
+        dateArchived: formatDate(recipe.dateArchived)
+    };
+}
 
 function formatCookbookDates(cookbook: ICookbook): ICookbook {
     return {
@@ -61,32 +61,28 @@ export async function deleteCuisine(cuisine: ICuisine) {
 }
 
 export async function fetchRecipiesByCuisineId(cuisineId: number) {
-    //const recipes = 
-    return await api().fetchData<IRecipe[]>(`Recipe/getbycuisineId/${cuisineId}`)
-    //return recipes.map(formatRecipeDates);
+    const recipes = await api().fetchData<IRecipe[]>(`Recipe/getbycuisineId/${cuisineId}`)
+    return recipes.map(formatRecipeDates);
 }
 
 export async function fetchRecipes() {
-    return await api().fetchData<IRecipe[]>("CookbookRecipe/Recipes")
-    // return recipes.map(formatRecipeDates);
+    const recipes = await api().fetchData<IRecipe[]>("CookbookRecipe/Recipes")
+    return recipes.map(formatRecipeDates);
 }
 
 export async function postRecipe(form: FieldValues) {
-    //const recipe = 
-    return await api().postData<IRecipe>("recipe", form);
-    //return formatRecipeDates(recipe);
+    const recipe = await api().postData<IRecipe>("recipe", form);
+    return formatRecipeDates(recipe);
 }
 
 export async function cloneRecipe(recipe: IRecipe) {
-    //const clonedRecipe = 
-     return await api().postData<IRecipe>("Recipe/Clone", recipe);
-    //return formatRecipeDates(clonedRecipe);
+    const clonedRecipe =  await api().postData<IRecipe>("Recipe/Clone", recipe);
+    return formatRecipeDates(clonedRecipe);
 }
 
 export async function deleteRecipe(recipeid: number) {
-    //const recipe = 
-    return await api().deleteData<IRecipe>(`Recipe?id=${recipeid}`);
-    //return formatRecipeDates(recipe);
+    const recipe = await api().deleteData<IRecipe>(`Recipe?id=${recipeid}`);
+    return formatRecipeDates(recipe);
 }
 
 export async function fetchUsers() {
@@ -239,7 +235,6 @@ export const blankCookbook: ICookbook = {
     active: false,
     usersId: 0,
     skillLevel: 0,
-    //skillLevelDesc: "",
     skillLevelString: "",
     dateCreated: formatDate(new Date()),
 
