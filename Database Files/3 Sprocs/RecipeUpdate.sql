@@ -58,8 +58,8 @@ end
 go
 
 --test
---exec RecipeUpdate @UsersId = 13, @CuisineId = 16, @RecipeName = 'rainbow salad', @Calories = 100, @DateCreated = '', @DatePublished = '', @DateArchived = '', @Vegan = 0
+--exec RecipeUpdate @UsersId = 1021, @CuisineId = 1021, @RecipeName = 'rainbow salad', @Calories = 100, @DateCreated = '', @DatePublished = '', @DateArchived = '', @Vegan = 0
 
-select * from users
-select * from cuisine
-select * from recipe
+--select * from users
+--select * from cuisine
+--select * from recipe

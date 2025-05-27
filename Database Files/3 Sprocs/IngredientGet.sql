@@ -23,7 +23,7 @@ begin
 	or i.IngredientName like '%' + @IngredientName + '%'
 	union select 0, ' '
 	where @IncludeBlank = 1
-	order by i.IngredientId
+	order by i.IngredientName
 
 	return @return
 end

@@ -14,7 +14,13 @@ as
 begin
 	declare @return int = 0
 
-	select @UsersId = isnull(@UsersId,0), @Password = isnull(@Password, 'password'), @RoleId = isnull(@RoleId, 8)
+	select @UsersId = isnull(@UsersId,0), @Password = isnull(@Password, 'password')
+	if @RoleId is null or @RoleId = 0
+	begin
+		select top 1 @RoleId = RoleId
+		from roles
+		order by RoleId
+	end
 	
 	if @UsersId <= 0
 	begin
@@ -40,4 +46,4 @@ end
 go
 
 --test
-exec UsersUpdate @FirstName = 'bbb', @LastName = 'nnn', @UserName = 'test123', @Password = 'password', @RoleId = 1
+--exec UsersUpdate @FirstName = 'bbb', @LastName = 'nnn', @UserName = 'test123', @Password = 'password', @RoleId = 1

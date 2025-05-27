@@ -29,8 +29,6 @@ function formatCookbookDates(cookbook: ICookbook): ICookbook {
 
 
 export function formatDate(date: Date | string | null): string {
-   
-  
     // console.log('date received', date);
     if (!date) return "";
     const d = new Date(date);

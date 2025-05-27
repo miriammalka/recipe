@@ -22,7 +22,7 @@ namespace RecipeSystem
         private DateTime _datecreated;
         private bool _active;
         private int _skilllevel;
-        private string _skillleveldesc;
+        //private string _skillleveldesc;
         private List<bizCookbookRecipe> _lstcookbookrecipe;
 
         public static void AutoCreateCookbook(int usersid)
@@ -134,18 +134,10 @@ namespace RecipeSystem
             }
         }
 
-        public string SkillLevelDesc
-        {
-            get { return _skillleveldesc; }
-            set
-            {
-                if (_skillleveldesc != value)
-                {
-                    _skillleveldesc = value;
-                    InvokePropertyChanged();
-                }
-            }
-        }
+        //public string SkillLevelDesc
+        //{
+        //    get; set;
+        //}
 
         public List<bizCookbookRecipe> CookbookRecipeList
         {

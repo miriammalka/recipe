@@ -35,3 +35,5 @@ go
 exec MealGet @All = 1
 
 exec MealGet @MealId = 13
+
+select * from meals

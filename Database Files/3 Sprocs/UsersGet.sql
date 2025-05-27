@@ -62,4 +62,3 @@ grant execute on UsersGet to reciperole
 exec UsersGet @All = 1, @IncludeBlank = 1
 
 select * from users
-

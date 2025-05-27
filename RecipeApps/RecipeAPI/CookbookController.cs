@@ -42,7 +42,7 @@ namespace RecipeAPI
         }
 
         [HttpPost]
-        [AuthPermission(1)]
+        //[AuthPermission(1)]
         public IActionResult Post(bizCookbook cookbook)
         {
             try

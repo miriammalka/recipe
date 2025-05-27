@@ -54,6 +54,12 @@ namespace RecipeAPI
             }
         }
 
+        [HttpGet]
+        public List<bizUsers> GetUsers()
+        {
+            return new bizUsers().GetList();
+        }
+
         [HttpPost]
         [AuthPermission(1)]
         public IActionResult Post(bizUsers users)
