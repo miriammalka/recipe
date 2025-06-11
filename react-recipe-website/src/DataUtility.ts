@@ -74,7 +74,7 @@ export async function postRecipe(form: FieldValues) {
 }
 
 export async function cloneRecipe(recipe: IRecipe) {
-    const clonedRecipe =  await api().postData<IRecipe>("Recipe/Clone", recipe);
+    const clonedRecipe = await api().postData<IRecipe>("Recipe/Clone", recipe);
     return formatRecipeDates(clonedRecipe);
 }
 

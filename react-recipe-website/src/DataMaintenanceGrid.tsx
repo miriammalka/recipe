@@ -131,7 +131,7 @@ export default function DataMaintenanceGrid({ tableOption, onChanged }: Props) {
       id: nextId, // Ensure it has a temporary ID
     };
 
-    setData([...data, newRecord]); // Add the new record to the state
+    setData([newRecord, ...data]); // Add the new record to the state
   };
 
   const postFunctions: Record<string, (record: any) => Promise<any>> = {

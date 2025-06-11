@@ -56,12 +56,18 @@ export default function CookbookEdit({ cookbook, onCancel, onCookbookDelete, onC
         try {
             setErrorMessage("");
             const response = await postCookbook(transformedData);
-            setErrorMessage(response.errorMessage);
+            if (response.errorMessage.includes("out of range")) {
+                setErrorMessage("Price must be less than or equal to $99.99")
+            }
+            else {
+                setErrorMessage(response.errorMessage);
+            }
+
             if (!response.errorMessage) {
                 onCookbookUpdate(response);
                 setButtonsDisabled(false);
                 toast.success("Cookbook saved successfully!");
-                
+
             }
             reset(response);
         }
@@ -140,7 +146,7 @@ export default function CookbookEdit({ cookbook, onCancel, onCookbookDelete, onC
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="price" className="form-label" >Price:</label>
-                                <input type="number" id="price" {...register("price")} className="form-control" required />
+                                <input type="number" step="0.01" id="price" {...register("price")} className="form-control" required />
                             </div>
 
                             <div className="mb-3">
@@ -149,14 +155,14 @@ export default function CookbookEdit({ cookbook, onCancel, onCookbookDelete, onC
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="skillLevel" className="form-label">Skill Level:</label>
-                                <select id="skillLevel" {...register("skillLevel")}  className="form-select">
+                                <select id="skillLevel" {...register("skillLevel")} className="form-select">
                                     <option value=""></option>
                                     <option value={1}>Beginner</option>
                                     <option value={2}>Intermediate</option>
                                     <option value={3}>Advanced</option>
                                 </select>
                             </div>
-           
+
                             <button type="submit" className="btn btn-primary m-2">Submit</button>
                             {rolerank >= 3 ? <button onClick={handleDelete} disabled={ButtonsDisabled} type="button" id="btndelete" className="btn btn-danger m-2">Delete</button> : null}
                             <button onClick={onCancel} type="button" id="btncancel" className="btn btn-warning">Cancel</button>
@@ -176,8 +182,8 @@ export default function CookbookEdit({ cookbook, onCancel, onCookbookDelete, onC
                         <div className="row">
                             <CookbookRecipeGrid
                                 cookbook={cookbook}
-                                onChanged={handleCookbookRecipeChange} 
-                                ButtonsDisabled={ButtonsDisabled}/>
+                                onChanged={handleCookbookRecipeChange}
+                                ButtonsDisabled={ButtonsDisabled} />
                         </div>
                     </div>
 

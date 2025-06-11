@@ -40,7 +40,14 @@ export default function CookbookList({ onCookbookEdit, onAutoCreatCookbook }: Pr
   const columns: GridColDef[] = withDefaultColumnStyles([
     { field: "cookbookName", headerName: "Cookbook Name", width: 150, editable: false },
     { field: "usersId", headerName: "User Name", width: 150, editable: false },
-    { field: "price", headerName: "Price", width: 150, editable: false },
+    {
+      field: "price",
+      headerName: "Price",
+      width: 150,
+      editable: false,
+
+    }
+    ,
     { field: "dateCreated", headerName: "Date Created", width: 150, editable: false },
     { field: "active", headerName: "Active", width: 150, editable: false },
     { field: "skillLevelString", headerName: "Skill Level", width: 150, editable: false },

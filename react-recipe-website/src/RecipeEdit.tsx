@@ -83,7 +83,7 @@ export function RecipeEdit({ recipe, onCancel, onRecipeDelete, onRecipeUpdate, o
         console.log('transformed', transformedData)
         try {
             setErrorMessage("");
-            const response = await postRecipe({ recipe: data });
+            const response = await postRecipe(transformedData);
             setErrorMessage(response.errorMessage);
             if (!response.errorMessage) {
                 onRecipeUpdate(response);

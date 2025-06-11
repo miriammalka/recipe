@@ -172,7 +172,7 @@ export default function Cookbooks() {
           <div className="modal show fade d-block"
             style={{
               position: 'absolute',
-              top: '250px',
+              top: '5px',
             }}
             tabIndex={-1}>
             <div className="modal-dialog">
