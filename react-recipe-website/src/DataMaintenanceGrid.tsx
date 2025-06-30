@@ -48,6 +48,7 @@ export default function DataMaintenanceGrid({ tableOption, onChanged }: Props) {
     const fetchData = async () => {
       try {
         if (fetchFunctions[tableOption]) {
+          setErrormsg("");
           const responseData = await fetchFunctions[tableOption]();
           //console.log("Fetched data keys:", Object.keys(responseData[0] || {}));
           setData(responseData);
@@ -118,6 +119,7 @@ export default function DataMaintenanceGrid({ tableOption, onChanged }: Props) {
   };
 
   const handleAddNew = () => {
+    setErrormsg("");
     const blankRecord = blankTableRecord[tableOption];
     //console.log(blankRecord)
     if (!blankRecord) {
@@ -151,8 +153,8 @@ export default function DataMaintenanceGrid({ tableOption, onChanged }: Props) {
       setErrormsg("");
       const recordId = getRowId(row);
       const updatedRecord = await postFunctions[tableOption](row);
-      if (updatedRecord.errormsg) {
-        throw new Error(updatedRecord.errormsg);
+      if (updatedRecord.errorMessage) {
+        throw new Error(updatedRecord.errorMessage);
       }
 
       const updatedData = data.map((item) => getRowId(item) === recordId ? updatedRecord : item);
@@ -228,7 +230,7 @@ export default function DataMaintenanceGrid({ tableOption, onChanged }: Props) {
   return (
     <>
       <div>
-        <h3>{errormsg}</h3>
+        <h2>{errormsg}</h2>
         <button className='btn btn-primary' onClick={handleAddNew}>Add New</button>
       </div>
       <DataGrid
